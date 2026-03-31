@@ -4,14 +4,14 @@ const WhatsAppButton = () => {
   const location = useLocation();
   const phoneNumber = "917863031769";
   
-  let message = "Hi Velcura, I’m interested in your wipes. Please guide me and help me place an order.";
+  let message = "Hi, help me choose the right Velcura wipes for my skin type";
   
   if (location.pathname.includes('/product/oil-balance')) {
     message = "Hi Velcura, I want to order Oil Balance wipes. Please guide me.";
   } else if (location.pathname.includes('/product/hydraglow')) {
     message = "Hi Velcura, I want to order HydraGlow wipes. Please guide me.";
-  } else if (location.pathname.includes('/product/calm-skin')) {
-    message = "Hi Velcura, I want to order Calm Skin wipes. Please guide me.";
+  } else if (location.pathname.includes('/product/calm-skin') || location.pathname.includes('/product/calm-barrier')) {
+    message = "Hi Velcura, I want to order Calm Barrier wipes. Please guide me.";
   }
 
   const encodedMessage = encodeURIComponent(message);
@@ -19,8 +19,8 @@ const WhatsAppButton = () => {
 
   return (
     <div style={{ position: 'fixed', bottom: '32px', right: '32px', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-      <div style={{ background: 'white', padding: '6px 14px', borderRadius: '12px', fontSize: '11px', fontWeight: 600, color: '#0A192F', boxShadow: '0 4px 12px rgba(10,25,47,0.08)', letterSpacing: '0.05em' }}>
-        Order on WhatsApp
+      <div style={{ background: 'white', padding: '8px 16px', borderRadius: '12px', fontSize: '11px', fontWeight: 600, color: '#0A192F', boxShadow: '0 8px 24px rgba(10,25,47,0.08)', letterSpacing: '0.02em', border: '1px solid rgba(201,162,74,0.2)' }}>
+        Chat with Skin Expert
       </div>
       <a
         href={whatsappUrl}

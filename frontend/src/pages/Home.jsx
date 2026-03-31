@@ -125,54 +125,88 @@ const Home = () => {
               }}
             >
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '32px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ height: '1.5px', width: '40px', background: 'var(--accent)' }} />
-                  <span className="section-label" style={{ marginBottom: 0 }}>Clinical Skincare Science</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ height: '1px', width: '48px', background: 'var(--accent)' }} />
+                  <span className="section-label" style={{ marginBottom: 0, letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '11px', color: 'var(--accent)', fontWeight: 600 }}>Clinical Beauty Standard</span>
                 </div>
               </div>
 
               <h1 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(40px, 6vw, 84px)',
+                fontSize: 'clamp(42px, 6vw, 76px)',
                 fontWeight: 600,
                 color: 'var(--text)',
-                lineHeight: 1.05,
+                lineHeight: 1.1,
                 marginBottom: '28px',
-                letterSpacing: '-0.01em',
+                letterSpacing: '-0.02em',
               }}>
-                Makeup Removal<br />
-                <em style={{ fontStyle: 'italic', color: 'rgba(10,25,47,0.7)' }}>Meets</em>{' '}
-                Skincare Science
+                Premium Makeup Remover Wipes<br />
+                <span style={{ color: 'var(--accent)' }}>Made for Your Exact Skin Type</span>
               </h1>
 
               <p style={{
-                fontSize: '17px',
+                fontSize: '18px',
                 color: 'var(--text-muted)',
                 lineHeight: '1.7',
-                maxWidth: '480px',
+                maxWidth: '560px',
                 marginBottom: '40px',
+                fontWeight: 400
               }}>
-                Premium wipes formulated with dermatological actives. Cleanse, hydrate, and protect your skin barrier — in a single step.
+                Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
               </p>
 
-              {/* Trust micro-strip */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginBottom: '44px' }}>
-                {trustPoints.map(({ icon: Icon, label }) => (
-                  <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Icon size={14} color="var(--accent)" strokeWidth={1.8} />
-                    <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>{label}</span>
+              {/* Step 1: Trust bar */}
+              <div style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap',
+                alignItems: 'center', 
+                columnGap: '16px',
+                rowGap: '8px',
+                marginBottom: '48px',
+                padding: '16px 24px',
+                background: 'rgba(201,162,74,0.03)',
+                border: '1px solid rgba(201,162,74,0.15)',
+                borderRadius: '8px',
+              }}>
+                {[
+                  'Made in India',
+                  'Dermatologically Inspired',
+                  'Alcohol-Free',
+                  'Skin-Type Specific',
+                  'Free Skin Guide with First Order'
+                ].map((item, i, arr) => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
+                      {item === 'Free Skin Guide with First Order' ? <span style={{color: 'var(--accent)'}}>{item}</span> : item}
+                    </span>
+                    {i < arr.length - 1 && <span style={{ color: 'rgba(201,162,74,0.4)', fontSize: '12px' }}>•</span>}
                   </div>
                 ))}
               </div>
 
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <Link to="/shop" id="hero-shop-btn" className="btn-primary">
-                  Shop the Collection
-                  <ArrowRight size={16} />
+              {/* Step 1: 4 Buttons Grid */}
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                gap: '16px', 
+                maxWidth: '560px',
+              }}>
+                <Link to="/shop?type=oily" className="btn-outline" style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', borderRadius: '8px' }}>
+                  Shop Oily Skin
                 </Link>
-                <Link to="/ingredients" id="hero-ingredients-btn" className="btn-outline">
-                  Discover Ingredients
+                <Link to="/shop?type=dry" className="btn-outline" style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', borderRadius: '8px' }}>
+                  Shop Dry Skin
                 </Link>
+                <Link to="/shop?type=sensitive" className="btn-outline" style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', borderRadius: '8px' }}>
+                  Shop Sensitive Skin
+                </Link>
+                <button 
+                  onClick={() => document.getElementById('skin-advisor-trigger')?.click()}
+                  className="btn-primary" 
+                  style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', background: 'var(--accent)', borderColor: 'var(--accent)', borderRadius: '8px', boxShadow: '0 8px 20px rgba(201,162,74,0.15)' }}
+                >
+                  Take 30-Second Skin Quiz
+                </button>
               </div>
             </div>
 

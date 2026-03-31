@@ -59,31 +59,36 @@ const ProductCard = ({ product, variant = 'default' }) => {
 
         {/* Info */}
         <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <span className="ingredient-pill" style={{ marginBottom: '12px', alignSelf: 'flex-start' }}>
-            {product.keyIngredient}
-          </span>
-          <p style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '6px' }}>
+          <span className="ingredient-pill" style={{ marginBottom: '12px', alignSelf: 'flex-start', border: '1px solid rgba(201,162,74,0.4)', color: 'var(--accent)', background: 'transparent' }}>
             {product.skinType}
-          </p>
+          </span>
+          
           <Link to={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
-            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '20px', fontWeight: 600, color: 'var(--text)', marginBottom: '8px', transition: 'color 0.2s' }}
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
             >
               {product.fullName}
             </h3>
           </Link>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '16px', flex: 1 }}>
-            {product.shortDesc}
+          
+          <p style={{ fontSize: '13px', color: 'var(--accent)', fontWeight: 600, marginBottom: '20px', letterSpacing: '0.02em' }}>
+            {product.mechanismLine}
           </p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '20px' }}>
-            <div style={{ display: 'flex', gap: '2px' }}>{renderStars(product.rating)}</div>
-            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>({product.reviews})</span>
-          </div>
+          
+          <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px 0', flex: 1 }}>
+            {product.cardBullets?.map((bullet, i) => (
+              <li key={i} style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginBottom: '10px', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <span style={{ color: 'var(--accent)', fontSize: '12px', marginTop: '3px' }}>◇</span>
+                <span style={{ lineHeight: '1.4' }}>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+          
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
             <div>
-              <span style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text)' }}>₹{product.price}</span>
-              <span style={{ fontSize: '12px', color: 'var(--text-subtle)', textDecoration: 'line-through', marginLeft: '8px' }}>₹{product.mrp}</span>
+              <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--text)' }}>₹{product.price}</span>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)', marginLeft: '8px', fontWeight: 500 }}>(50 Wipes)</span>
             </div>
             <button
               id={`add-to-cart-${product.id}`}
@@ -136,7 +141,10 @@ const ProductCard = ({ product, variant = 'default' }) => {
           {product.name}
         </h3>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontWeight: 700 }}>₹{product.price}</span>
+          <div>
+            <span style={{ fontWeight: 700 }}>₹{product.price}</span>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)', marginLeft: '4px' }}>(50 Wipes)</span>
+          </div>
           <button
             id={`add-to-cart-small-${product.id}`}
             onClick={() => addItem(product)}
