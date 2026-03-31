@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { Sparkles, X, Send, Bot, MessageSquare } from 'lucide-react';
+import { Sparkles, X, Send, Bot, MessageSquare, ShoppingBag } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+import { products } from '../data/products';
 
 const SkinAdvisor = () => {
+  const { addItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hello! I am your Velcura Skin Advisor. Tell me a bit about your skin concerns, and I will find your perfect match.' }
@@ -162,27 +165,53 @@ const SkinAdvisor = () => {
                   {msg.content}
                 </div>
                 {msg.action && (
-                  <a
-                    href={`https://wa.me/917863031769?text=${encodeURIComponent(`Hi Velcura, I have ${msg.action.skinType} skin and want ${msg.action.product} wipes.`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      marginTop: '8px',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '10px 16px',
-                      backgroundColor: '#25D366',
-                      color: 'white',
-                      textDecoration: 'none',
-                      borderRadius: '12px',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      boxShadow: '0 4px 12px rgba(37, 211, 102, 0.2)'
-                    }}
-                  >
-                    <MessageSquare size={14} /> Continue on WhatsApp
-                  </a>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', alignItems: 'flex-start', marginTop: '8px' }}>
+                    <button
+                      onClick={() => {
+                        const productObj = products.find(p => p.fullName === msg.action.product || p.name === msg.action.product || msg.action.product.includes(p.name));
+                        if (productObj) {
+                          addItem(productObj);
+                          setIsOpen(false);
+                        }
+                      }}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '10px 16px',
+                        backgroundColor: '#0A192F',
+                        color: 'white',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: '12px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        boxShadow: '0 4px 12px rgba(10,25,47,0.1)'
+                      }}
+                    >
+                      <ShoppingBag size={14} /> Buy Recommended Product
+                    </button>
+                    <a
+                      href={`https://wa.me/917863031769?text=${encodeURIComponent(`Hi Velcura, I have ${msg.action.skinType} skin and want ${msg.action.product} wipes.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '10px 16px',
+                        backgroundColor: '#25D366',
+                        color: 'white',
+                        textDecoration: 'none',
+                        borderRadius: '12px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        boxShadow: '0 4px 12px rgba(37, 211, 102, 0.2)'
+                      }}
+                    >
+                      <MessageSquare size={14} /> Continue on WhatsApp
+                    </a>
+                  </div>
                 )}
               </div>
             ))}

@@ -21,16 +21,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
     return (
       <div
         id={`product-card-${product.id}`}
-        className="card-lift"
-        style={{
-          background: 'white',
-          border: '1px solid var(--border)',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-        }}
+        className="card-lift bg-white border border-[var(--border)] rounded-xl overflow-hidden flex flex-col relative w-full"
       >
         {product.badge && (
           <div style={{
@@ -51,16 +42,16 @@ const ProductCard = ({ product, variant = 'default' }) => {
         )}
 
         {/* Image */}
-        <Link to={`/product/${product.slug}`} style={{ display: 'block' }}>
-          <div className="product-img-wrap" style={{ height: '280px', background: product.bgColor }}>
-            <img src={product.image} alt={product.fullName} />
+        <Link to={`/product/${product.slug}`} className="block w-full">
+          <div className="product-img-wrap h-[240px] md:h-[280px] w-full" style={{ background: product.bgColor }}>
+            <img src={product.image} alt={product.fullName} className="w-full h-full object-cover" />
           </div>
         </Link>
 
         {/* Info */}
-        <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <span className="ingredient-pill" style={{ marginBottom: '12px', alignSelf: 'flex-start', border: '1px solid rgba(201,162,74,0.4)', color: 'var(--accent)', background: 'transparent' }}>
-            {product.skinType}
+        <div className="p-5 md:p-6 flex-1 flex flex-col">
+          <span className="inline-block px-3 py-1 bg-[#0A192F] text-white text-[10px] font-bold uppercase tracking-widest rounded-md self-start mb-3">
+            Best for: {product.skinType}
           </span>
           
           <Link to={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
@@ -125,22 +116,25 @@ const ProductCard = ({ product, variant = 'default' }) => {
   return (
     <div
       id={`product-card-${product.id}`}
-      className="card-lift"
-      style={{ background: 'white', border: '1px solid var(--border)', borderRadius: '12px', overflow: 'hidden' }}
+      className="card-lift bg-white border border-[var(--border)] rounded-xl overflow-hidden flex flex-col w-full h-full"
     >
-      <Link to={`/product/${product.slug}`} style={{ display: 'block' }}>
-        <div className="product-img-wrap" style={{ height: '220px', background: product.bgColor }}>
-          <img src={product.image} alt={product.fullName} />
+      <Link to={`/product/${product.slug}`} className="block w-full">
+        <div className="product-img-wrap h-[200px] md:h-[220px] w-full" style={{ background: product.bgColor }}>
+          <img src={product.image} alt={product.fullName} className="w-full h-full object-cover" />
         </div>
       </Link>
-      <div style={{ padding: '16px 20px' }}>
-        <p style={{ fontSize: '10px', color: 'var(--accent)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '4px' }}>
-          {product.keyIngredient}
-        </p>
-        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '17px', color: 'var(--text)', marginBottom: '8px' }}>
+      <div className="p-4 md:p-5 flex flex-col flex-1">
+        <span className="inline-block px-2 py-1 bg-[#0A192F] text-white text-[9px] md:text-[10px] font-bold uppercase tracking-widest rounded-[4px] self-start mb-2">
+          Best for: {product.skinType}
+        </span>
+        <h3 className="font-playfair text-[16px] md:text-[17px] text-[var(--text)] mb-1 font-semibold leading-tight">
           {product.name}
         </h3>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <p className="text-[11px] md:text-[12px] text-[#C9A24A] font-semibold mb-4 leading-tight">
+          {product.mechanismLine}
+        </p>
+        
+        <div className="flex items-center justify-between mt-auto">
           <div>
             <span style={{ fontWeight: 700 }}>₹{product.price}</span>
             <span style={{ fontSize: '10px', color: 'var(--text-muted)', marginLeft: '4px' }}>(50 Wipes)</span>

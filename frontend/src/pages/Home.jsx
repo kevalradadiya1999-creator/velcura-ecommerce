@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Shield, Droplets, Sun, Leaf, BadgeCheck, Feather, Fingerprint, Gem } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Shield, Droplets, Sun, Leaf, BadgeCheck, Feather, Fingerprint, Gem, ShoppingBag } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
@@ -100,20 +100,8 @@ const Home = () => {
           pointerEvents: 'none',
         }} />
 
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '120px 32px 80px',
-          width: '100%',
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.2fr 0.8fr',
-            gap: '60px',
-            alignItems: 'center',
-          }} className="hero-grid">
+        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-8 pt-20 pb-16 lg:pt-[120px] lg:pb-[80px] relative z-10">
+          <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_0.8fr] gap-10 lg:gap-[60px] items-center text-center lg:text-left">
             
             {/* Left: Content */}
             <div
@@ -124,50 +112,25 @@ const Home = () => {
                 transition: 'opacity 0.8s ease, transform 0.8s ease',
               }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '32px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div style={{ height: '1px', width: '48px', background: 'var(--accent)' }} />
-                  <span className="section-label" style={{ marginBottom: 0, letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '11px', color: 'var(--accent)', fontWeight: 600 }}>Clinical Beauty Standard</span>
+              <div className="flex flex-col items-center lg:items-start gap-2 mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="h-[1px] w-8 lg:w-12 bg-[#C9A24A]" />
+                  <span className="section-label !mb-0 tracking-[0.2em] uppercase text-[10px] lg:text-[11px] text-[#C9A24A] font-semibold">Clinical Beauty Standard</span>
+                  <div className="h-[1px] w-8 lg:w-12 bg-[#C9A24A] lg:hidden" />
                 </div>
               </div>
 
-              <h1 style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(42px, 6vw, 76px)',
-                fontWeight: 600,
-                color: 'var(--text)',
-                lineHeight: 1.1,
-                marginBottom: '28px',
-                letterSpacing: '-0.02em',
-              }}>
+              <h1 className="font-playfair text-[clamp(36px,8vw,76px)] font-semibold text-[#0A192F] leading-[1.1] mb-6 lg:mb-7 tracking-[-0.02em]">
                 Premium Makeup Remover Wipes<br />
-                <span style={{ color: 'var(--accent)' }}>Made for Your Exact Skin Type</span>
+                <span className="text-[#C9A24A]">Made for Your Exact Skin Type</span>
               </h1>
 
-              <p style={{
-                fontSize: '18px',
-                color: 'var(--text-muted)',
-                lineHeight: '1.7',
-                maxWidth: '560px',
-                marginBottom: '40px',
-                fontWeight: 400
-              }}>
+              <p className="text-[16px] lg:text-[18px] text-[rgba(10,25,47,0.6)] leading-[1.7] max-w-[560px] mx-auto lg:mx-0 mb-8 lg:mb-10 font-normal">
                 Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
               </p>
 
               {/* Step 1: Trust bar */}
-              <div style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap',
-                alignItems: 'center', 
-                columnGap: '16px',
-                rowGap: '8px',
-                marginBottom: '48px',
-                padding: '16px 24px',
-                background: 'rgba(201,162,74,0.03)',
-                border: '1px solid rgba(201,162,74,0.15)',
-                borderRadius: '8px',
-              }}>
+              <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-4 gap-y-2 mb-10 lg:mb-12 py-3 px-4 lg:py-4 lg:px-6 bg-[rgba(201,162,74,0.03)] border border-[rgba(201,162,74,0.15)] rounded-lg">
                 {[
                   'Made in India',
                   'Dermatologically Inspired',
@@ -175,35 +138,29 @@ const Home = () => {
                   'Skin-Type Specific',
                   'Free Skin Guide with First Order'
                 ].map((item, i, arr) => (
-                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
-                      {item === 'Free Skin Guide with First Order' ? <span style={{color: 'var(--accent)'}}>{item}</span> : item}
+                  <div key={item} className="flex items-center gap-4">
+                    <span className="text-[11px] lg:text-[12px] font-semibold text-[rgba(10,25,47,0.6)] tracking-[0.05em]">
+                      {item === 'Free Skin Guide with First Order' ? <span className="text-[#C9A24A]">{item}</span> : item}
                     </span>
-                    {i < arr.length - 1 && <span style={{ color: 'rgba(201,162,74,0.4)', fontSize: '12px' }}>•</span>}
+                    {i < arr.length - 1 && <span className="text-[rgba(201,162,74,0.4)] text-[12px] hidden sm:inline">•</span>}
                   </div>
                 ))}
               </div>
 
               {/* Step 1: 4 Buttons Grid */}
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-                gap: '16px', 
-                maxWidth: '560px',
-              }}>
-                <Link to="/shop?type=oily" className="btn-outline" style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', borderRadius: '8px' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-[560px] mx-auto lg:mx-0">
+                <Link to="/shop?type=oily" className="btn-outline w-full justify-center text-[12px] p-4 rounded-lg">
                   Shop Oily Skin
                 </Link>
-                <Link to="/shop?type=dry" className="btn-outline" style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', borderRadius: '8px' }}>
+                <Link to="/shop?type=dry" className="btn-outline w-full justify-center text-[12px] p-4 rounded-lg">
                   Shop Dry Skin
                 </Link>
-                <Link to="/shop?type=sensitive" className="btn-outline" style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', borderRadius: '8px' }}>
+                <Link to="/shop?type=sensitive" className="btn-outline w-full justify-center text-[12px] p-4 rounded-lg">
                   Shop Sensitive Skin
                 </Link>
                 <button 
                   onClick={() => document.getElementById('skin-advisor-trigger')?.click()}
-                  className="btn-primary" 
-                  style={{ justifyContent: 'center', fontSize: '12px', padding: '16px', background: 'var(--accent)', borderColor: 'var(--accent)', borderRadius: '8px', boxShadow: '0 8px 20px rgba(201,162,74,0.15)' }}
+                  className="btn-primary w-full justify-center text-[12px] p-4 bg-[#C9A24A] border-[#C9A24A] rounded-lg shadow-[0_8px_20px_rgba(201,162,74,0.15)]"
                 >
                   Take 30-Second Skin Quiz
                 </button>
@@ -211,13 +168,7 @@ const Home = () => {
             </div>
 
             {/* Right: BRAND HERO VISUAL - Product Trio */}
-            <div style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '600px',
-            }}>
+            <div className="relative flex items-center justify-center h-[350px] md:h-[500px] lg:h-[600px] w-full mt-8 lg:mt-0">
               {/* Luxury Spotlight Background */}
               <div style={{
                 position: 'absolute',
@@ -278,33 +229,82 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ────────────── TRUST ELEMENTS ────────────── */}
+      <section className="bg-white py-12 px-4 md:px-8 border-b border-[var(--border)]">
+        <div className="max-w-[1000px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center">
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex text-[#C9A24A]">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
+            </div>
+            <span className="font-semibold text-[16px] text-gray-800">4.8/5 Average Rating</span>
+          </div>
+          <div className="hidden md:block w-px h-12 bg-[var(--border)]"></div>
+          <div className="flex flex-col items-center gap-1">
+            <span className="font-playfair text-3xl font-bold text-[#C9A24A]">500+</span>
+            <span className="font-semibold text-[16px] text-gray-800">Happy Users</span>
+          </div>
+          <div className="hidden md:block w-px h-12 bg-[var(--border)]"></div>
+          <div className="flex flex-col items-center gap-2">
+            <Shield size={28} color="var(--accent)" strokeWidth={1.5} />
+            <span className="font-semibold text-[16px] text-gray-800">Dermatology-inspired formulas</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ────────────── VALUE PROPOSITION ────────────── */}
+      <section className="bg-white py-20 px-4 md:px-8 border-b border-[var(--border)] text-center">
+        <h2 className="font-playfair text-3xl md:text-5xl font-semibold text-[var(--text)] mb-12">Not Just Makeup Removal</h2>
+        <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
+            <Droplets size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
+            <h3 className="font-semibold text-xl mb-2">Removes Everything</h3>
+            <p className="text-[var(--text-muted)] text-sm">Effectively dissolves waterproof makeup, SPF, and urban pollution without harsh rubbing.</p>
+          </div>
+          <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
+            <Gem size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
+            <h3 className="font-semibold text-xl mb-2">Treats Skin</h3>
+            <p className="text-[var(--text-muted)] text-sm">Infused with active ingredients like Niacinamide and Hyaluronic Acid to nourish while you cleanse.</p>
+          </div>
+          <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
+            <Shield size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
+            <h3 className="font-semibold text-xl mb-2">Protects Barrier</h3>
+            <p className="text-[var(--text-muted)] text-sm">Maintains your skin's natural pH and lipid barrier. Zero post-cleanse tightness or irritation.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ────────────── SKIN TYPE SELECTOR ────────────── */}
+      <section className="bg-[var(--surface)] py-20 px-4 md:px-8 border-b border-[var(--border)] text-center">
+        <h2 className="font-playfair text-3xl md:text-5xl font-semibold text-[var(--text)] mb-8">Find Your Perfect Wipe</h2>
+        <p className="text-[var(--text-muted)] mb-10 max-w-lg mx-auto">Select your primary concern below to jump directly to the clinical formula designed exclusively for your skin.</p>
+        <div className="max-w-[800px] mx-auto flex flex-col md:flex-row justify-center gap-4">
+          <a href="#sku-oil-balance" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
+            Oily Skin &rarr;
+          </a>
+          <a href="#sku-hydraglow" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
+            Dry Skin &rarr;
+          </a>
+          <a href="#sku-calm-skin" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
+            Sensitive Skin &rarr;
+          </a>
+        </div>
+      </section>
+
       {/* ────────────── PRODUCT SPOTLIGHT SECTIONS ────────────── */}
-      <section id="sku-spotlights" style={{ background: 'white' }}>
+      <section id="sku-spotlights" className="bg-white">
         {products.map((p, i) => (
           <div
+            id={`sku-${p.id}`}
             key={p.id}
-            style={{
-              padding: '120px 32px',
-              background: i % 2 === 0 ? 'white' : 'var(--surface)',
-              borderBottom: '1px solid var(--border)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            className={`py-16 md:py-[120px] px-4 md:px-8 border-b border-[var(--border)] flex items-center justify-center ${i % 2 === 0 ? 'bg-white' : 'bg-[var(--surface)]'}`}
           >
-            <div
-              style={{
-                maxWidth: '1280px',
-                width: '100%',
-                display: 'grid',
-                gridTemplateColumns: i % 2 === 0 ? '1.1fr 0.9fr' : '0.9fr 1.1fr',
-                gap: '80px',
-                alignItems: 'center',
-              }}
-              className="spotlight-grid"
-            >
+            <div className={`w-full max-w-[1280px] flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-[80px] items-center`}>
               {/* Image Column */}
-              <div style={{ order: i % 2 === 0 ? 0 : 2, position: 'relative' }}>
+              <div className="relative w-full lg:w-1/2 flex justify-center">
                   <div style={{
                     position: 'absolute',
                     top: '-40px',
@@ -334,6 +334,7 @@ const Home = () => {
                     <img 
                       src={p.image} 
                       alt={p.fullName} 
+                      loading="lazy"
                       style={{ 
                         maxWidth: '90%', 
                         maxHeight: '400px', 
@@ -345,7 +346,7 @@ const Home = () => {
               </div>
 
               {/* Info Column */}
-              <div>
+              <div className="w-full lg:w-1/2 text-center lg:text-left">
                 <span className="ingredient-pill" style={{ marginBottom: '16px', background: p.bgColor, color: p.accentColor, border: `1px solid ${p.accentColor}33` }}>
                   {p.keyIngredient}
                 </span>
@@ -415,6 +416,59 @@ const Home = () => {
             </div>
           </div>
         ))}
+      </section>
+
+      {/* ────────────── BUNDLE SECTION ────────────── */}
+      <section id="bundles" className="bg-[var(--surface)] py-[100px] px-4 md:px-8 border-t border-[var(--border)]">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="h-[1px] w-12 bg-[var(--accent)]" />
+              <span className="text-[11px] font-semibold text-[var(--accent)] tracking-[0.2em] uppercase">Exclusive Offers</span>
+              <div className="h-[1px] w-12 bg-[var(--accent)]" />
+            </div>
+            <h2 className="font-playfair text-[clamp(36px,4vw,48px)] font-semibold text-[var(--text)]">
+              Build Your Skin Reset Routine & Save
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {[
+              { id: 'b1', name: 'Duo Pack', desc: 'Any 2 variants — Mix & match for your routine.', price: 1099, mrp: 1198, savings: '₹99', tag: 'Popular' },
+              { id: 'b2', name: 'Trio Pack', desc: 'All 3 variants — Oil Balance + HydraGlow + Calm Barrier.', price: 1599, mrp: 1797, savings: '₹200', tag: 'Best Value' },
+              { id: 'b3', name: 'Monthly Subscription', desc: 'Auto-delivered. Cancel anytime. Never run out again.', price: 539, mrp: 599, savings: '10% recurring', tag: 'VIP Perks' },
+            ].map(b => (
+              <div
+                key={b.id}
+                className="bg-white border border-[var(--border)] rounded-xl py-12 px-6 md:px-10 relative flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(10,25,47,0.08)] hover:border-[rgba(201,162,74,0.3)]"
+              >
+                <div className="absolute top-6 right-6 bg-[rgba(201,162,74,0.1)] text-[var(--accent)] text-[10px] font-bold tracking-[0.1em] uppercase py-1.5 px-3 rounded-full">
+                  {b.tag}
+                </div>
+                <h3 className="font-playfair text-3xl font-semibold mb-4 text-[var(--text)]">{b.name}</h3>
+                <p className="text-[15px] text-[var(--text-muted)] mb-8 flex-1 leading-[1.6]">{b.desc}</p>
+                
+                <div className="mb-8">
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span className="text-4xl font-semibold text-[var(--text)]">₹{b.price}</span>
+                    <span className="text-sm text-[var(--text-subtle)] line-through">₹{b.mrp}</span>
+                  </div>
+                  <p className="text-[13px] text-[var(--accent)] font-semibold tracking-[0.02em]">Save {b.savings} + Free Shipping</p>
+                </div>
+                
+                <button
+                  id={`bundle-add-${b.id}`}
+                  className="btn-primary w-full justify-center h-14 text-[13px]"
+                  onClick={() => {}}
+                >
+                  <ShoppingBag size={16} /> Choose {b.name}
+                </button>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-[13px] text-[var(--text-muted)] italic">
+            *Free Skin Type Guide PDF included with your first bundle order.
+          </p>
+        </div>
       </section>
 
       {/* ────────────── INGREDIENT SCIENCE ────────────── */}

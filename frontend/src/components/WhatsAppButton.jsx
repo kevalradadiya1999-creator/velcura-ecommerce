@@ -4,7 +4,7 @@ const WhatsAppButton = () => {
   const location = useLocation();
   const phoneNumber = "917863031769";
   
-  let message = "Hi, help me choose the right Velcura wipes for my skin type";
+  let message = "Hi Velcura, I want to order your wipes. Help me choose the best one.";
   
   if (location.pathname.includes('/product/oil-balance')) {
     message = "Hi Velcura, I want to order Oil Balance wipes. Please guide me.";
@@ -18,8 +18,8 @@ const WhatsAppButton = () => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   return (
-    <div style={{ position: 'fixed', bottom: '32px', right: '32px', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-      <div style={{ background: 'white', padding: '8px 16px', borderRadius: '12px', fontSize: '11px', fontWeight: 600, color: '#0A192F', boxShadow: '0 8px 24px rgba(10,25,47,0.08)', letterSpacing: '0.02em', border: '1px solid rgba(201,162,74,0.2)' }}>
+    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[9999] flex flex-col items-end gap-2">
+      <div className="bg-white px-3 py-2 md:px-4 md:py-2 rounded-xl text-[10px] md:text-[11px] font-semibold text-[#0A192F] shadow-[0_8px_24px_rgba(10,25,47,0.08)] tracking-wide border border-[rgba(201,162,74,0.2)]">
         Chat with Skin Expert
       </div>
       <a
