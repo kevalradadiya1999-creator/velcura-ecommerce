@@ -14,40 +14,30 @@ const Contact = () => {
   return (
     <div>
       {/* Header */}
-      <section style={{
-        background: '#0A192F',
-        padding: '100px 32px 80px',
-        textAlign: 'center',
-      }}>
-        <span className="section-label">Reach Us</span>
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 600, color: '#FDFBF7', marginBottom: '16px' }}>
-          Contact Velcura
-        </h1>
-        <p style={{ fontSize: '16px', color: 'rgba(253,251,247,0.6)', maxWidth: '480px', margin: '0 auto', lineHeight: '1.7' }}>
-          Have questions about your skin type, our formulas, or an order? We're here.
-        </p>
+      <section className="section-spacing text-center bg-[#0A192F]">
+        <div className="velcura-container">
+          <span className="section-label text-[#C9A24A] mx-auto">Reach Us</span>
+          <h1 className="text-h1 text-[#FDFBF7] mb-4">
+            Contact Velcura
+          </h1>
+          <p className="text-body text-[rgba(253,251,247,0.6)] max-w-[480px] mx-auto">
+            Have questions about your skin type, our formulas, or an order? We're here.
+          </p>
+        </div>
       </section>
 
       {/* Contact grid */}
-      <section style={{ padding: '80px 32px', background: 'var(--bg)' }}>
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1.6fr',
-          gap: '80px',
-          alignItems: 'start',
-        }}
-        className="contact-grid"
-        >
-          {/* Left info */}
-          <div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 600, color: 'var(--text)', marginBottom: '12px' }}>
-              We're here to help
-            </h2>
-            <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '48px' }}>
-              Whether it's a question about the right formula for your skin, an order concern, or just a curiosity about our ingredients — our team responds within 24 hours.
-            </p>
+      <section className="section-spacing bg-[var(--bg)]">
+        <div className="velcura-container">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-10 lg:gap-16 items-start">
+            {/* Left info */}
+            <div>
+              <h2 className="text-h2 text-[var(--text)] mb-3">
+                We're here to help
+              </h2>
+              <p className="text-body text-[var(--text-muted)] mb-10">
+                Whether it's a question about the right formula for your skin, an order concern, or just a curiosity about our ingredients — our team responds within 24 hours.
+              </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', marginBottom: '48px' }}>
               {[
@@ -228,14 +218,9 @@ const Contact = () => {
               </div>
             )}
           </div>
+          </div>
         </div>
       </section>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-        }
-      `}</style>
     </div>
   );
 };

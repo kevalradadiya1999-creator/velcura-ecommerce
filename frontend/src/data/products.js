@@ -18,8 +18,8 @@ export const products = [
       'Infused with antibacterial Zinc PCA'
     ],
     formulation: [
-      { name: 'Niacinamide', conc: '4%', role: 'Sebum regulation & oil control' },
-      { name: 'Zinc PCA', conc: '0.5-1.0%', role: 'Antibacterial oil control booster' },
+      { name: 'Niacinamide', conc: '4.0%', role: 'Sebum regulation & oil control' },
+      { name: 'Zinc PCA', conc: '0.8%', role: 'Antibacterial oil control booster' },
       { name: 'Witch Hazel Water', conc: '2%', role: 'Natural astringent & skin soothing' },
       { name: 'Panthenol (Pro-Vitamin B5)', conc: '1%', role: 'Moisturizing & soothing' }
     ],
@@ -48,7 +48,7 @@ export const products = [
     skinType: 'Dry & Dehydrated',
     keyIngredient: 'Hyaluronic Acid',
     shortDesc: 'Holds 1000x its weight in water for a dewy, plump feel.',
-    description: "Formulated with 0.5% - 1% Hyaluronic Acid and Sweet Almond Oil. HydraGlow wipes provide deep dermal hydration while gently dissolving makeup. Leaving your skin feeling soft, nourished, and luminous — never dry or taut.",
+    description: "Formulated with 1.0% Hyaluronic Acid and Sweet Almond Oil. HydraGlow wipes provide deep dermal hydration while gently dissolving makeup. Leaving your skin feeling soft, nourished, and luminous — never dry or taut.",
     benefits: [
       'Provides immediate deep hydration',
       'Locks in moisture for a plump feel',
@@ -57,7 +57,7 @@ export const products = [
       'Infused with antioxidant Vitamin E'
     ],
     formulation: [
-      { name: 'Sodium Hyaluronate', conc: '0.5-1.0%', role: 'Deep hydration & plumping' },
+      { name: 'Sodium Hyaluronate', conc: '1.0%', role: 'Deep hydration & plumping' },
       { name: 'Sweet Almond Oil', conc: '1%', role: 'Nourishing emollient' },
       { name: 'Panthenol', conc: '1%', role: 'Moisturizing & soothing' },
       { name: 'Glycerin', conc: '5%', role: 'Powerful humectant' }
@@ -87,7 +87,7 @@ export const products = [
     skinType: 'Sensitive & Reactive',
     keyIngredient: 'Ceramide Complex',
     shortDesc: 'Restores the lipid barrier and protects against environmental irritants.',
-    description: "A minimalist, fragrance-free formula built on a foundation of Ceramide NP, AP, and EOP. Calm Skin wipes literally rebuild your skin's mortgage while cleansing. Designed to minimize friction and prevent redness.",
+    description: "A minimalist, fragrance-free formula built on a foundation of Ceramide NP, AP, and EOP. Calm Skin wipes literally rebuild your skin's moisture barrier while cleansing. Designed to minimize friction and prevent redness.",
     benefits: [
       'Restores skin\'s natural lipid barrier',
       'Fragrance-Free & Alcohol-Free',
@@ -96,7 +96,7 @@ export const products = [
       'Hypoallergenic & friction-free'
     ],
     formulation: [
-      { name: 'Ceramide NP + AP + EOP', conc: '0.5-1.0%', role: 'Lipid barrier restoration' },
+      { name: 'Ceramide NP + AP + EOP', conc: '1.2%', role: 'Lipid barrier restoration' },
       { name: 'Aloe Leaf Juice', conc: '3%', role: 'Calming & soothing' },
       { name: 'Allantoin', conc: '0.5%', role: 'Skin repair & calming' },
       { name: 'Licorice Root Extract', conc: '0.5%', role: 'Anti-inflammatory' }
@@ -142,7 +142,7 @@ export const ingredients = [
     id: 'ceramide-complex',
     name: 'Ceramide Complex',
     subtitle: 'NP + AP + EOP',
-    description: "Replenishing ceramides rebuilds the skin's mortgage (lipid pool), reducing transepidermal water loss and protecting against irritants.",
+    description: "Replenishing ceramides rebuilds the skin's lipid pool, reducing transepidermal water loss and protecting against irritants.",
     scientificFact: 'Ceramides make up 50% of the skin\'s lipid matrix. Replenishing them is clinically validated to restore barrier function in reactive skin.',
     products: ['calm-skin'],
     icon: '⬜',

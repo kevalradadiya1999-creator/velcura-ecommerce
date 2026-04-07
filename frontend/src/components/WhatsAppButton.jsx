@@ -18,19 +18,18 @@ const WhatsAppButton = () => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[9999] flex flex-col items-end gap-2">
-      <div className="bg-white px-3 py-2 md:px-4 md:py-2 rounded-xl text-[10px] md:text-[11px] font-semibold text-[#0A192F] shadow-[0_8px_24px_rgba(10,25,47,0.08)] tracking-wide border border-[rgba(201,162,74,0.2)]">
+    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[9999] flex items-center justify-end gap-3">
+      <div className="hidden sm:block bg-white px-3 py-2 md:px-4 md:py-2 rounded-xl text-[10px] md:text-[11px] font-semibold text-[#0A192F] shadow-[0_8px_24px_rgba(10,25,47,0.08)] tracking-wide border border-[rgba(201,162,74,0.2)]">
         Chat with Skin Expert
       </div>
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        className="w-[48px] h-[48px] sm:w-[60px] sm:h-[60px]"
         style={{
           backgroundColor: '#25D366',
           color: 'white',
-          width: '60px',
-          height: '60px',
           borderRadius: '50%',
           display: 'flex',
           justifyContent: 'center',

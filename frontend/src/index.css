@@ -42,6 +42,57 @@ body {
 .font-playfair { font-family: 'Playfair Display', serif; }
 .font-inter { font-family: 'Inter', sans-serif; }
 
+/* ─── Velcura Strict Layout System ─── */
+.velcura-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width: 768px) { .velcura-container { padding-left: 20px; padding-right: 20px; } }
+@media (min-width: 1024px) { .velcura-container { padding-left: 24px; padding-right: 24px; } }
+
+.section-spacing {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+@media (min-width: 768px) { .section-spacing { padding-top: 60px; padding-bottom: 60px; } }
+@media (min-width: 1024px) { .section-spacing { padding-top: 80px; padding-bottom: 80px; } }
+
+/* ─── Regulated Typography ─── */
+.text-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+@media (min-width: 1024px) { .text-h1 { font-size: 42px; } }
+
+.text-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+@media (min-width: 1024px) { .text-h2 { font-size: 30px; } }
+
+.text-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+@media (min-width: 1024px) { .text-body { font-size: 16px; } }
+
+/* ─── Responsive Grid ─── */
+.velcura-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 768px) { .velcura-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 1024px) { .velcura-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }

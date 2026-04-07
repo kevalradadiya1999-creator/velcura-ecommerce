@@ -38,24 +38,22 @@ const Shop = () => {
   return (
     <div>
       {/* Header */}
-      <section style={{
-        background: '#0A192F',
-        padding: '100px 32px 60px',
-        textAlign: 'center',
-      }}>
-        <span className="section-label">The Collection</span>
-        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 600, color: '#FDFBF7', marginBottom: '16px' }}>
-          Shop Velcura
-        </h1>
-        <p style={{ fontSize: '16px', color: 'rgba(253,251,247,0.6)', maxWidth: '500px', margin: '0 auto', lineHeight: '1.7' }}>
-          Every formula engineered with a purpose: real skincare ingredients for real skin.
-        </p>
+      <section className="section-spacing text-center bg-[#0A192F]">
+        <div className="velcura-container">
+          <span className="section-label text-[#C9A24A] mx-auto">The Collection</span>
+          <h1 className="text-h1 text-[#FDFBF7] mb-4">
+            Shop Velcura
+          </h1>
+          <p className="text-body text-[rgba(253,251,247,0.6)] max-w-[500px] mx-auto">
+            Every formula engineered with a purpose: real skincare ingredients for real skin.
+          </p>
+        </div>
       </section>
 
       {/* Filter bar */}
-      <div style={{ background: 'white', borderBottom: '1px solid var(--border)', padding: '0 32px', position: 'sticky', top: '64px', zIndex: 30 }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', padding: '16px 0' }}>
-          <Filter size={14} color="var(--text-muted)" style={{ flexShrink: 0 }} />
+      <div className="bg-white border-b border-[var(--border)] sticky top-16 z-30">
+        <div className="velcura-container flex items-center gap-2 overflow-x-auto py-4">
+          <Filter size={14} color="var(--text-muted)" className="flex-shrink-0" />
           {filters.map(f => (
             <button
               key={f.id}
@@ -84,31 +82,31 @@ const Shop = () => {
       </div>
 
       {/* Products grid */}
-      <section style={{ padding: '64px 32px', background: 'var(--bg)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '32px' }}>
+      <section className="section-spacing bg-[var(--bg)]">
+        <div className="velcura-container">
+          <p className="text-body text-[var(--text-muted)] mb-8">
             {filtered.length} product{filtered.length !== 1 ? 's' : ''}
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '32px' }}>
+          <div className="velcura-grid">
             {filtered.map(p => <ProductCard key={p.id} product={p} variant="featured" />)}
           </div>
         </div>
       </section>
 
       {/* 1. Bundles section */}
-      <section id="bundles" style={{ background: 'var(--surface)', padding: '100px 32px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '16px' }}>
-              <div style={{ height: '1px', width: '48px', background: 'var(--accent)' }} />
-              <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Exclusive Offers</span>
-              <div style={{ height: '1px', width: '48px', background: 'var(--accent)' }} />
+      <section id="bundles" className="section-spacing bg-[var(--surface)] border-t border-[var(--border)]">
+        <div className="velcura-container">
+          <div className="text-center mb-10 lg:mb-16">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="h-[1px] w-8 lg:w-12 bg-[var(--accent)]" />
+              <span className="text-[10px] lg:text-[11px] font-semibold text-[var(--accent)] tracking-[0.2em] uppercase">Exclusive Offers</span>
+              <div className="h-[1px] w-8 lg:w-12 bg-[var(--accent)]" />
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 600, color: 'var(--text)' }}>
+            <h2 className="text-h2 text-[var(--text)]">
               Build Your Skin Reset Routine & Save
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+          <div className="velcura-grid mb-8">
             {bundles.map(b => (
               <div
                 key={b.id}
@@ -142,8 +140,7 @@ const Shop = () => {
                 
                 <button
                   id={`bundle-add-${b.id}`}
-                  className="btn-primary"
-                  style={{ width: '100%', justifyContent: 'center', height: '56px', fontSize: '13px' }}
+                  className="btn-primary w-full justify-center h-14 text-[13px]"
                   onClick={() => {}}
                 >
                   <ShoppingBag size={16} /> Choose {b.name}
@@ -158,13 +155,14 @@ const Shop = () => {
       </section>
 
       {/* 2. Comparison Table */}
-      <section style={{ background: 'white', padding: '100px 32px', borderTop: '1px solid var(--border)' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 42px)', fontWeight: 600, color: 'var(--text)' }}>
-              Velcura vs. Regular Drugstore Wipes
-            </h2>
-          </div>
+      <section className="section-spacing bg-white border-t border-[var(--border)]">
+        <div className="velcura-container">
+          <div className="max-w-[900px] mx-auto">
+            <div className="text-center mb-10 lg:mb-16">
+              <h2 className="text-h2 text-[var(--text)]">
+                Velcura vs. Regular Drugstore Wipes
+              </h2>
+            </div>
           
           <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1px solid var(--border)' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
@@ -202,16 +200,17 @@ const Shop = () => {
             </table>
           </div>
         </div>
+        </div>
       </section>
 
       {/* 3. Skin-Type Quiz */}
-      <section style={{ background: 'var(--bg)', padding: '100px 32px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 42px)', fontWeight: 600, color: 'var(--text)', marginBottom: '16px' }}>
+      <section className="section-spacing bg-[var(--bg)] border-t border-[var(--border)]">
+        <div className="velcura-container">
+          <div className="text-center mb-10 lg:mb-16">
+            <h2 className="text-h2 text-[var(--text)] mb-4">
               Not sure which wipe is best for you?
             </h2>
-            <p style={{ fontSize: '16px', color: 'var(--text-muted)' }}>Take our diagnostic 30-second quiz to find your exact formula match.</p>
+            <p className="text-body text-[var(--text-muted)]">Take our diagnostic 30-second quiz to find your exact formula match.</p>
           </div>
           
           <SkinQuiz />
@@ -219,14 +218,15 @@ const Shop = () => {
       </section>
 
       {/* 4. FAQ Section */}
-      <section style={{ background: 'var(--surface)', padding: '100px 32px', borderTop: '1px solid var(--border)' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '16px', display: 'block' }}>Common Questions</span>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 42px)', fontWeight: 600, color: 'var(--text)' }}>
-              Frequently Asked Questions
-            </h2>
-          </div>
+      <section className="section-spacing bg-[var(--surface)] border-t border-[var(--border)]">
+        <div className="velcura-container">
+          <div className="max-w-[800px] mx-auto">
+            <div className="text-center mb-10 lg:mb-16">
+              <span className="section-label mx-auto text-[#C9A24A]">Common Questions</span>
+              <h2 className="text-h2 text-[var(--text)]">
+                Frequently Asked Questions
+              </h2>
+            </div>
           
           <div style={{ display: 'grid', gap: '24px' }}>
             {faqs.map((faq, i) => (
@@ -235,9 +235,10 @@ const Shop = () => {
                   <span style={{ color: 'var(--accent)' }}>Q.</span>
                   {faq.q}
                 </h3>
-                <p style={{ fontSize: '16px', color: 'var(--text-muted)', lineHeight: '1.6', paddingLeft: '28px' }}>{faq.a}</p>
+                <p className="text-body text-[var(--text-muted)] pl-7">{faq.a}</p>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </section>

@@ -76,7 +76,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
             ))}
           </ul>
           
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
+          <div className="flex flex-col md:flex-row md:items-center justify-between mt-auto gap-4">
             <div>
               <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--text)' }}>₹{product.price}</span>
               <span style={{ fontSize: '12px', color: 'var(--text-muted)', marginLeft: '8px', fontWeight: 500 }}>(50 Wipes)</span>
@@ -84,27 +84,24 @@ const ProductCard = ({ product, variant = 'default' }) => {
             <button
               id={`add-to-cart-${product.id}`}
               onClick={() => addItem(product)}
+              className="w-full md:w-auto flex items-center justify-center gap-2 transition-colors duration-200"
               style={{
                 background: 'var(--text)',
                 border: 'none',
                 color: 'white',
-                padding: '10px 18px',
-                fontSize: '11px',
+                padding: '12px 24px',
+                fontSize: '12px',
                 fontFamily: 'Inter, sans-serif',
                 fontWeight: 600,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                transition: 'background 0.2s',
               }}
               onMouseEnter={e => e.currentTarget.style.background = 'var(--accent)'}
               onMouseLeave={e => e.currentTarget.style.background = 'var(--text)'}
             >
               <ShoppingBag size={14} />
-              Add
+              Add to Cart
             </button>
           </div>
         </div>
@@ -134,7 +131,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
           {product.mechanismLine}
         </p>
         
-        <div className="flex items-center justify-between mt-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mt-auto gap-3">
           <div>
             <span style={{ fontWeight: 700 }}>₹{product.price}</span>
             <span style={{ fontSize: '10px', color: 'var(--text-muted)', marginLeft: '4px' }}>(50 Wipes)</span>
@@ -142,18 +139,16 @@ const ProductCard = ({ product, variant = 'default' }) => {
           <button
             id={`add-to-cart-small-${product.id}`}
             onClick={() => addItem(product)}
+            className="w-full md:w-auto transition-colors duration-200 flex items-center justify-center p-[10px_16px] md:p-[8px_14px] text-[11px] md:text-[10px]"
             style={{
               background: 'none',
               border: '1px solid var(--text)',
               color: 'var(--text)',
-              padding: '8px 14px',
-              fontSize: '10px',
               fontFamily: 'Inter, sans-serif',
               fontWeight: 600,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               cursor: 'pointer',
-              transition: 'all 0.2s',
             }}
             onMouseEnter={e => { e.currentTarget.style.background = 'var(--text)'; e.currentTarget.style.color = 'white'; }}
             onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--text)'; }}

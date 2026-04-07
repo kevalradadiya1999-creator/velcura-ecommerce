@@ -29,7 +29,7 @@ const Ingredients = () => {
       color: '#8B6B3D',
       bg: '#FDF5E8',
       product: products[1],
-      what: "Hyaluronic Acid is a powerful humectant naturally found in the skin. We use a high-purity Sodium Hyaluronate (0.5% - 1%) to ensure maximum hydration without greasiness.",
+      what: "Hyaluronic Acid is a powerful humectant naturally found in the skin. We use a high-purity Sodium Hyaluronate (1.0%) to ensure maximum hydration without greasiness.",
       how: "It acts like a molecular sponge, holding up to 1000 times its weight in water. By delivering this moisture deep into the epidermal layers, it creates an immediate plumping effect and smooths out fine dehydration lines.",
       results: [
         'Immediate relief from skin tightness',
@@ -46,7 +46,7 @@ const Ingredients = () => {
       color: '#7B6B8A',
       bg: '#F4EFF8',
       product: products[2],
-      what: "Ceramides are lipid molecules that make up 50% of your skin's composition. Our complex combines Ceramide NP, AP, and EOP to mimic the skin's natural mortgage.",
+      what: "Ceramides are lipid molecules that make up 50% of your skin's composition. Our complex combines Ceramide NP, AP, and EOP to mimic the skin's natural lipid matrix.",
       how: "They act as the 'mortar' between your skin cell 'bricks'. By replenishing these lipids, the wipes restore the barrier's integrity, locking in moisture and sealing out environmental irritants and pollutants.",
       results: [
         'Reduced skin reactivity and redness',

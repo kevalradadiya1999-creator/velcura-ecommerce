@@ -26,7 +26,7 @@ const Layout = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
       <Navbar />
-      <main style={{ flex: 1, paddingTop: '80px' }}>
+      <main style={{ flex: 1, paddingTop: '100px' }}>
         <Outlet />
       </main>
       <Footer />

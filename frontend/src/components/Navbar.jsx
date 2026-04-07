@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { ShoppingBag, Search, User, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
+import AnnouncementBanner from './AnnouncementBanner';
 
 const VelcuraLogo = () => (
   <Link to="/" id="nav-logo" className="flex items-center no-underline" style={{ textDecoration: 'none' }}>
@@ -54,10 +55,10 @@ const Navbar = () => {
           background: scrolled ? 'rgba(253,251,247,0.95)' : 'rgba(253,251,247,0)',
           backdropFilter: scrolled ? 'blur(12px)' : 'none',
           boxShadow: scrolled ? '0 1px 0 rgba(10,25,47,0.08)' : 'none',
-          padding: scrolled ? '12px 0' : '20px 0',
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <AnnouncementBanner />
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: scrolled ? '12px 32px' : '20px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'padding 0.3s' }}>
           <VelcuraLogo />
 
           {/* Desktop Nav */}
