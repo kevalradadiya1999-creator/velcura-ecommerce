@@ -61,25 +61,28 @@ const Navbar = () => {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'padding 0.3s', paddingTop: scrolled ? '12px' : '20px', paddingBottom: scrolled ? '12px' : '20px' }}>
           <VelcuraLogo />
 
-          {/* Desktop Nav */}
-          <nav style={{ display: 'flex', gap: '36px', alignItems: 'center' }} className="hidden md:flex">
-            {navLinks.map(l => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.end}
-                className="nav-link"
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--accent)' : 'var(--text)',
-                })}
-              >
-                {l.label}
-              </NavLink>
-            ))}
-            <Link to="/export" className="btn-primary tracking-[0.1em] shadow-[0_4px_15px_rgba(201,162,74,0.15)]" style={{ padding: '8px 18px', fontSize: '11px', marginLeft: '8px' }}>
-              Export Inquiry
-            </Link>
-          </nav>
+          {/* Desktop Nav — horizontally scrollable on mid screens */}
+          <div className="hidden md:flex items-center" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
+            <nav style={{ display: 'flex', gap: '28px', alignItems: 'center', whiteSpace: 'nowrap', minWidth: 'max-content' }}>
+              {navLinks.map(l => (
+                <NavLink
+                  key={l.to}
+                  to={l.to}
+                  end={l.end}
+                  className="nav-link"
+                  style={({ isActive }) => ({
+                    color: isActive ? 'var(--accent)' : 'var(--text)',
+                    whiteSpace: 'nowrap',
+                  })}
+                >
+                  {l.label}
+                </NavLink>
+              ))}
+              <Link to="/export" className="btn-primary tracking-[0.1em] shadow-[0_4px_15px_rgba(201,162,74,0.15)]" style={{ padding: '8px 18px', fontSize: '11px', marginLeft: '8px', whiteSpace: 'nowrap' }}>
+                Export Inquiry
+              </Link>
+            </nav>
+          </div>
 
           {/* Icons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -162,11 +165,13 @@ const Navbar = () => {
             right: 0,
             background: '#FDFBF7',
             borderTop: '1px solid var(--border)',
-            padding: '32px',
+            padding: '8px 0 24px',
             animation: 'fadeUp 0.3s ease',
             boxShadow: '0 8px 30px rgba(10,25,47,0.08)',
+            maxHeight: '90vh',
+            overflowY: 'auto',
           }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginBottom: '32px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }}>
               {navLinks.map(l => (
                 <NavLink
                   key={l.to}
@@ -175,18 +180,28 @@ const Navbar = () => {
                   onClick={() => setMobileOpen(false)}
                   style={({ isActive }) => ({
                     fontFamily: 'Inter, sans-serif',
-                    fontSize: '14px',
+                    fontSize: '15px',
                     fontWeight: isActive ? 700 : 500,
-                    letterSpacing: '0.1em',
+                    letterSpacing: '0.08em',
                     color: isActive ? 'var(--accent)' : 'var(--text)',
                     textDecoration: 'none',
                     textTransform: 'uppercase',
+                    padding: '18px 24px',
+                    borderBottom: '1px solid rgba(10,25,47,0.06)',
+                    display: 'block',
                   })}
                 >
                   {l.label}
                 </NavLink>
               ))}
-              <Link to="/export" onClick={() => setMobileOpen(false)} className="btn-primary text-center justify-center tracking-[0.1em] w-full" style={{ padding: '12px', fontSize: '12px' }}>
+            </div>
+            <div style={{ padding: '0 24px' }}>
+              <Link
+                to="/export"
+                onClick={() => setMobileOpen(false)}
+                className="btn-primary justify-center tracking-[0.1em] w-full block"
+                style={{ padding: '14px', fontSize: '13px', textAlign: 'center', display: 'block' }}
+              >
                 Export Inquiry
               </Link>
             </div>
