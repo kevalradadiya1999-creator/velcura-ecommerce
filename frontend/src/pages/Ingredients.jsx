@@ -84,8 +84,8 @@ const Ingredients = () => {
       subtitle: 'Pharmaceutical Grade',
       concentration: '5.00% w/w',
       useCase: 'Base hydration matrix',
-      product: products[3], // Combination
-      what: "The biological gold-standard humectant. Highly effective at maintaining moisture balance in combination skin typologies.",
+      product: products[1],
+      what: "The biological gold-standard humectant. Highly effective at maintaining moisture balance across all skin typologies.",
       results: [
         'Balanced hydration',
         'Non-comedogenic moisture',
