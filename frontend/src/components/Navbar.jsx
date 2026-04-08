@@ -38,6 +38,7 @@ const Navbar = () => {
     { to: '/ingredients', label: 'Ingredients' },
     { to: '/about', label: 'About' },
     { to: '/faq', label: 'FAQ' },
+    { to: '/export', label: 'Export / International' },
     { to: '/contact', label: 'Contact' },
   ];
 
