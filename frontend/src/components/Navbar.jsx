@@ -38,7 +38,6 @@ const Navbar = () => {
     { to: '/ingredients', label: 'Ingredients' },
     { to: '/about', label: 'About' },
     { to: '/faq', label: 'FAQ' },
-    { to: '/export', label: 'Export / International' },
     { to: '/contact', label: 'Contact' },
   ];
 
@@ -59,7 +58,7 @@ const Navbar = () => {
         }}
       >
         <AnnouncementBanner />
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: scrolled ? '12px 32px' : '20px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'padding 0.3s' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'padding 0.3s', paddingTop: scrolled ? '12px' : '20px', paddingBottom: scrolled ? '12px' : '20px' }}>
           <VelcuraLogo />
 
           {/* Desktop Nav */}
@@ -77,6 +76,9 @@ const Navbar = () => {
                 {l.label}
               </NavLink>
             ))}
+            <Link to="/export" className="btn-primary tracking-[0.1em] shadow-[0_4px_15px_rgba(201,162,74,0.15)]" style={{ padding: '8px 18px', fontSize: '11px', marginLeft: '8px' }}>
+              Export Inquiry
+            </Link>
           </nav>
 
           {/* Icons */}
@@ -184,6 +186,9 @@ const Navbar = () => {
                   {l.label}
                 </NavLink>
               ))}
+              <Link to="/export" onClick={() => setMobileOpen(false)} className="btn-primary text-center justify-center tracking-[0.1em] w-full" style={{ padding: '12px', fontSize: '12px' }}>
+                Export Inquiry
+              </Link>
             </div>
           </div>
         )}

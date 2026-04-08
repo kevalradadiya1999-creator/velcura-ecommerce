@@ -111,7 +111,7 @@ const Checkout = () => {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh', padding: '120px 32px 80px' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '64px' }} className="checkout-grid">
+      <div className="container checkout-grid" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '64px' }}>
         
         {/* Left: Form */}
         <div>

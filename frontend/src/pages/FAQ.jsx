@@ -70,7 +70,7 @@ const FAQ = () => {
 
       {/* Content */}
       <section style={{ padding: '80px 32px', background: 'var(--bg)' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <div className="container">
           {/* Category tabs */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '48px' }}>
             {faqs.map(f => (

@@ -1,232 +1,166 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Hexagon, Diamond, Layers } from 'lucide-react';
 import { products } from '../data/products';
 
 const Ingredients = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const science = [
     {
       id: 'niacinamide',
       name: 'Niacinamide',
       subtitle: 'Vitamin B3',
-      icon: Hexagon,
-      color: '#2D7D77',
-      bg: '#EAF5F4',
+      concentration: '4.00% w/w',
+      useCase: 'Sebum regulation & pore refinement',
       product: products[0],
       what: "Niacinamide (nicotinamide) is an active, water-soluble form of Vitamin B3. Our formulation uses a clinical concentration of 4% to target oil production at the source.",
-      how: "It works by regulating the activity of sebaceous glands and interrupting the transfer of pigment. It also reinforces the epidermal barrier by stimulating the skin's natural production of ceramides and keratin.",
       results: [
         'Significant sebum reduction in 4 weeks',
-        'Refined pore texture and reduced redness',
-        'Stronger, more resilient skin barrier'
+        'Refined pore texture',
+        'Stronger barrier'
       ],
-      fact: "Clinical studies show that 4% Niacinamide is as effective as topical antibiotics for calming acne-related inflammation, without the risk of antibiotic resistance.",
+    },
+    {
+      id: 'salicylic-acid',
+      name: 'Salicylic Acid',
+      subtitle: 'BHA (Beta Hydroxy Acid)',
+      concentration: '1.00% w/w',
+      useCase: 'Deep pore exfoliation & acne control',
+      product: products[0],
+      what: "A lipophilic acid that penetrates through surface oil to exfoliate inside the pore lining. Essential for acne-prone skin profiles.",
+      results: [
+        'Reduced comedones',
+        'Decreased acne lesions',
+        'Smoother skin texture'
+      ],
     },
     {
       id: 'hyaluronic-acid',
-      name: 'Hyaluronic Acid',
-      subtitle: 'Sodium Hyaluronate',
-      icon: Diamond,
-      color: '#8B6B3D',
-      bg: '#FDF5E8',
+      name: 'Sodium Hyaluronate',
+      subtitle: 'Hyaluronic Acid Salt',
+      concentration: '1.00% w/w',
+      useCase: 'Deep epidermal hydration',
       product: products[1],
-      what: "Hyaluronic Acid is a powerful humectant naturally found in the skin. We use a high-purity Sodium Hyaluronate (1.0%) to ensure maximum hydration without greasiness.",
-      how: "It acts like a molecular sponge, holding up to 1000 times its weight in water. By delivering this moisture deep into the epidermal layers, it creates an immediate plumping effect and smooths out fine dehydration lines.",
+      what: "Top-tier humectant holding 1000x its weight in water. Replenishing it topically is a cornerstone of our dry skin strategy.",
       results: [
-        'Immediate relief from skin tightness',
-        'Visible plumping of the skin surface',
-        'Long-lasting hydration that persists after cleansing'
+        'Immediate plumpness',
+        'Relief from tightness',
+        'Long-lasting hydration'
       ],
-      fact: "Hyaluronic Acid levels in the skin decrease by 50% as we age. Replenishing it topically is a cornerstone of anti-aging and hydration strategy.",
     },
     {
       id: 'ceramide-complex',
       name: 'Ceramide Complex',
       subtitle: 'NP + AP + EOP',
-      icon: Layers,
-      color: '#7B6B8A',
-      bg: '#F4EFF8',
-      product: products[2],
-      what: "Ceramides are lipid molecules that make up 50% of your skin's composition. Our complex combines Ceramide NP, AP, and EOP to mimic the skin's natural lipid matrix.",
-      how: "They act as the 'mortar' between your skin cell 'bricks'. By replenishing these lipids, the wipes restore the barrier's integrity, locking in moisture and sealing out environmental irritants and pollutants.",
+      concentration: '2.50% w/w',
+      useCase: 'Lipid barrier reconstruction',
+      product: products[1],
+      what: "Ceramides are lipid molecules that make up 50% of your skin's composition. Our complex mimics the natural lipid matrix.",
       results: [
-        'Reduced skin reactivity and redness',
-        'Protection against transepidermal water loss',
-        'Restored barrier function for compromised skin'
+        'Reduced skin reactivity',
+        'Protection against TEWL',
+        'Optimized lipid barrier'
       ],
-      fact: "Sensitive skin is often a symptom of a 'leaky' barrier. Ceramide replenishment is the primary clinical way to 'seal' the skin and reduce long-term sensitivity.",
     },
+    {
+      id: 'centella',
+      name: 'Centella Asiatica',
+      subtitle: 'Cica Extract',
+      concentration: '3.00% w/w',
+      useCase: 'Soothing & inflammation reduction',
+      product: products[2],
+      what: "A clinically renowned botanical extract rich in triterpenoids, proven to accelerate skin healing and dramatically lower redness.",
+      results: [
+        'Visible redness reduction',
+        'Calmed reactive skin',
+        'Boosted collagen synthesis'
+      ],
+    },
+    {
+      id: 'glycerin',
+      name: 'Glycerin',
+      subtitle: 'Pharmaceutical Grade',
+      concentration: '5.00% w/w',
+      useCase: 'Base hydration matrix',
+      product: products[3], // Combination
+      what: "The biological gold-standard humectant. Highly effective at maintaining moisture balance in combination skin typologies.",
+      results: [
+        'Balanced hydration',
+        'Non-comedogenic moisture',
+        'Smooth application'
+      ],
+    }
   ];
 
   return (
-    <div>
+    <div className="pb-20 lg:pb-32 bg-[#FDFBF7] min-h-screen">
       {/* Header */}
-      <section style={{
-        background: '#0A192F',
-        padding: '100px 32px 80px',
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', borderRadius: '50%', border: '1px solid rgba(201,162,74,0.1)', pointerEvents: 'none' }} />
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <span className="section-label">Formulation Science</span>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 600, color: '#FDFBF7', marginBottom: '20px', lineHeight: 1.2 }}>
-            The Clinical Standard
+      <section className="bg-[#0A192F] py-20 lg:py-32 text-center text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(201,162,74,0.1)_0%,transparent_70%)] pointer-events-none" />
+        <div className="container relative z-10">
+          <span className="text-[12px] uppercase tracking-[0.25em] text-[#C9A24A] font-semibold mb-4 block">Formulation Directory</span>
+          <h1 className="font-playfair text-[40px] md:text-[56px] lg:text-[64px] font-semibold text-white mb-6 leading-tight">
+            The Formulation Matrix
           </h1>
-          <p style={{ fontSize: '17px', color: 'rgba(253,251,247,0.6)', maxWidth: '580px', margin: '0 auto', lineHeight: '1.7' }}>
-            Doctor-approved ingredient strategies designed to cleanse your skin without compromising its biological health.
+          <p className="font-inter text-[16px] lg:text-[18px] text-white/70 max-w-[600px] mx-auto leading-relaxed">
+            Strict transparency. Below is our clinical ingredient glossary, detailing active concentrations and specific biological use cases.
           </p>
         </div>
       </section>
 
-      {/* Ingredients detail */}
-      {science.map((ing, idx) => (
-        <section
-          key={ing.id}
-          id={`ingredient-${ing.id}`}
-          style={{
-            padding: '100px 32px',
-            background: idx % 2 === 0 ? 'white' : 'var(--bg)',
-          }}
-        >
-          <div style={{
-            maxWidth: '1280px',
-            margin: '0 auto',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '80px',
-            alignItems: 'center',
-            direction: idx % 2 !== 0 ? 'rtl' : 'ltr',
-          }}
-          className="ingredient-grid"
-          >
-            {/* Visual */}
-            <div style={{ direction: 'ltr' }}>
-              <div style={{
-                borderRadius: '12px',
-                background: `linear-gradient(135deg, ${ing.bg} 0%, white 100%)`,
-                padding: '60px 40px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '440px',
-                position: 'relative',
-                overflow: 'hidden',
-                border: '1px solid rgba(10,25,47,0.1)',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.03)',
-              }}>
-                {/* Glassmorphism Background elements */}
-                <div style={{
-                  position: 'absolute',
-                  top: '-20px',
-                  right: '-20px',
-                  width: '150px',
-                  height: '150px',
-                  borderRadius: '50%',
-                  background: `radial-gradient(circle, ${ing.color}15 0%, transparent 70%)`,
-                  filter: 'blur(20px)',
-                }} />
-                
-                {/* Subtle Shimmer on Card */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.4) 50%, transparent 55%)',
-                  backgroundSize: '300% 300%',
-                  animation: 'shimmer 10s infinite linear',
-                  pointerEvents: 'none',
-                }} />
-
-                <div style={{ 
-                  marginBottom: '24px', 
-                  color: ing.color,
-                  filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.1))',
-                  animation: 'float 5s infinite ease-in-out',
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}>
-                  <ing.icon size={80} strokeWidth={1.2} />
+      {/* Grid */}
+      <section className="container mt-[-40px] lg:mt-[-60px] relative z-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {science.map((ing) => (
+            <div key={ing.id} className="bg-white rounded-[20px] p-8 lg:p-10 border border-[rgba(10,25,47,0.06)] shadow-[0_20px_40px_rgba(10,25,47,0.03)] flex flex-col hover:-translate-y-1 transition-transform duration-300">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="font-playfair text-[24px] font-semibold text-[#0A192F] mb-1">{ing.name}</h3>
+                  <span className="text-[11px] uppercase tracking-widest text-[#0A192F]/50 font-bold">{ing.subtitle}</span>
                 </div>
-                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '32px', fontWeight: 600, color: ing.color, marginBottom: '8px', textAlign: 'center' }}>{ing.name}</p>
-                <p style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.2em', color: ing.color, opacity: 0.8, textTransform: 'uppercase', textAlign: 'center' }}>{ing.subtitle}</p>
-
-                {/* Product link - Glassmorphism style */}
-                <div style={{ 
-                  marginTop: '40px', 
-                  padding: '16px 24px', 
-                  background: 'rgba(255,255,255,0.7)', 
-                  backdropFilter: 'blur(8px)',
-                  borderRadius: '12px', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '16px', 
-                  boxShadow: '0 8px 32px rgba(10,25,47,0.05)',
-                  border: '1px solid rgba(255,255,255,0.5)',
-                  transition: 'transform 0.3s ease',
-                }}
-                className="hover-lift"
-                >
-                  <img src={ing.product.image} alt={ing.product.name} style={{ width: '56px', height: '56px', objectFit: 'cover', borderRadius: '12px' }} />
-                  <div style={{ textAlign: 'left' }}>
-                    <p style={{ fontSize: '10px', color: ing.color, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '4px' }}>Found in</p>
-                    <p style={{ fontSize: '14px', fontWeight: 700, color: '#0A192F' }}>{ing.product.fullName}</p>
-                  </div>
+                <div className="bg-[#FDFBF7] border border-[#C9A24A]/20 px-3 py-1.5 rounded-lg">
+                  <span className="text-[12px] font-bold text-[#C9A24A]">{ing.concentration}</span>
                 </div>
               </div>
-            </div>
 
-            {/* Text */}
-            <div style={{ direction: 'ltr' }}>
-              <div style={{ width: '40px', height: '3px', background: ing.color, marginBottom: '28px' }} />
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 600, color: 'var(--text)', marginBottom: '24px', lineHeight: 1.2 }}>
-                {ing.name}
-              </h2>
-
-              <div style={{ marginBottom: '24px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: ing.color, marginBottom: '10px' }}>What It Is</p>
-                <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.7' }}>{ing.what}</p>
+              <div className="mb-6">
+                <span className="text-[11px] uppercase tracking-widest text-[#C9A24A] font-bold block mb-2">Clinical Target</span>
+                <p className="font-inter text-[15px] font-medium text-[#0A192F]">{ing.useCase}</p>
               </div>
 
-              <div style={{ marginBottom: '24px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: ing.color, marginBottom: '10px' }}>Clinical Function</p>
-                <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.7' }}>{ing.how}</p>
+              <div className="mb-8 flex-1">
+                <p className="font-inter text-[14px] text-[#0A192F]/70 leading-relaxed">
+                  {ing.what}
+                </p>
               </div>
 
-              <div style={{ marginBottom: '32px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: ing.color, marginBottom: '12px' }}>Expected Results</p>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {ing.results.map(r => (
-                    <li key={r} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', color: 'var(--text-muted)' }}>
-                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: ing.color, flexShrink: 0 }} />
-                      {r}
+              <div className="pt-6 border-t border-[rgba(10,25,47,0.06)] mb-6">
+                <ul className="space-y-3">
+                  {ing.results.map((res, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                       <span className="text-[#C9A24A] text-[14px]">✦</span>
+                       <span className="font-inter text-[13px] text-[#0A192F]/80 leading-snug">{res}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Clinical fact */}
-              <div style={{ padding: '20px 24px', background: ing.bg, borderLeft: `3px solid ${ing.color}`, borderRadius: '12px', marginBottom: '32px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: ing.color, textTransform: 'uppercase', marginBottom: '6px' }}>Clinical Fact</p>
-                <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.6', fontStyle: 'italic' }}>{ing.fact}</p>
-              </div>
-
-              <Link to={`/product/${ing.product.slug}`} className="btn-primary" style={{ display: 'inline-flex' }}>
-                Shop {ing.product.name} <ArrowRight size={15} />
+              <Link to={`/product/${ing.product.slug}`} className="mt-auto group flex items-center justify-between p-4 bg-[#FDFBF7] rounded-xl hover:bg-[#0A192F] transition-colors duration-300">
+                 <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-widest text-[#0A192F]/50 font-bold group-hover:text-white/50 transition-colors">Found In</span>
+                    <span className="font-playfair text-[15px] font-semibold text-[#0A192F] group-hover:text-white transition-colors">{ing.product.name}</span>
+                 </div>
+                 <div className="w-8 h-8 rounded-full border border-[#0A192F]/10 flex items-center justify-center group-hover:border-white/20 transition-colors">
+                    <span className="text-[#0A192F] group-hover:text-white text-[16px] leading-none mb-[2px]">→</span>
+                 </div>
               </Link>
-            </div>
-          </div>
-        </section>
-      ))}
 
-      <style>{`
-        @media (max-width: 768px) {
-          .ingredient-grid { grid-template-columns: 1fr !important; direction: ltr !important; gap: 40px !important; }
-        }
-      `}</style>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

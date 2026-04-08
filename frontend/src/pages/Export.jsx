@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Shield, CheckCircle2, Globe, Send, Anchor, Award, Search, Ship, FileText } from 'lucide-react';
 
 const Export = () => {
   useEffect(() => {
@@ -7,20 +6,12 @@ const Export = () => {
   }, []);
 
   const [formData, setFormData] = useState({
-    company: '',
-    country: '',
-    markets: '',
-    quantity: '',
-    email: '',
-    phone: '',
-    message: ''
+    fullName: '', email: '', company: '', country: '', phone: '', region: '', narrative: ''
   });
-  
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate submission
     setSubmitted(true);
   };
 
@@ -28,186 +19,365 @@ const Export = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const markets = [
-    { region: 'United States', reason: 'Largest premium beauty wipes market', flags: ['us'] },
-    { region: 'UK, Germany & France', reason: 'Strong EU demand for clean & clinical products', flags: ['gb', 'de', 'fr'] },
-    { region: 'UAE & GCC', reason: 'Luxury beauty boom + premium imports', flags: ['ae', 'sa', 'qa'] },
-    { region: 'Australia', reason: 'Fast-growing clean beauty market', flags: ['au'] },
-    { region: 'South Korea & Japan', reason: 'K-beauty & J-beauty influence on premium wipes', flags: ['kr', 'jp'] },
+  const heroTiles = [
+    {
+      title: 'MoCRA / US',
+      desc: 'Prepared for documentation-led distributor discussions in the United States.',
+    },
+    {
+      title: 'EU / UK',
+      desc: 'Ingredient transparency and compliance-conscious storytelling for regulated markets.',
+    },
+    {
+      title: 'UAE',
+      desc: 'Premium positioning suited to beauty retail and pharmacy channels in the Gulf.',
+    },
   ];
 
-  const compliance = [
-    'FDA MoCRA Compliant (US)',
-    'EU Cosmetics Regulation Compliant',
-    'GCC/ESMA Standards',
-    'Full Stability & Microbial Testing',
-    'Free Sale Certificate Available'
+  const markets = [
+    {
+      title: 'United States',
+      desc: 'Prepared for MoCRA-aligned documentation and private-label conversations.',
+    },
+    {
+      title: 'UAE',
+      desc: 'Export-ready positioning for premium beauty retail and pharmacy channels.',
+    },
+    {
+      title: 'UK / EU',
+      desc: 'Built for distributor discussions requiring ingredient transparency and compliance confidence.',
+    },
+    {
+      title: 'Australia',
+      desc: 'Clean beauty market with strong demand for clinically-positioned wipe formats.',
+    },
+    {
+      title: 'South Korea & Japan',
+      desc: 'K-beauty and J-beauty influence driving premium wipes demand.',
+    },
   ];
 
   return (
-    <div className="animate-fade-in pb-12 lg:pb-24">
-      
-      {/* ─── Hero Section ─── */}
-      <section className="velcura-container pt-12 pb-8 lg:pt-20 lg:pb-12 text-center">
-        <div className="flex items-center justify-center gap-4 mb-5">
-          <div className="h-[1px] w-8 lg:w-16 bg-[#C9A24A]" />
-          <span className="text-[10px] lg:text-[12px] tracking-[0.25em] uppercase text-[#C9A24A] font-semibold">Global Distribution</span>
-          <div className="h-[1px] w-8 lg:w-16 bg-[#C9A24A]" />
-        </div>
-        
-        <h1 className="font-playfair text-[32px] md:text-[46px] lg:text-[56px] leading-[1.1] text-[var(--text)] mb-6 tracking-[-0.02em] max-w-[900px] mx-auto font-semibold">
-          Velcura – Export Ready <span className="text-[var(--accent)] italic">Premium Wipes</span>
-        </h1>
-        
-        <p className="font-inter text-[15px] lg:text-[18px] text-[var(--text-muted)] max-w-[650px] mx-auto leading-relaxed">
-          Made in India • Compliant for global markets • Premium skin-type specific formulas
-        </p>
-      </section>
+    <div style={{ fontFamily: 'Inter, sans-serif', background: '#FDFBF7' }}>
 
-      {/* ─── Compliance Section ─── */}
-      <section className="velcura-container mb-12 lg:mb-20">
-        <div className="bg-white rounded-[24px] p-8 md:p-12 lg:p-16 border border-[rgba(10,25,47,0.04)] shadow-[0_8px_32px_rgba(10,25,47,0.03)] text-center">
-          <h2 className="font-playfair text-[24px] lg:text-[32px] font-semibold text-[var(--text)] mb-3">Export Compliance & Quality</h2>
-          <p className="font-inter text-[14px] lg:text-[16px] text-[var(--text-muted)] mb-10">Manufactured to the highest clinical standards required for global entry.</p>
-          
-          <div className="flex flex-wrap justify-center gap-3 lg:gap-4 max-w-[1000px] mx-auto">
-            {compliance.map((item, i) => (
-              <div key={i} className="flex items-center gap-3 px-5 py-3 lg:px-6 lg:py-4 rounded-xl border border-[rgba(201,162,74,0.2)] bg-[#FDFBF7]">
-                <Shield size={18} className="text-[#C9A24A]" />
-                <span className="font-inter text-[13px] lg:text-[14px] font-medium text-[var(--text)] tracking-wide">{item}</span>
+      {/* ─── Hero: Rounded Navy Card ─── */}
+      <div style={{ padding: '24px 40px 0 40px' }}>
+        <div style={{
+          background: '#0d1f3c',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          padding: '72px 64px',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '48px',
+          alignItems: 'center',
+        }} className="export-hero-grid">
+          {/* Left */}
+          <div>
+            <p style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '11px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#c9a24a',
+              fontWeight: 600,
+              marginBottom: '24px',
+            }}>
+              B2B Portal
+            </p>
+            <h1 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(34px, 4vw, 54px)',
+              fontWeight: 600,
+              color: '#FDFBF7',
+              lineHeight: 1.1,
+              marginBottom: '24px',
+            }}>
+              Velcura is open for global distributor conversations.
+            </h1>
+            <p style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '15px',
+              color: 'rgba(253,251,247,0.6)',
+              lineHeight: 1.7,
+              maxWidth: '460px',
+            }}>
+              Created for premium retail, pharmacy, and beauty partners seeking a clinically positioned wipe range with elegant packaging, clear ingredient narratives, and export-facing communication.
+            </p>
+          </div>
+
+          {/* Right: Stacked tiles */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {heroTiles.map((tile, i) => (
+              <div key={i} style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '16px',
+                padding: '20px 24px',
+              }}>
+                <h3 style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '18px',
+                  fontWeight: 600,
+                  color: '#FDFBF7',
+                  marginBottom: '6px',
+                }}>
+                  {tile.title}
+                </h3>
+                <p style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '13px',
+                  color: 'rgba(253,251,247,0.5)',
+                  lineHeight: 1.6,
+                }}>
+                  {tile.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ─── Markets Section ─── */}
-      <section className="velcura-container mb-12 lg:mb-20">
-        <h2 className="font-playfair text-[24px] lg:text-[32px] font-semibold text-[var(--text)] mb-8 lg:mb-12 text-center">High-Demand Markets We Serve</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+      {/* ─── Markets Grid ─── */}
+      <div style={{ background: '#FDFBF7', padding: '72px 40px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '20px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+        }} className="export-markets-grid">
           {markets.map((m, i) => (
-            <div key={i} className="p-8 lg:p-10 rounded-2xl bg-white border border-[rgba(201,162,74,0.15)] flex flex-col items-center text-center shadow-[0_4px_20px_rgba(10,25,47,0.02)] transition-transform hover:-translate-y-1 duration-300">
-              <div className="flex items-center justify-center mb-5 h-12">
-                <div className="flex -space-x-4">
-                  {m.flags.map((code, idx) => (
-                    <img 
-                      key={code} 
-                      src={`https://flagcdn.com/w80/${code}.png`} 
-                      alt={code} 
-                      className="w-12 h-12 lg:w-14 lg:h-14 rounded-full object-cover border-[3px] border-white shadow-sm relative transition-transform hover:scale-110 hover:z-50 duration-300" 
-                      style={{ zIndex: m.flags.length - idx }}
-                    />
-                  ))}
-                </div>
-              </div>
-              <h3 className="font-playfair text-[20px] lg:text-[22px] font-semibold mb-2 text-[var(--text)]">{m.region}</h3>
-              <p className="font-inter text-[14px] lg:text-[15px] text-[var(--text-muted)] leading-relaxed">{m.reason}</p>
+            <div key={i} style={{
+              background: 'white',
+              border: '1px solid rgba(10,25,47,0.08)',
+              borderRadius: '20px',
+              padding: '36px 32px',
+              boxShadow: '0 2px 12px rgba(10,25,47,0.04)',
+              transition: 'transform 0.3s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <h3 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '22px',
+                fontWeight: 600,
+                color: '#0d1f3c',
+                marginBottom: '12px',
+              }}>
+                {m.title}
+              </h3>
+              <p style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                color: 'rgba(10,25,47,0.55)',
+                lineHeight: 1.7,
+              }}>
+                {m.desc}
+              </p>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* ─── Why Export Section ─── */}
-      <section className="velcura-container mb-12 lg:mb-20">
-        <div className="bg-[#0A192F] text-white rounded-3xl p-10 lg:p-16 relative overflow-hidden shadow-[0_20px_40px_rgba(10,25,47,0.1)]">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(201,162,74,0.15)_0%,transparent_70%)] pointer-events-none" />
-          
-          <h2 className="font-playfair text-[26px] lg:text-[36px] font-semibold mb-10 lg:mb-12 text-center text-white">Why Export with Velcura</h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-[1100px] mx-auto">
-            <div className="flex flex-col items-center text-center">
-              <FileText size={32} className="text-[#C9A24A] mb-4" />
-              <span className="font-inter font-semibold text-[15px] lg:text-[16px] mb-2 text-white">Private Label Ready</span>
-              <p className="font-inter text-[13px] lg:text-[14px] text-white/70">Customize packaging for your brand</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <CheckCircle2 size={32} className="text-[#C9A24A] mb-4" />
-              <span className="font-inter font-semibold text-[15px] lg:text-[16px] mb-2 text-white">Custom Formulation</span>
-              <p className="font-inter text-[13px] lg:text-[14px] text-white/70">Adapt specs for local regulations</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <Ship size={32} className="text-[#C9A24A] mb-4" />
-              <span className="font-inter font-semibold text-[15px] lg:text-[16px] mb-2 text-white">Fast Logistics</span>
-              <p className="font-inter text-[13px] lg:text-[14px] text-white/70">7–14 day dispatch protocols</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <Award size={32} className="text-[#C9A24A] mb-4" />
-              <span className="font-inter font-semibold text-[15px] lg:text-[16px] mb-2 text-white">B2B Tiered Pricing</span>
-              <p className="font-inter text-[13px] lg:text-[14px] text-white/70">Optimized for maximum ROI</p>
-            </div>
+      {/* ─── Distributor Inquiry Form ─── */}
+      <div style={{ background: '#f0ece4', padding: '72px 40px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '64px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          alignItems: 'start',
+        }} className="export-form-grid">
+
+          {/* Left */}
+          <div style={{ paddingTop: '8px' }}>
+            <p style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '11px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#c9a24a',
+              fontWeight: 600,
+              marginBottom: '20px',
+            }}>
+              Distributor Inquiry
+            </p>
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(28px, 3.5vw, 46px)',
+              fontWeight: 600,
+              color: '#0d1f3c',
+              lineHeight: 1.1,
+              marginBottom: '20px',
+            }}>
+              Share your market, company, and partnership requirements.
+            </h2>
+            <p style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '14px',
+              color: 'rgba(10,25,47,0.55)',
+              lineHeight: 1.7,
+              maxWidth: '420px',
+            }}>
+              Use this form for private-label, distribution, retail, or region-specific expansion conversations. Velcura will receive the inquiry in the backend for follow-up.
+            </p>
+          </div>
+
+          {/* Right: Form */}
+          <div style={{
+            background: 'white',
+            borderRadius: '20px',
+            padding: '40px',
+            boxShadow: '0 8px 32px rgba(10,25,47,0.06)',
+          }}>
+            {submitted ? (
+              <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                <div style={{
+                  width: '56px', height: '56px',
+                  borderRadius: '50%',
+                  background: 'rgba(201,162,74,0.12)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '0 auto 20px',
+                  fontSize: '24px',
+                }}>✓</div>
+                <p style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '22px',
+                  fontWeight: 600,
+                  color: '#0d1f3c',
+                  marginBottom: '8px',
+                }}>Inquiry Received</p>
+                <p style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  color: 'rgba(10,25,47,0.55)',
+                  marginBottom: '28px',
+                }}>Our export team will contact you within 24–48 hours.</p>
+                <button onClick={() => setSubmitted(false)} style={{
+                  background: '#0d1f3c',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '12px 32px',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  letterSpacing: '0.05em',
+                }}>Submit Another</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {/* Row 1 */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                  <input
+                    type="text" name="fullName" placeholder="Full name" required onChange={handleChange}
+                    style={inputStyle}
+                  />
+                  <input
+                    type="email" name="email" placeholder="Business email" required onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                {/* Row 2 */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                  <input
+                    type="text" name="company" placeholder="Company name" required onChange={handleChange}
+                    style={inputStyle}
+                  />
+                  <input
+                    type="text" name="country" placeholder="Country" required onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                {/* Row 3 */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                  <input
+                    type="tel" name="phone" placeholder="Phone number" onChange={handleChange}
+                    style={inputStyle}
+                  />
+                  <input
+                    type="text" name="region" placeholder="Region of interest" onChange={handleChange}
+                    style={inputStyle}
+                  />
+                </div>
+                {/* Narrative */}
+                <textarea
+                  name="narrative" rows="5"
+                  placeholder="Tell us about your channel, order expectations, and regulatory requirements"
+                  onChange={handleChange}
+                  style={{ ...inputStyle, resize: 'none', paddingTop: '14px' }}
+                />
+                <button type="submit" style={{
+                  background: '#0d1f3c',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  letterSpacing: '0.03em',
+                  marginTop: '4px',
+                  transition: 'opacity 0.2s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                >
+                  Submit export inquiry
+                </button>
+              </form>
+            )}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ─── Inquiry Form Section ─── */}
-      <section className="velcura-container" id="inquiry">
-        <div className="max-w-[800px] mx-auto bg-white p-8 md:p-10 lg:p-14 rounded-3xl border border-[rgba(10,25,47,0.06)] shadow-[0_20px_60px_rgba(10,25,47,0.03)]">
-          <div className="text-center mb-10">
-            <h2 className="font-playfair text-[26px] lg:text-[34px] font-semibold text-[var(--text)] mb-3">B2B / Bulk Export Inquiry</h2>
-            <p className="font-inter text-[15px] text-[var(--text-muted)]">Connect with our export team for pricing, compliance, and samples.</p>
-          </div>
-
-          {submitted ? (
-            <div className="text-center py-12 lg:py-16 animate-fade-up">
-              <div className="w-20 h-20 bg-[rgba(201,162,74,0.1)] rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 size={40} className="text-[#C9A24A]" />
-              </div>
-              <h3 className="font-playfair text-[28px] font-semibold mb-3">Inquiry Received</h3>
-              <p className="font-inter text-[16px] text-[var(--text-muted)] mb-10">Our global specialists will contact you within 24 hours.</p>
-              <button className="btn-primary px-8" onClick={() => setSubmitted(false)}>Submit Another Request</button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 lg:gap-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Company / Brand Name *</label>
-                  <input type="text" name="company" required onChange={handleChange} className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] transition-colors" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Your Country *</label>
-                  <input type="text" name="country" required onChange={handleChange} className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] transition-colors" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Target Market(s) *</label>
-                  <input type="text" name="markets" required onChange={handleChange} placeholder="e.g. UAE, UK" className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] transition-colors" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Estimated Quantity *</label>
-                  <input type="text" name="quantity" required onChange={handleChange} placeholder="e.g. 5000 units" className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] transition-colors" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Email Address *</label>
-                  <input type="email" name="email" required onChange={handleChange} className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] transition-colors" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Phone Number</label>
-                  <input type="tel" name="phone" onChange={handleChange} placeholder="+CountryCode" className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] transition-colors" />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 mb-4">
-                <label className="text-[11px] lg:text-[12px] font-semibold tracking-widest text-[var(--text-muted)] uppercase">Message / Requirements</label>
-                <textarea name="message" rows="4" onChange={handleChange} className="w-full bg-[#FDFBF7] border border-[rgba(10,25,47,0.1)] focus:border-[#C9A24A] rounded-xl px-5 py-4 outline-none text-[15px] lg:text-[16px] resize-none transition-colors"></textarea>
-              </div>
-
-              <button type="submit" className="btn-primary w-full justify-center !py-4 lg:text-[13px] shadow-[0_8px_20px_rgba(10,25,47,0.15)]">
-                Send Export Inquiry <Send size={18} />
-              </button>
-            </form>
-          )}
-        </div>
-      </section>
-
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 900px) {
+          .export-hero-grid {
+            grid-template-columns: 1fr !important;
+            padding: 48px 32px !important;
+          }
+          .export-markets-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          .export-form-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .export-hero-grid {
+            padding: 36px 24px !important;
+          }
+          .export-markets-grid {
+            grid-template-columns: 1fr !important;
+          }
+          div[style*="padding: 72px 40px"] {
+            padding: 48px 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
-export default Export;
+const inputStyle = {
+  background: '#f0ece4',
+  border: '1px solid rgba(10,25,47,0.1)',
+  borderRadius: '12px',
+  padding: '14px 16px',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: '14px',
+  color: '#0d1f3c',
+  outline: 'none',
+  width: '100%',
+  boxSizing: 'border-box',
+};
 
+export default Export;

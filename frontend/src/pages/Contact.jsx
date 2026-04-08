@@ -14,28 +14,28 @@ const Contact = () => {
   return (
     <div>
       {/* Header */}
-      <section className="section-spacing text-center bg-[#0A192F]">
-        <div className="velcura-container">
+      <section className="section text-center bg-[#0A192F]">
+        <div className="container">
           <span className="section-label text-[#C9A24A] mx-auto">Reach Us</span>
-          <h1 className="text-h1 text-[#FDFBF7] mb-4">
+          <h1 className="text-[#FDFBF7] mb-4">
             Contact Velcura
           </h1>
-          <p className="text-body text-[rgba(253,251,247,0.6)] max-w-[480px] mx-auto">
+          <p className="text-[rgba(253,251,247,0.6)] max-w-[480px] mx-auto">
             Have questions about your skin type, our formulas, or an order? We're here.
           </p>
         </div>
       </section>
 
       {/* Contact grid */}
-      <section className="section-spacing bg-[var(--bg)]">
-        <div className="velcura-container">
+      <section className="section bg-[var(--bg)]">
+        <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-10 lg:gap-16 items-start">
             {/* Left info */}
             <div>
-              <h2 className="text-h2 text-[var(--text)] mb-3">
+              <h2 className="text-[var(--text)] mb-3">
                 We're here to help
               </h2>
-              <p className="text-body text-[var(--text-muted)] mb-10">
+              <p className="text-[var(--text-muted)] mb-10">
                 Whether it's a question about the right formula for your skin, an order concern, or just a curiosity about our ingredients — our team responds within 24 hours.
               </p>
 

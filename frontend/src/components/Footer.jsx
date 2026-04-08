@@ -39,8 +39,8 @@ const Footer = () => {
   return (
     <footer style={{ background: '#0A192F', color: '#FDFBF7' }}>
       {/* Newsletter strip */}
-      <div style={{ borderBottom: '1px solid rgba(253,251,247,0.08)', padding: '48px 32px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
+      <div style={{ borderBottom: '1px solid rgba(253,251,247,0.08)' }} className="py-12">
+        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
           <div>
             <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 600, marginBottom: '6px' }}>
               Stay in the Velcura Circle
@@ -96,7 +96,7 @@ const Footer = () => {
       </div>
 
       {/* Main footer */}
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 32px 48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '48px' }}>
+      <div className="container" style={{ padding: '64px 0 48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '48px' }}>
         {/* Brand col */}
         <div>
           <div style={{ marginBottom: '20px' }}>
@@ -189,8 +189,8 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: '1px solid rgba(253,251,247,0.08)', padding: '20px 32px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+      <div style={{ borderTop: '1px solid rgba(253,251,247,0.08)' }} className="py-5">
+        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <p style={{ fontSize: '12px', color: 'rgba(253,251,247,0.35)' }}>
             © {currentYear} Velcura Hygiene Pvt Ltd. All rights reserved.
           </p>

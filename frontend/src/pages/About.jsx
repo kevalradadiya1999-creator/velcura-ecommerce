@@ -11,7 +11,7 @@ const About = () => {
   return (
     <div>
       {/* Header */}
-      <section className="section-spacing text-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0A192F 0%, #0D2440 100%)' }}>
+      <section className="section text-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0A192F 0%, #0D2440 100%)' }}>
         {[0, 1, 2].map(i => (
           <div key={i} style={{
             position: 'absolute',
@@ -25,9 +25,9 @@ const About = () => {
             pointerEvents: 'none',
           }} />
         ))}
-        <div className="velcura-container relative z-10">
+        <div className="container relative z-10">
           <span className="section-label text-[#C9A24A] mx-auto">Our Foundation</span>
-          <h1 className="text-h1 text-[#FDFBF7] mb-6">
+          <h1 className="text-[#FDFBF7] mb-6">
             Velcura Hygiene Pvt Ltd
           </h1>
           <p className="font-playfair text-[18px] lg:text-[22px] italic text-[var(--accent)]">
@@ -36,68 +36,53 @@ const About = () => {
         </div>
       </section>
 
-      {/* Origin story */}
-      <section className="section-spacing bg-[var(--bg)]">
-        <div className="velcura-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-            <div>
-              <span className="section-label">The Beginning</span>
-              <h2 className="text-h2 text-[var(--text)] mb-6">
-                A Brand Built Around One Conviction
+      {/* Lab Research Split-Screen Section */}
+      <section className="py-20 lg:py-32 bg-[#FDFBF7]">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            
+            {/* Left: Navy Clinical Text */}
+            <div className="order-2 lg:order-1 lg:pr-8">
+              <span className="text-[12px] uppercase tracking-[0.25em] text-[#C9A24A] font-semibold mb-4 block">
+                The Velcura Point of View
+              </span>
+              <h2 className="font-playfair text-[36px] lg:text-[48px] leading-[1.15] text-[#0A192F] font-semibold mb-8">
+                A cleansing brand built where derma-science meets elevated daily ritual.
               </h2>
-              <div className="text-body text-[var(--text-muted)] space-y-5">
+              
+              <div className="text-[16px] lg:text-[18px] text-[#0A192F]/80 space-y-6 font-inter leading-relaxed">
                 <p>
-                  Velcura Hygiene Pvt Ltd was established with a singular conviction: the act of removing makeup should never compromise your skin's natural health.
+                  We started with an uncomfortable truth: traditional makeup wipes are built entirely around the function of removal. They utilize harsh surfactants and stripped solvents with absolutely no regard for the skin lipid barrier left behind.
                 </p>
                 <p>
-                  Traditional wipes are built around one function: removal. They use surfactants and solvents harsh enough to dissolve even waterproof formulas, with no thought given to what happens to the skin left behind. The result? Compromised barriers, stripped moisture, and irritated, reactive skin.
+                  Velcura changes that equation. Every formula we develop begins in a clinical laboratory setting, utilizing dermatologically recognized active ingredients at highly precise concentrations.
                 </p>
-                <p>
-                  Velcura changes that equation. Our wipes are formulated with dermatologically recognized active ingredients at efficacious concentrations — not as marketing additions, but as the very core of each formula.
+                <p className="font-medium text-[#0A192F] pt-4 border-t border-[#0A192F]/10">
+                  Our wipes are not just removers; they are the first step of your targeted skincare routine.
                 </p>
               </div>
             </div>
 
-          <div>
-            <div style={{ padding: '48px', background: '#0A192F', borderRadius: '12px', color: '#FDFBF7', marginBottom: '24px' }}>
-              <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontStyle: 'italic', lineHeight: '1.6', color: 'rgba(253,251,247,0.9)', marginBottom: '24px' }}>
-                "We started with a question: why do we accept that cleansing has to be harsh? The skin barrier is everything. We built Velcura to protect it."
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#0A192F' }}>V</div>
-                <div>
-                  <p style={{ fontSize: '13px', fontWeight: 600, color: 'white' }}>The Velcura Team</p>
-                  <p style={{ fontSize: '11px', color: 'rgba(253,251,247,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Founders, Velcura Hygiene Pvt Ltd</p>
-                </div>
+            {/* Right: Vertical Lab Photo */}
+            <div className="order-1 lg:order-2">
+              <div className="relative w-full aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[24px] overflow-hidden border border-[#0A192F]/5 shadow-[0_30px_60px_rgba(10,25,47,0.08)]">
+                <img 
+                  src="/lab-formulation.png" 
+                  alt="Velcura Clinical Formulation Lab" 
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                />
               </div>
             </div>
-
-            <div style={{ padding: '32px', border: '1px solid var(--border)', borderRadius: '12px', background: 'white' }}>
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '20px' }}>Our Mission in Numbers</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-                {[
-                  { n: '3', l: 'Skin-targeted formulas' },
-                  { n: '0%', l: 'Harsh alcohol used' },
-                  { n: '5+', l: 'Clinical actives per pack' },
-                  { n: '100%', l: 'Science-backed claims' },
-                ].map(s => (
-                  <div key={s.l}>
-                    <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '32px', fontWeight: 700, color: 'var(--accent)', lineHeight: 1 }}>{s.n}</p>
-                    <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px', lineHeight: '1.4' }}>{s.l}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+            
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="section-spacing bg-white">
-        <div className="velcura-container text-center">
+      <section className="section bg-white">
+        <div className="container text-center">
           <span className="section-label mx-auto">What We Stand For</span>
-          <h2 className="text-h2 text-[var(--text)] mb-10 lg:mb-16">
+          <h2 className="text-[var(--text)] mb-10 lg:mb-16">
             Our Formulation Values
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '32px' }}>
@@ -149,13 +134,13 @@ const About = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-spacing bg-[var(--surface)] text-center">
-        <div className="velcura-container flex flex-col items-center">
+      <section className="section bg-[var(--surface)] text-center">
+        <div className="container flex flex-col items-center">
           <span className="section-label mx-auto">The Collection</span>
-          <h2 className="text-h2 text-[var(--text)] mb-4">
+          <h2 className="text-[var(--text)] mb-4">
             Put Science to Work for Your Skin
           </h2>
-          <p className="text-body text-[var(--text-muted)] max-w-[500px] mb-8">
+          <p className="text-[var(--text-muted)] max-w-[500px] mb-8">
             Three formulas. Three skin types. One commitment to ingredient integrity.
           </p>
           <Link to="/shop" className="btn-primary" id="about-shop-btn">

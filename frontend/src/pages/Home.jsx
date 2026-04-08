@@ -100,8 +100,8 @@ const Home = () => {
           pointerEvents: 'none',
         }} />
 
-        <div className="velcura-container relative z-10" style={{ paddingTop: '60px', paddingBottom: '60px' }}>
-          <div className="flex flex-col lg:grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 items-center text-center lg:text-left">
+        <div className="container relative z-10 py-16 lg:py-20">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center text-center lg:text-left">
             
             {/* Left: Content */}
             <div
@@ -125,7 +125,7 @@ const Home = () => {
                 <span className="text-[var(--accent)]">Made for Your Exact Skin Type</span>
               </h1>
 
-              <p className="text-body text-[var(--text-muted)] max-w-[560px] mx-auto lg:mx-0 mb-8 lg:mb-10 font-normal">
+              <p className="text-[var(--text-muted)] max-w-[560px] mx-auto lg:mx-0 mb-8 lg:mb-10 font-normal">
                 Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
               </p>
 
@@ -230,8 +230,8 @@ const Home = () => {
       </section>
 
       {/* ────────────── TRUST ELEMENTS ────────────── */}
-      <section className="bg-white section-spacing border-b border-[var(--border)]">
-        <div className="velcura-container flex flex-col md:flex-row justify-between items-center gap-8 text-center">
+      <section className="bg-white section border-b border-[var(--border)]">
+        <div className="container flex flex-col md:flex-row justify-between items-center gap-8 text-center">
           <div className="flex flex-col items-center gap-2">
             <div className="flex text-[#C9A24A]">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
@@ -256,34 +256,34 @@ const Home = () => {
       </section>
 
       {/* ────────────── VALUE PROPOSITION ────────────── */}
-      <section className="bg-white section-spacing border-b border-[var(--border)] text-center">
-        <div className="velcura-container">
-          <h2 className="text-h2 text-[var(--text)] mb-8 lg:mb-12">Not Just Makeup Removal</h2>
+      <section className="bg-white section border-b border-[var(--border)] text-center">
+        <div className="container">
+          <h2 className="text-[var(--text)] mb-8 lg:mb-12">Not Just Makeup Removal</h2>
           <div className="velcura-grid">
             <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
               <Droplets size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
               <h3 className="font-semibold text-lg lg:text-xl mb-2">Removes Everything</h3>
-              <p className="text-body text-[var(--text-muted)]">Effectively dissolves waterproof makeup, SPF, and urban pollution without harsh rubbing.</p>
+              <p className="text-[var(--text-muted)]">Effectively dissolves waterproof makeup, SPF, and urban pollution without harsh rubbing.</p>
             </div>
             <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
               <Gem size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
               <h3 className="font-semibold text-lg lg:text-xl mb-2">Treats Skin</h3>
-              <p className="text-body text-[var(--text-muted)]">Infused with active ingredients like Niacinamide and Hyaluronic Acid to nourish while you cleanse.</p>
+              <p className="text-[var(--text-muted)]">Infused with active ingredients like Niacinamide and Hyaluronic Acid to nourish while you cleanse.</p>
             </div>
             <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
               <Shield size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
               <h3 className="font-semibold text-lg lg:text-xl mb-2">Protects Barrier</h3>
-              <p className="text-body text-[var(--text-muted)]">Maintains your skin's natural pH and lipid barrier. Zero post-cleanse tightness or irritation.</p>
+              <p className="text-[var(--text-muted)]">Maintains your skin's natural pH and lipid barrier. Zero post-cleanse tightness or irritation.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ────────────── SKIN TYPE SELECTOR ────────────── */}
-      <section className="bg-[var(--surface)] section-spacing border-b border-[var(--border)] text-center">
-        <div className="velcura-container">
-          <h2 className="text-h2 text-[var(--text)] mb-4 lg:mb-8">Find Your Perfect Wipe</h2>
-          <p className="text-body text-[var(--text-muted)] mb-8 lg:mb-10 max-w-lg mx-auto">Select your primary concern below to jump directly to the clinical formula designed exclusively for your skin.</p>
+      <section className="bg-[var(--surface)] section border-b border-[var(--border)] text-center">
+        <div className="container">
+          <h2 className="text-[var(--text)] mb-4 lg:mb-8">Find Your Perfect Wipe</h2>
+          <p className="text-[var(--text-muted)] mb-8 lg:mb-10 max-w-lg mx-auto">Select your primary concern below to jump directly to the clinical formula designed exclusively for your skin.</p>
           <div className="flex flex-col md:flex-row justify-center gap-4">
           <a href="#sku-oil-balance" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
             Oily Skin &rarr;
@@ -304,9 +304,9 @@ const Home = () => {
           <div
             id={`sku-${p.id}`}
             key={p.id}
-            className={`section-spacing border-b border-[var(--border)] flex items-center justify-center ${i % 2 === 0 ? 'bg-white' : 'bg-[var(--surface)]'}`}
+            className={`section border-b border-[var(--border)] flex items-center justify-center ${i % 2 === 0 ? 'bg-white' : 'bg-[var(--surface)]'}`}
           >
-            <div className={`velcura-container flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}>
+            <div className={`container flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}>
               {/* Image Column */}
               <div className="relative w-full lg:w-1/2 flex justify-center">
                   <div style={{
@@ -357,14 +357,14 @@ const Home = () => {
                 <p style={{ fontSize: '12px', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>
                   Target: {p.skinType}
                 </p>
-                <h2 className="text-h1 text-[var(--text)] mb-3 tracking-[-0.02em]">
+                <h2 className="text-[var(--text)] mb-3 tracking-[-0.02em]">
                   {p.name}
                 </h2>
                 <h3 className="text-[14px] lg:text-[16px] mb-8 font-inter tracking-[0.05em]" style={{ color: p.accentColor }}>
                   {p.tagline}
                 </h3>
                 
-                <p className="text-body text-[var(--text-muted)] mb-10 max-w-[500px] mx-auto lg:mx-0">
+                <p className="text-[var(--text-muted)] mb-10 max-w-[500px] mx-auto lg:mx-0">
                   {p.description}
                 </p>
 
@@ -407,15 +407,15 @@ const Home = () => {
       </section>
 
       {/* ────────────── BUNDLE SECTION ────────────── */}
-      <section id="bundles" className="bg-[var(--surface)] section-spacing border-t border-[var(--border)]">
-        <div className="velcura-container">
+      <section id="bundles" className="bg-[var(--surface)] section border-t border-[var(--border)]">
+        <div className="container">
           <div className="text-center mb-10 lg:mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
               <div className="h-[1px] w-8 bg-[var(--accent)]" />
               <span className="text-[10px] lg:text-[11px] font-semibold text-[var(--accent)] tracking-[0.2em] uppercase">Exclusive Offers</span>
               <div className="h-[1px] w-8 bg-[var(--accent)]" />
             </div>
-            <h2 className="text-h2 text-[var(--text)]">
+            <h2 className="text-[var(--text)]">
               Build Your Skin Reset Routine & Save
             </h2>
           </div>
@@ -460,14 +460,14 @@ const Home = () => {
       </section>
 
       {/* ────────────── INGREDIENT SCIENCE ────────────── */}
-      <section id="ingredient-science" className="section-spacing bg-[#0A192F] relative overflow-hidden">
+      <section id="ingredient-science" className="section bg-[#0A192F] relative overflow-hidden">
         {/* Decorative circles */}
         <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', borderRadius: '50%', border: '1px solid rgba(201,162,74,0.15)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: '-80px', left: '-60px', width: '300px', height: '300px', borderRadius: '50%', border: '1px solid rgba(201,162,74,0.1)', pointerEvents: 'none' }} />
 
         <div
           ref={sciRef}
-          className="velcura-container"
+          className="container"
           style={{
             opacity: sciVisible ? 1 : 0,
             transform: sciVisible ? 'none' : 'translateY(24px)',
@@ -477,7 +477,7 @@ const Home = () => {
           <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
             <div>
               <span className="section-label text-[#C9A24A]">The Science</span>
-              <h2 className="text-h2 text-[#FDFBF7]">
+              <h2 className="text-[#FDFBF7]">
                 Powered by Dermatological<br />Ingredients
               </h2>
             </div>
@@ -560,10 +560,10 @@ const Home = () => {
       </section>
 
       {/* ────────────── WHY VELCURA ────────────── */}
-      <section className="section-spacing bg-[var(--bg)]">
-        <div className="velcura-container text-center">
+      <section className="section bg-[var(--bg)]">
+        <div className="container text-center">
           <span className="section-label mx-auto">Why Velcura</span>
-          <h2 className="text-h2 text-[var(--text)] mb-10 lg:mb-16">
+          <h2 className="text-[var(--text)] mb-10 lg:mb-16">
             The Standard We Don't Compromise On
           </h2>
 
@@ -599,11 +599,11 @@ const Home = () => {
 
       {/* ────────────── REVIEWS ────────────── */}
       {reviews && reviews.length > 0 && (
-        <section className="section-spacing bg-[var(--surface)]">
-          <div className="velcura-container">
+        <section className="section bg-[var(--surface)]">
+          <div className="container">
             <div className="text-center mb-10 lg:mb-16">
               <span className="section-label mx-auto">Customer Stories</span>
-              <h2 className="text-h2 text-[var(--text)]">
+              <h2 className="text-[var(--text)]">
                 Real Skin. Real Results.
               </h2>
             </div>
@@ -612,7 +612,7 @@ const Home = () => {
             <div style={{ maxWidth: '720px', margin: '0 auto', position: 'relative' }}>
               <div style={{ textAlign: 'center', padding: '48px', background: 'white', borderRadius: '16px', boxShadow: '0 8px 40px rgba(10,25,47,0.06)' }}>
                 <Stars rating={reviews[reviewIdx].rating} />
-                <blockquote className="text-h2 italic text-[var(--text)] my-7">
+                <blockquote className="italic text-[var(--text)] my-7">
                   "{reviews[reviewIdx].text}"
                 </blockquote>
                 <p style={{ fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{reviews[reviewIdx].name}</p>
@@ -666,18 +666,18 @@ const Home = () => {
       )}
 
       {/* ────────────── BRAND STORY ────────────── */}
-      <section className="section-spacing bg-[#0A192F]">
-        <div className="velcura-container">
+      <section className="section bg-[#0A192F]">
+        <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div>
               <span className="section-label text-[#C9A24A]">Our Story</span>
-              <h2 className="text-h2 text-[#FDFBF7] mb-6">
+              <h2 className="text-[#FDFBF7] mb-6">
                 The Velcura Philosophy
               </h2>
-              <p className="text-body text-[rgba(253,251,247,0.65)] mb-5">
+              <p className="text-[rgba(253,251,247,0.65)] mb-5">
                 Velcura Hygiene Pvt Ltd was created with a singular conviction: cleansing should never come at the expense of skin health.
               </p>
-              <p className="text-body text-[rgba(253,251,247,0.65)] mb-10">
+              <p className="text-[rgba(253,251,247,0.65)] mb-10">
                 Unlike ordinary wipes that strip and discard, our formulas combine high-performance makeup removal with dermatologically recognized skincare actives — protecting and strengthening your skin barrier with every use.
               </p>
               <Link to="/about" id="about-cta" className="btn-outline w-full sm:w-auto justify-center" style={{ borderColor: 'rgba(253,251,247,0.3)', color: '#FDFBF7' }}
@@ -716,13 +716,13 @@ const Home = () => {
       </section>
 
       {/* ────────────── CTA BANNER ────────────── */}
-      <section className="section-spacing text-center" style={{ background: 'linear-gradient(135deg, #C9A24A 0%, #A8833C 100%)' }}>
-        <div className="velcura-container">
+      <section className="section text-center" style={{ background: 'linear-gradient(135deg, #C9A24A 0%, #A8833C 100%)' }}>
+        <div className="container">
           <div className="max-w-[720px] mx-auto flex flex-col items-center">
-            <h2 className="text-h2 text-[#0A192F] mb-4">
+            <h2 className="text-[#0A192F] mb-4">
               Find Your Perfect Formula
             </h2>
-            <p className="text-body text-[rgba(10,25,47,0.75)] mb-8">
+            <p className="text-[rgba(10,25,47,0.75)] mb-8">
               Oily, dry, or sensitive — there's a Velcura wipe made precisely for your skin.
             </p>
             <Link to="/shop" id="banner-shop-btn" className="btn-primary w-full sm:w-auto justify-center" style={{ background: '#0A192F', color: 'white', border: 'none' }}>

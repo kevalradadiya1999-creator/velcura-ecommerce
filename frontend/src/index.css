@@ -42,55 +42,59 @@ body {
 .font-playfair { font-family: 'Playfair Display', serif; }
 .font-inter { font-family: 'Inter', sans-serif; }
 
-/* ─── Velcura Strict Layout System ─── */
-.velcura-container {
+/* ─── Global Container System ─── */
+.container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 16px;
 }
-@media (min-width: 768px) { .velcura-container { padding-left: 20px; padding-right: 20px; } }
-@media (min-width: 1024px) { .velcura-container { padding-left: 24px; padding-right: 24px; } }
+@media (min-width: 768px) { .container { padding: 0 20px; } }
+@media (min-width: 1024px) { .container { padding: 0 24px; } }
 
-.section-spacing {
-  padding-top: 40px;
-  padding-bottom: 40px;
+/* ─── Global Spacing System ─── */
+.section {
+  padding: 40px 0;
 }
-@media (min-width: 768px) { .section-spacing { padding-top: 60px; padding-bottom: 60px; } }
-@media (min-width: 1024px) { .section-spacing { padding-top: 80px; padding-bottom: 80px; } }
+@media (min-width: 1024px) { .section { padding: 80px 0; } }
+
+/* ─── Global Image System ─── */
+img {
+  width: 100%;
+  height: auto;
+}
 
 /* ─── Regulated Typography ─── */
-.text-h1 {
+h1 {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
   line-height: 1.1;
   font-weight: 600;
 }
-@media (min-width: 1024px) { .text-h1 { font-size: 42px; } }
+@media (min-width: 1024px) { h1 { font-size: 42px; } }
 
-.text-h2 {
+h2 {
   font-family: 'Playfair Display', serif;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 600;
 }
-@media (min-width: 1024px) { .text-h2 { font-size: 30px; } }
+@media (min-width: 1024px) { h2 { font-size: 30px; } }
 
-.text-body {
+p {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   line-height: 1.6;
 }
-@media (min-width: 1024px) { .text-body { font-size: 16px; } }
+@media (min-width: 1024px) { p { font-size: 16px; } }
 
 /* ─── Responsive Grid ─── */
 .velcura-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 12px;
 }
-@media (min-width: 768px) { .velcura-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+@media (min-width: 768px) { .velcura-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
 @media (min-width: 1024px) { .velcura-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
 
 /* ─── Scrollbar ─── */
@@ -122,9 +126,13 @@ body {
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   text-decoration: none;
+  width: 100%;
 }
+@media (min-width: 1024px) { .btn-primary { width: auto; } }
+
 .btn-primary:hover {
   background: var(--accent);
   transform: translateY(-2px);
@@ -146,9 +154,12 @@ body {
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   text-decoration: none;
+  width: 100%;
 }
+@media (min-width: 1024px) { .btn-outline { width: auto; } }
 .btn-outline:hover {
   border-color: var(--accent);
   color: var(--accent);

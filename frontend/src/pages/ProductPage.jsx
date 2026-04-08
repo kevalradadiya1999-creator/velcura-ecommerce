@@ -93,7 +93,7 @@ const ProductPage = () => {
     <div>
       {/* Breadcrumb */}
       <div style={{ background: 'var(--surface)', padding: '14px 32px', borderBottom: '1px solid var(--border)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '12px', color: 'var(--text-muted)' }}>
+        <div className="container" style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '12px', color: 'var(--text-muted)' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
           <span>/</span>
           <Link to="/shop" style={{ textDecoration: 'none', color: 'inherit' }}>Shop</Link>
@@ -297,7 +297,7 @@ const ProductPage = () => {
       {/* Reviews section */}
       {productReviews.length > 0 && (
         <section style={{ background: 'var(--surface)', padding: '80px 32px' }}>
-          <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div className="container">
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '32px', fontWeight: 600, color: 'var(--text)', marginBottom: '40px' }}>
               Customer Reviews
             </h2>
@@ -323,7 +323,7 @@ const ProductPage = () => {
 
       {/* Related products */}
       <section style={{ padding: '80px 32px', background: 'white' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div className="container">
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '32px', fontWeight: 600, marginBottom: '40px', textAlign: 'center' }}>
             Complete the Ritual
           </h2>

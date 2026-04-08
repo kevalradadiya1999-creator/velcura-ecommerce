@@ -76,6 +76,12 @@ const ProductCard = ({ product, variant = 'default' }) => {
             ))}
           </ul>
           
+          <div className="flex items-center gap-1.5 mb-5 text-[#C9A24A]">
+            <span className="text-[10px] font-semibold tracking-widest uppercase flex items-center gap-1 shadow-sm">
+              <span className="text-[12px] pb-[1px]">✦</span> Export Quality • Globally Compliant
+            </span>
+          </div>
+          
           <div className="flex flex-col md:flex-row md:items-center justify-between mt-auto gap-4">
             <div>
               <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--text)' }}>₹{product.price}</span>
@@ -130,6 +136,12 @@ const ProductCard = ({ product, variant = 'default' }) => {
         <p className="text-[11px] md:text-[12px] text-[#C9A24A] font-semibold mb-4 leading-tight">
           {product.mechanismLine}
         </p>
+        
+        <div className="flex items-center gap-1.5 mb-3 text-[#C9A24A]">
+          <span className="text-[9px] md:text-[8px] font-semibold tracking-widest uppercase flex items-center gap-1">
+            <span className="text-[10px] pb-[1px]">✦</span> Globally Compliant
+          </span>
+        </div>
         
         <div className="flex flex-col md:flex-row md:items-center justify-between mt-auto gap-3">
           <div>

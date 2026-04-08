@@ -38,13 +38,13 @@ const Shop = () => {
   return (
     <div>
       {/* Header */}
-      <section className="section-spacing text-center bg-[#0A192F]">
-        <div className="velcura-container">
+      <section className="section text-center bg-[#0A192F]">
+        <div className="container">
           <span className="section-label text-[#C9A24A] mx-auto">The Collection</span>
-          <h1 className="text-h1 text-[#FDFBF7] mb-4">
+          <h1 className="text-[#FDFBF7] mb-4">
             Shop Velcura
           </h1>
-          <p className="text-body text-[rgba(253,251,247,0.6)] max-w-[500px] mx-auto">
+          <p className="text-[rgba(253,251,247,0.6)] max-w-[500px] mx-auto">
             Every formula engineered with a purpose: real skincare ingredients for real skin.
           </p>
         </div>
@@ -52,7 +52,7 @@ const Shop = () => {
 
       {/* Filter bar */}
       <div className="bg-white border-b border-[var(--border)] sticky top-16 z-30">
-        <div className="velcura-container flex items-center gap-2 overflow-x-auto py-4">
+        <div className="container flex items-center gap-2 overflow-x-auto py-4">
           <Filter size={14} color="var(--text-muted)" className="flex-shrink-0" />
           {filters.map(f => (
             <button
@@ -82,9 +82,9 @@ const Shop = () => {
       </div>
 
       {/* Products grid */}
-      <section className="section-spacing bg-[var(--bg)]">
-        <div className="velcura-container">
-          <p className="text-body text-[var(--text-muted)] mb-8">
+      <section className="section bg-[var(--bg)]">
+        <div className="container">
+          <p className="text-[var(--text-muted)] mb-8">
             {filtered.length} product{filtered.length !== 1 ? 's' : ''}
           </p>
           <div className="velcura-grid">
@@ -94,15 +94,15 @@ const Shop = () => {
       </section>
 
       {/* 1. Bundles section */}
-      <section id="bundles" className="section-spacing bg-[var(--surface)] border-t border-[var(--border)]">
-        <div className="velcura-container">
+      <section id="bundles" className="section bg-[var(--surface)] border-t border-[var(--border)]">
+        <div className="container">
           <div className="text-center mb-10 lg:mb-16">
             <div className="flex items-center justify-center gap-4 mb-4">
               <div className="h-[1px] w-8 lg:w-12 bg-[var(--accent)]" />
               <span className="text-[10px] lg:text-[11px] font-semibold text-[var(--accent)] tracking-[0.2em] uppercase">Exclusive Offers</span>
               <div className="h-[1px] w-8 lg:w-12 bg-[var(--accent)]" />
             </div>
-            <h2 className="text-h2 text-[var(--text)]">
+            <h2 className="text-[var(--text)]">
               Build Your Skin Reset Routine & Save
             </h2>
           </div>
@@ -155,11 +155,11 @@ const Shop = () => {
       </section>
 
       {/* 2. Comparison Table */}
-      <section className="section-spacing bg-white border-t border-[var(--border)]">
-        <div className="velcura-container">
+      <section className="section bg-white border-t border-[var(--border)]">
+        <div className="container">
           <div className="max-w-[900px] mx-auto">
             <div className="text-center mb-10 lg:mb-16">
-              <h2 className="text-h2 text-[var(--text)]">
+              <h2 className="text-[var(--text)]">
                 Velcura vs. Regular Drugstore Wipes
               </h2>
             </div>
@@ -204,13 +204,13 @@ const Shop = () => {
       </section>
 
       {/* 3. Skin-Type Quiz */}
-      <section className="section-spacing bg-[var(--bg)] border-t border-[var(--border)]">
-        <div className="velcura-container">
+      <section className="section bg-[var(--bg)] border-t border-[var(--border)]">
+        <div className="container">
           <div className="text-center mb-10 lg:mb-16">
-            <h2 className="text-h2 text-[var(--text)] mb-4">
+            <h2 className="text-[var(--text)] mb-4">
               Not sure which wipe is best for you?
             </h2>
-            <p className="text-body text-[var(--text-muted)]">Take our diagnostic 30-second quiz to find your exact formula match.</p>
+            <p className="text-[var(--text-muted)]">Take our diagnostic 30-second quiz to find your exact formula match.</p>
           </div>
           
           <SkinQuiz />
@@ -218,12 +218,12 @@ const Shop = () => {
       </section>
 
       {/* 4. FAQ Section */}
-      <section className="section-spacing bg-[var(--surface)] border-t border-[var(--border)]">
-        <div className="velcura-container">
+      <section className="section bg-[var(--surface)] border-t border-[var(--border)]">
+        <div className="container">
           <div className="max-w-[800px] mx-auto">
             <div className="text-center mb-10 lg:mb-16">
               <span className="section-label mx-auto text-[#C9A24A]">Common Questions</span>
-              <h2 className="text-h2 text-[var(--text)]">
+              <h2 className="text-[var(--text)]">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -235,7 +235,7 @@ const Shop = () => {
                   <span style={{ color: 'var(--accent)' }}>Q.</span>
                   {faq.q}
                 </h3>
-                <p className="text-body text-[var(--text-muted)] pl-7">{faq.a}</p>
+                <p className="text-[var(--text-muted)] pl-7">{faq.a}</p>
               </div>
             ))}
           </div>
