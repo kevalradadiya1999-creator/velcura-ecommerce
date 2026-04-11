@@ -239,9 +239,21 @@ const ProductPage = () => {
               </button>
             </div>
 
-            <Link to="/shop#bundles" className="btn-outline" style={{ display: 'block', textAlign: 'center', marginBottom: '28px' }}>
-              Buy 2, Save 15% — View Bundles
-            </Link>
+            {/* Introductory Bundles */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}>
+              <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
+                <span>📦 <strong>Duo Pack</strong> (Any 2 variants)</span>
+                <span>₹579 <span style={{color: '#16a34a', fontWeight: 'bold'}}>(Save ₹19)</span></span>
+              </Link>
+              <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
+                <span>✨ <strong>Trio Pack</strong> (All 3 variants)</span>
+                <span>₹829 <span style={{color: '#16a34a', fontWeight: 'bold'}}>(Save ₹68 + Free Ship)</span></span>
+              </Link>
+              <Link to="/shop" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '4px', textDecoration: 'none', color: 'var(--text)' }}>
+                <span>🔄 <strong>Subscribe & Save</strong> (Monthly)</span>
+                <span>₹269/mo <span style={{color: '#16a34a', fontWeight: 'bold'}}>(10% Off)</span></span>
+              </Link>
+            </div>
 
             {/* Trust strip */}
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', padding: '16px', background: 'var(--surface)', borderRadius: '8px' }}>
