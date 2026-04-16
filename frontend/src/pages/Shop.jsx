@@ -4,6 +4,7 @@ import { Filter, ShoppingBag, Check, X } from 'lucide-react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import SkinQuiz from '../components/SkinQuiz';
+import SEOHead from '../components/SEOHead';
 
 const Shop = () => {
   const [filter, setFilter] = useState('all');
@@ -37,6 +38,11 @@ const Shop = () => {
 
   return (
     <div>
+      <SEOHead
+        title="Shop Velcura — Clinical Skincare Wipes for Every Skin Type"
+        description="Shop our range of clinical-grade makeup remover wipes. Oil Balance (Niacinamide), HydraGlow (Hyaluronic Acid), Calm Barrier (Ceramides). Free shipping on Trio Pack."
+        url="/shop"
+      />
       {/* Header */}
       <section className="section text-center bg-[#0A192F]">
         <div className="container">

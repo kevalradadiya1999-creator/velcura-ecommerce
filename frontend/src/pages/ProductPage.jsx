@@ -4,6 +4,7 @@ import { ArrowRight, Check, ChevronDown, Star } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
+import SEOHead from '../components/SEOHead';
 
 const ProductPage = () => {
   const { slug } = useParams();
@@ -91,6 +92,28 @@ const ProductPage = () => {
 
   return (
     <div>
+      <SEOHead
+        title={`${product.fullName} — Velcura | ${product.skinType}`}
+        description={product.shortDesc + ` Key active: ${product.keyIngredient}. Alcohol-free, pH-balanced. ₹${product.price} for 30 wipes.`}
+        url={`/product/${product.slug}`}
+        type="product"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": product.fullName,
+          "description": product.description,
+          "brand": { "@type": "Brand", "name": "Velcura Hygiene" },
+          "image": `https://velcurahygiene.in${product.image}`,
+          "sku": product.id,
+          "offers": {
+            "@type": "Offer",
+            "price": product.price,
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": `https://velcurahygiene.in/product/${product.slug}`,
+          },
+        }}
+      />
       {/* Breadcrumb */}
       <div style={{ background: 'var(--surface)', padding: '14px 32px', borderBottom: '1px solid var(--border)' }}>
         <div className="container" style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '12px', color: 'var(--text-muted)' }}>
@@ -130,6 +153,9 @@ const ProductPage = () => {
               <img
                 src={product.image}
                 alt={product.fullName}
+                loading="lazy"
+                width="400"
+                height="380"
                 style={{ maxWidth: '80%', maxHeight: '380px', objectFit: 'contain', filter: 'drop-shadow(0 20px 40px rgba(10,25,47,0.15))' }}
               />
             </div>

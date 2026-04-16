@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
 
 const About = () => {
   const values = [
@@ -10,6 +11,11 @@ const About = () => {
 
   return (
     <div>
+      <SEOHead
+        title="Our Story — Velcura Hygiene Pvt Ltd"
+        description="Velcura was born from the belief that skincare and convenience should never be a trade-off. Learn how a team of skin science enthusiasts built India's most clinical face wipe brand."
+        url="/about"
+      />
       {/* Header */}
       <section className="section text-center relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0A192F 0%, #0D2440 100%)' }}>
         {[0, 1, 2].map(i => (

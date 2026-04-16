@@ -4,6 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Shield, Droplets, Sun, Leaf, Bad
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
+import SEOHead from '../components/SEOHead';
 
 /* ── Small reusable animation hook ── */
 const useInview = (threshold = 0.15) => {
@@ -65,6 +66,20 @@ const Home = () => {
 
   return (
     <div style={{ overflowX: 'hidden' }}>
+      <SEOHead
+        title="Velcura — Skincare Science Meets Everyday Cleansing"
+        description="Premium clinical-grade makeup remover wipes with 4% Niacinamide, Hyaluronic Acid & Ceramides. Made for Oily, Dry & Sensitive Indian skin. Shop now at ₹299."
+        url="/"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Velcura Hygiene Pvt Ltd",
+          "url": "https://velcurahygiene.in",
+          "description": "Premium clinical-grade skincare wipes for every skin type.",
+          "foundingDate": "2026",
+          "address": { "@type": "PostalAddress", "addressLocality": "Ahmedabad", "addressCountry": "IN" },
+        }}
+      />
 
       {/* ────────────── HERO ────────────── */}
       <section
