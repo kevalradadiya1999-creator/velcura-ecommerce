@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Shield, Droplets, Sun, Leaf, BadgeCheck, Feather, Fingerprint, Gem, ShoppingBag } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
 import SEOHead from '../components/SEOHead';
+import NewsletterBanner from '../components/NewsletterBanner';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 
 /* ── Small reusable animation hook ── */
 const useInview = (threshold = 0.15) => {
@@ -64,8 +67,16 @@ const Home = () => {
     }
   }, [reviews.length]);
 
+  const { items: recentlyViewed } = useRecentlyViewed();
+
   return (
-    <div style={{ overflowX: 'hidden' }}>
+    <motion.div
+      style={{ overflowX: 'hidden' }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
       <SEOHead
         title="Velcura — Skincare Science Meets Everyday Cleansing"
         description="Premium clinical-grade makeup remover wipes with 4% Niacinamide, Hyaluronic Acid & Ceramides. Made for Oily, Dry & Sensitive Indian skin. Shop now at ₹299."
@@ -770,7 +781,25 @@ const Home = () => {
           100% { background-position: 200% 200%; }
         }
       `}</style>
-    </div>
+
+      {/* Newsletter Banner */}
+      <NewsletterBanner />
+
+      {/* Recently Viewed */}
+      {recentlyViewed.length > 0 && (
+        <section style={{ padding: '64px 32px', background: 'white' }}>
+          <div className="container">
+            <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '8px' }}>Your History</p>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 600, color: '#0A192F', marginBottom: '32px' }}>
+              Recently Viewed
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px' }}>
+              {recentlyViewed.map(p => <ProductCard key={p.id} product={p} />)}
+            </div>
+          </div>
+        </section>
+      )}
+    </motion.div>
   );
 };
 

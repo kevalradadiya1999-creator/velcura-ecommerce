@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, ShoppingBag, Check, X } from 'lucide-react';
 import { products } from '../data/products';
@@ -8,6 +8,7 @@ import SEOHead from '../components/SEOHead';
 
 const Shop = () => {
   const [filter, setFilter] = useState('all');
+  const [sort, setSort] = useState('featured');
 
   const filters = [
     { id: 'all', label: 'All Products' },
@@ -16,9 +17,13 @@ const Shop = () => {
     { id: 'sensitive', label: 'Sensitive Skin' },
   ];
 
-  const filtered = filter === 'all'
-    ? products
-    : products.filter(p => p.tags.includes(filter));
+  const filtered = useMemo(() => {
+    let result = filter === 'all' ? [...products] : products.filter(p => p.tags.includes(filter));
+    if (sort === 'price-asc') result.sort((a, b) => a.price - b.price);
+    else if (sort === 'price-desc') result.sort((a, b) => b.price - a.price);
+    else if (sort === 'newest') result = [...result].reverse();
+    return result;
+  }, [filter, sort]);
 
   // Bundle packs
   const bundles = [
@@ -56,9 +61,9 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Filter bar */}
+      {/* Filter + Sort bar */}
       <div className="bg-white border-b border-[var(--border)] sticky top-16 z-30">
-        <div className="container flex items-center gap-2 overflow-x-auto py-4">
+        <div className="container flex items-center gap-2 overflow-x-auto py-3" style={{ flexWrap: 'wrap' }}>
           <Filter size={14} color="var(--text-muted)" className="flex-shrink-0" />
           {filters.map(f => (
             <button
@@ -69,14 +74,14 @@ const Shop = () => {
                 background: filter === f.id ? 'var(--text)' : 'transparent',
                 color: filter === f.id ? 'white' : 'var(--text-muted)',
                 border: `1px solid ${filter === f.id ? 'var(--text)' : 'var(--border)'}`,
-                padding: '8px 20px',
+                padding: '7px 18px',
                 fontSize: '12px',
                 fontFamily: 'Inter, sans-serif',
                 fontWeight: 600,
-                letterSpacing: '0.1em',
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 cursor: 'pointer',
-                borderRadius: '12px',
+                borderRadius: '999px',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.2s',
               }}
@@ -84,16 +89,39 @@ const Shop = () => {
               {f.label}
             </button>
           ))}
+          <div style={{ marginLeft: 'auto', flexShrink: 0 }}>
+            <select
+              id="sort-select"
+              value={sort}
+              onChange={e => setSort(e.target.value)}
+              style={{
+                border: '1px solid var(--border)',
+                borderRadius: '8px',
+                padding: '7px 12px',
+                fontSize: '12px',
+                fontFamily: 'Inter, sans-serif',
+                color: 'var(--text-muted)',
+                background: 'white',
+                cursor: 'pointer',
+                outline: 'none',
+              }}
+            >
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Products grid */}
       <section className="section bg-[var(--bg)]">
         <div className="container">
-          <p className="text-[var(--text-muted)] mb-8">
-            {filtered.length} product{filtered.length !== 1 ? 's' : ''}
+          <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '24px' }}>
+            Showing <strong>{filtered.length}</strong> of <strong>{products.length}</strong> products
           </p>
-          <div className="velcura-grid">
+          <div className="velcura-grid" style={{ opacity: 1, transition: 'opacity 0.25s ease' }}>
             {filtered.map(p => <ProductCard key={p.id} product={p} variant="featured" />)}
           </div>
         </div>

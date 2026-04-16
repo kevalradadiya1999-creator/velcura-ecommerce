@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { ShoppingBag, Search, User, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, User, Menu, X, Heart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useWishlistContext } from '../context/WishlistContext';
 import CartDrawer from './CartDrawer';
 import AnnouncementBanner from './AnnouncementBanner';
 
@@ -20,6 +21,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { count, isOpen, setIsOpen } = useCart();
+  const { count: wishlistCount } = useWishlistContext();
   const searchRef = useRef(null);
 
   useEffect(() => {
@@ -129,6 +131,21 @@ const Navbar = () => {
             >
               <User size={19} strokeWidth={1.5} />
             </button>
+
+            {/* Wishlist */}
+            <Link
+              id="wishlist-btn"
+              to="/wishlist"
+              className="hidden md:flex"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text)', position: 'relative', transition: 'color 0.2s', textDecoration: 'none' }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
+            >
+              <Heart size={19} strokeWidth={1.5} />
+              {wishlistCount > 0 && (
+                <span className="cart-badge" style={{ background: '#ef4444' }}>{wishlistCount}</span>
+              )}
+            </Link>
 
             {/* Cart */}
             <button

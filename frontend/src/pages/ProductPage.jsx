@@ -1,17 +1,24 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, Check, ChevronDown, Star } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
 import SEOHead from '../components/SEOHead';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 
 const ProductPage = () => {
   const { slug } = useParams();
   const { addItem } = useCart();
+  const { addItem: saveToRecent } = useRecentlyViewed();
   const product = products.find(p => p.slug === slug);
   const [qty, setQty] = useState(1);
   const [openSection, setOpenSection] = useState('benefits');
+
+  // Save to recently viewed when product loads
+  useEffect(() => {
+    if (product) saveToRecent(product);
+  }, [product?.slug]);
 
   if (!product) {
     return (
@@ -159,7 +166,8 @@ const ProductPage = () => {
         >
           {/* Left: Images */}
           <div>
-            <div style={{
+            <div
+            style={{
               borderRadius: '16px',
               overflow: 'hidden',
               background: product.bgColor,
@@ -169,16 +177,20 @@ const ProductPage = () => {
               justifyContent: 'center',
               marginBottom: '16px',
               minHeight: '500px',
-            }}>
-              <img
-                src={product.image}
-                alt={product.fullName}
-                loading="lazy"
-                width="400"
-                height="380"
-                style={{ maxWidth: '80%', maxHeight: '380px', objectFit: 'contain', filter: 'drop-shadow(0 20px 40px rgba(10,25,47,0.15))' }}
-              />
-            </div>
+              cursor: 'zoom-in',
+            }}
+            onMouseEnter={e => e.currentTarget.querySelector('img').style.transform = 'scale(1.08)'}
+            onMouseLeave={e => e.currentTarget.querySelector('img').style.transform = 'scale(1)'}
+          >
+            <img
+              src={product.image}
+              alt={product.fullName}
+              loading="lazy"
+              width="400"
+              height="380"
+              style={{ maxWidth: '80%', maxHeight: '380px', objectFit: 'contain', filter: 'drop-shadow(0 20px 40px rgba(10,25,47,0.15))', transition: 'transform 0.4s ease' }}
+            />
+          </div>
             {/* Thumbnail row */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
               {[product, ...related.slice(0, 2)].map((p, i) => (
