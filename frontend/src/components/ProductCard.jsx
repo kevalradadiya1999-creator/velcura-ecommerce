@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Star, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 import { useCart } from '../context/CartContext';
 import { useWishlistContext } from '../context/WishlistContext';
 
@@ -19,8 +21,12 @@ const ProductCard = ({ product, variant = 'default' }) => {
 
   if (variant === 'featured') {
     return (
-      <div id={`product-card-${product.id}`}
+      <motion.div
+        id={`product-card-${product.id}`}
         className="card-lift bg-white border border-[var(--border)] rounded-xl overflow-hidden flex flex-col relative w-full"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2 }}
+        style={{ position: 'relative' }}
       >
         {product.badge && (
           <div style={{ position: 'absolute', top: '16px', left: '16px', zIndex: 2, background: 'var(--text)', color: 'white', fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 10px' }}>
@@ -45,9 +51,30 @@ const ProductCard = ({ product, variant = 'default' }) => {
           <Heart size={16} fill={wishlisted ? '#ef4444' : 'none'} color={wishlisted ? '#ef4444' : '#9CA3AF'} />
         </button>
 
-        <Link to={`/product/${product.slug}`} className="block w-full">
-          <div className="product-img-wrap h-[240px] md:h-[280px] w-full" style={{ background: product.bgColor }}>
+        <Link to={`/product/${product.slug}`} className="block w-full" style={{ position: 'relative' }}>
+          <div className="product-img-wrap h-[240px] md:h-[280px] w-full" style={{ background: product.bgColor, position: 'relative', overflow: 'hidden' }}>
             <img src={product.image} alt={product.fullName} className="w-full h-full object-cover" loading="lazy" />
+            {/* Quick-add overlay */}
+            <div
+              className="quick-add-overlay"
+              onClick={e => { e.preventDefault(); e.stopPropagation(); addItem(product, 1); toast.success(`${product.name} added to cart!`); }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Quick add ${product.name} to cart`}
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addItem(product, 1); } }}
+              style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                background: 'rgba(10,25,47,0.85)', color: 'white',
+                textAlign: 'center', padding: '10px', fontSize: '13px',
+                fontWeight: 500, letterSpacing: '0.5px', cursor: 'pointer',
+                opacity: 0, transition: 'opacity 0.2s ease',
+                fontFamily: 'Inter, sans-serif',
+              }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '0'}
+            >
+              + Quick Add
+            </div>
           </div>
         </Link>
 
@@ -98,15 +125,18 @@ const ProductCard = ({ product, variant = 'default' }) => {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   // Default smaller card
   return (
-    <div id={`product-card-${product.id}`}
+    <motion.div
+      id={`product-card-${product.id}`}
       className="card-lift bg-white border border-[var(--border)] rounded-xl overflow-hidden flex flex-col w-full h-full"
       style={{ position: 'relative' }}
+      whileHover={{ y: -3 }}
+      transition={{ duration: 0.2 }}
     >
       {/* Wishlist heart */}
       <button
@@ -126,8 +156,19 @@ const ProductCard = ({ product, variant = 'default' }) => {
       </button>
 
       <Link to={`/product/${product.slug}`} className="block w-full">
-        <div className="product-img-wrap h-[200px] md:h-[220px] w-full" style={{ background: product.bgColor }}>
+        <div className="product-img-wrap h-[200px] md:h-[220px] w-full" style={{ background: product.bgColor, position: 'relative', overflow: 'hidden' }}>
           <img src={product.image} alt={product.fullName} className="w-full h-full object-cover" loading="lazy" />
+          <div
+            className="quick-add-overlay"
+            onClick={e => { e.preventDefault(); e.stopPropagation(); addItem(product, 1); toast.success(`${product.name} added to cart!`); }}
+            role="button" tabIndex={0}
+            aria-label={`Quick add ${product.name} to cart`}
+            style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(10,25,47,0.85)', color: 'white', textAlign: 'center', padding: '8px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', opacity: 0, transition: 'opacity 0.2s ease', fontFamily: 'Inter, sans-serif' }}
+            onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+            onMouseLeave={e => e.currentTarget.style.opacity = '0'}
+          >
+            + Quick Add
+          </div>
         </div>
       </Link>
       <div className="p-4 md:p-5 flex flex-col flex-1">
@@ -162,7 +203,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

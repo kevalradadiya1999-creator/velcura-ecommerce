@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, ShoppingBag, Check, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import SkinQuiz from '../components/SkinQuiz';
@@ -122,7 +123,19 @@ const Shop = () => {
             Showing <strong>{filtered.length}</strong> of <strong>{products.length}</strong> products
           </p>
           <div className="velcura-grid" style={{ opacity: 1, transition: 'opacity 0.25s ease' }}>
-            {filtered.map(p => <ProductCard key={p.id} product={p} variant="featured" />)}
+            <AnimatePresence mode="popLayout">
+              {filtered.map((p, index) => (
+                <motion.div
+                  key={p.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
+                  <ProductCard product={p} variant="featured" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
       </section>

@@ -157,7 +157,7 @@ const CartDrawer = () => {
               Taxes and shipping calculated at checkout
             </p>
             <Link
-              to="/checkout"
+              to="/order-confirmation"
               id="checkout-btn"
               onClick={() => setIsOpen(false)}
               className="btn-primary"
