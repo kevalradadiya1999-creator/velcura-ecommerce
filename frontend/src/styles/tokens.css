@@ -1,0 +1,80 @@
+/* =============================================
+   VELCURA DESIGN SYSTEM — CSS TOKENS
+   Import this before index.css in main.jsx
+   ============================================= */
+
+:root {
+  /* Colors */
+  --color-primary: #0A192F;
+  --color-accent: #C9A24A;
+  --color-accent-teal: #2D7D77;
+  --color-background: #FDFBF7;
+  --color-surface: #FFFFFF;
+  --color-warm-beige: #F0ECE4;
+  --color-navy: #0A192F;
+  --color-gold: #C9A24A;
+  --color-gold-light: rgba(201, 162, 74, 0.12);
+
+  /* Text */
+  --color-text: #1A1A2E;
+  --color-text-muted: #6B7280;
+  --color-text-subtle: #9CA3AF;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'DM Sans', 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* Border radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(10, 25, 47, 0.10);
+  --shadow-lg: 0 8px 40px rgba(10, 25, 47, 0.14);
+  --shadow-gold: 0 4px 15px rgba(201, 162, 74, 0.20);
+
+  /* Spacing scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-xl: 64px;
+  --spacing-2xl: 128px;
+
+  /* Borders */
+  --border-color: rgba(10, 25, 47, 0.08);
+  --border: 1px solid rgba(10, 25, 47, 0.08);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* Apply font-body to body globally */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apply font-heading to all headings */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+}

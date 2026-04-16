@@ -88,6 +88,26 @@ const ProductPage = () => {
         </div>
       ),
     },
+    {
+      id: 'shipping',
+      title: 'Shipping & Returns',
+      content: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {[
+            { icon: '🚚', label: 'Free shipping on Trio Pack & orders above ₹999' },
+            { icon: '⚡', label: 'Express delivery available at checkout (1–3 days)' },
+            { icon: '↩️', label: 'Easy 7-day returns on all unopened products' },
+            { icon: '📦', label: 'Ships from Ahmedabad within 24 hours of order' },
+            { icon: '🔒', label: 'Tamper-proof sealed packaging guaranteed' },
+          ].map(item => (
+            <div key={item.label} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.5' }}>
+              <span style={{ flexShrink: 0 }}>{item.icon}</span>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -359,13 +379,17 @@ const ProductPage = () => {
         </section>
       )}
 
-      {/* Related products */}
-      <section style={{ padding: '80px 32px', background: 'white' }}>
+      {/* You May Also Like */}
+      <section style={{ padding: '80px 32px', background: 'var(--color-warm-beige, #F0ECE4)' }}>
         <div className="container">
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '32px', fontWeight: 600, marginBottom: '40px', textAlign: 'center' }}>
-            Complete the Ritual
+          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)', textAlign: 'center', marginBottom: '8px' }}>Complete Your Ritual</p>
+          <h2 style={{ fontFamily: "var(--font-heading, 'Playfair Display', serif)", fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 600, marginBottom: '12px', textAlign: 'center', color: 'var(--color-primary, #0A192F)' }}>
+            You May Also Like
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '40px', fontSize: '14px' }}>
+            Each Velcura formula targets a different skin need — try them all.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', maxWidth: '900px', margin: '0 auto' }}>
             {related.map(p => <ProductCard key={p.id} product={p} variant="featured" />)}
           </div>
         </div>
