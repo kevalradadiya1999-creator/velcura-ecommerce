@@ -4,6 +4,7 @@ import { ArrowRight, Check, ChevronDown, Star } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import StarRating from '../components/StarRating';
+import ReviewsSection from '../components/ReviewsSection';
 import { useCart } from '../context/CartContext';
 import SEOHead from '../components/SEOHead';
 import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
@@ -463,6 +464,9 @@ const ProductPage = () => {
           </div>
         </section>
       )}
+
+      {/* Reviews */}
+      <ReviewsSection reviews={Array.isArray(product.reviews) ? product.reviews : []} />
 
       {/* You May Also Like */}
       <section style={{ padding: '80px 32px', background: 'var(--color-warm-beige, #F0ECE4)' }}>

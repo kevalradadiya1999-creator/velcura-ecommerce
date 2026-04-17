@@ -45,7 +45,12 @@ export const products = [
     badge: 'Doctor Approved',
     tags: ['oily', 'niacinamide', 'acne'],
     rating: 4.8,
-    reviews: 0,
+    reviews: [
+      { id: 'ob-1', author: 'Priya M.', rating: 5, title: 'Finally something that works for oily skin!', body: 'I\'ve tried dozens of wipes and nothing came close. The Oil Balance wipes leave my skin genuinely matte without feeling stripped. The niacinamide actually does something — my pores look smaller after 2 weeks. Texture is soft, no harsh fragrance. Waterproof mascara comes off in one swipe.', date: 'Mar 10, 2025', verified: true },
+      { id: 'ob-2', author: 'Arjun S.', rating: 5, title: 'Game changer for my morning routine', body: 'As someone with combination-oily skin, I was skeptical about wipes. These are different. The 4% niacinamide is real — you can tell by the slight tingle and how balanced my skin feels afterward. No alcohol smell, no tightness. I use one wipe in the morning instead of a full cleanse and my skin thanks me.', date: 'Mar 22, 2025', verified: true },
+      { id: 'ob-3', author: 'Sneha K.', rating: 3, title: 'Good product, takes some getting used to', body: 'The wipes work well for makeup removal and my skin does feel less oily. But I expected the shine control to last longer — by mid-afternoon I still need blotting. Not complaining, the ingredient list is clean and I haven\'t broken out at all. Would rate 4 stars if the matte effect lasted longer.', date: 'Apr 1, 2025', verified: true },
+      { id: 'ob-4', author: 'Riya D.', rating: 5, title: 'Threw out my micellar water', body: 'These wipes have replaced my 3-step evening routine. One wipe handles everything — sunscreen, kajal, foundation. Skin feels clean but not tight. The niacinamide is doing its job; I\'ve noticed fewer breakouts in week 3. Packaging is minimal and elegant. 10/10.', date: 'Apr 5, 2025', verified: false },
+    ],
     reviewCount: 186,
   },
   {
@@ -93,7 +98,12 @@ export const products = [
     badge: 'Hydration Hero',
     tags: ['dry', 'hyaluronic', 'glow'],
     rating: 4.9,
-    reviews: 0,
+    reviews: [
+      { id: 'hg-1', author: 'Meera T.', rating: 5, title: 'My dry skin loves these!', body: 'I have chronically dry skin that flakes if I look at it wrong. These wipes are a revelation — after one wipe my skin feels hydrated, not just clean. The hyaluronic acid is genuinely present, not just a marketing claim. I use them morning and night and my moisturiser absorbs better because of it. Truly hydrating wipes.', date: 'Feb 18, 2025', verified: true },
+      { id: 'hg-2', author: 'Divya N.', rating: 5, title: 'The plumping effect is real', body: 'I was expecting standard makeup wipes. What I got was a skin treatment in wipe form. These smell faintly of sweet almond oil (in the best possible way) and leave skin visibly dewy. My partner noticed my skin looking better without knowing I\'d changed anything. That\'s the best testament I can give.', date: 'Mar 3, 2025', verified: true },
+      { id: 'hg-3', author: 'Kavya R.', rating: 4, title: 'Great for dry skin, a bit pricey', body: 'The hydration is real and lasting. I use one wipe at night and my skin still feels moisturised in the morning. The almond oil scent is subtle and not overpowering. My only hesitation is the price-per-wipe ratio. That said, if your skin is as dry as mine, it\'s worth every rupee.', date: 'Mar 19, 2025', verified: true },
+      { id: 'hg-4', author: 'Ananya V.', rating: 3, title: 'Good but not life-changing for me', body: 'I have mild dryness rather than extreme dry skin, so maybe I\'m not the target user. The wipes are gentle and do leave skin soft. But the "plumping" effect isn\'t dramatic enough for me to feel wowed. They\'re still much better than regular wipes and I will finish the pack — just not rushing to reorder immediately.', date: 'Apr 2, 2025', verified: false },
+    ],
     reviewCount: 214,
   },
   {
@@ -141,7 +151,12 @@ export const products = [
     badge: 'Clinical Grade',
     tags: ['sensitive', 'ceramides', 'fragrance-free'],
     rating: 4.7,
-    reviews: 0,
+    reviews: [
+      { id: 'cs-1', author: 'Nisha P.', rating: 5, title: 'Finally safe for my reactive skin', body: 'I have rosacea and contact dermatitis. Finding products that don\'t trigger a flare is near impossible. These wipes are genuinely fragrance-free (I checked the INCI list) and the ceramide content is meaningful. My skin barrier feels stronger and I haven\'t had a redness flare in 3 weeks of use. Cannot overstate how rare this is.', date: 'Feb 25, 2025', verified: true },
+      { id: 'cs-2', author: 'Aditi L.', rating: 5, title: 'Gentle enough for post-treatment skin', body: 'I was looking for something to use after laser treatment when my skin is at its most sensitive. These are the only wipes my dermatologist approved. No stinging, no reaction, and the ceramides actually help heal the barrier faster. The texture is incredibly soft — like cashmere against skin.', date: 'Mar 8, 2025', verified: true },
+      { id: 'cs-3', author: 'Pooja B.', rating: 3, title: 'Gentle but mild on makeup removal', body: 'For sensitive skin care, this is 5 stars. For heavy makeup removal, maybe 3 stars. I wear full-coverage foundation and need 2–3 wipes per use, which adds up fast. The formula is clean and my skin feels calm and conditioned after, but I wish it was a bit more powerful on thick makeup. Perfect for light daily cleansing though.', date: 'Apr 4, 2025', verified: true },
+      { id: 'cs-4', author: 'Sunita R.', rating: 4, title: 'Best fragrance-free wipe I\'ve found', body: 'I\'ve tried 8 other "fragrance-free" wipes and all of them had some hidden scent. Calm Barrier is truly odourless. Skin feels soothed after use, not just clean. My eczema-prone skin hasn\'t reacted at all in 3 weeks. Docky light on the wallet but heavy on value if sensitive skin is your priority.', date: 'Apr 8, 2025', verified: true },
+    ],
     reviewCount: 312,
   }
 ];

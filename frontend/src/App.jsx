@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
@@ -7,6 +7,8 @@ import { WishlistProvider } from './context/WishlistContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import BackToTop from './components/BackToTop';
 import ScrollToTop from './components/ScrollToTop';
+import PromoBanner from './components/PromoBanner';
+import SplashScreen from './components/SplashScreen';
 import Layout from './components/Layout';
 
 const Home             = lazy(() => import('./pages/Home'));
@@ -21,6 +23,7 @@ const Success          = lazy(() => import('./pages/Success'));
 const Export           = lazy(() => import('./pages/Export'));
 const Wishlist         = lazy(() => import('./pages/Wishlist'));
 const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
+const NotFound         = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
   <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -50,6 +53,7 @@ const AnimatedRoutes = () => {
           <Route path="export" element={<Export />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="order-confirmation" element={<OrderConfirmation />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </AnimatePresence>
@@ -57,9 +61,13 @@ const AnimatedRoutes = () => {
 };
 
 function App() {
+  const [splashDone, setSplashDone] = useState(false);
+
   return (
     <CartProvider>
       <WishlistProvider>
+        {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
+        <PromoBanner />
         <Router>
           <ScrollToTop />
           <ErrorBoundary>

@@ -289,14 +289,15 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile drawer */}
+        {/* Mobile drawer — slides down from Navbar */}
         {mobileOpen && (
           <div style={{
             position: 'absolute', top: '100%', left: 0, right: 0,
             background: '#FDFBF7', borderTop: '1px solid var(--border)',
-            padding: '8px 0 24px', animation: 'fadeUp 0.3s ease',
+            padding: '8px 0 24px',
             boxShadow: '0 8px 30px rgba(10,25,47,0.08)',
             maxHeight: '90vh', overflowY: 'auto',
+            animation: 'fadeUp 0.25s ease',
           }}>
             <nav role="navigation" aria-label="Mobile navigation">
               {navLinks.map(l => (
@@ -307,26 +308,50 @@ const Navbar = () => {
                   onClick={() => setMobileOpen(false)}
                   style={({ isActive }) => ({
                     fontFamily: 'Inter, sans-serif', fontSize: '15px',
-                    fontWeight: isActive ? 700 : 500, letterSpacing: '0.08em',
-                    color: isActive ? 'var(--accent)' : 'var(--text)',
+                    fontWeight: isActive ? 600 : 500, letterSpacing: '0.06em',
+                    color: isActive ? '#0A192F' : 'var(--text)',
                     textDecoration: 'none', textTransform: 'uppercase',
-                    padding: '18px 24px', borderBottom: '1px solid rgba(10,25,47,0.06)',
+                    padding: '16px 24px', borderBottom: '1px solid rgba(10,25,47,0.05)',
                     display: 'block',
+                    borderLeft: isActive ? '3px solid #0A192F' : '3px solid transparent',
+                    paddingLeft: isActive ? '21px' : '24px',
+                    transition: 'border-color 0.2s, color 0.2s',
+                    background: isActive ? 'rgba(10,25,47,0.03)' : 'transparent',
                   })}
                 >
                   {l.label}
                 </NavLink>
               ))}
+            </nav>
+
+            {/* Divider */}
+            <div style={{ borderTop: '0.5px solid #eee', margin: '8px 0' }} />
+
+            {/* Cart & Wishlist summary rows */}
+            <div style={{ padding: '0 0 8px' }}>
+              <button
+                onClick={() => { setIsOpen(true); setMobileOpen(false); }}
+                style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 24px', fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'var(--text)', fontWeight: 500 }}
+              >
+                <span>🛒 Cart</span>
+                <span style={{ background: count > 0 ? '#0A192F' : '#F3F4F6', color: count > 0 ? 'white' : '#9CA3AF', borderRadius: '12px', padding: '2px 10px', fontSize: '12px', fontWeight: 700 }}>
+                  {count > 0 ? `${count} items` : 'Empty'}
+                </span>
+              </button>
               <NavLink
                 to="/wishlist"
                 onClick={() => setMobileOpen(false)}
-                style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', fontWeight: 500, letterSpacing: '0.08em', color: 'var(--text)', textDecoration: 'none', textTransform: 'uppercase', padding: '18px 24px', borderBottom: '1px solid rgba(10,25,47,0.06)', display: 'flex', alignItems: 'center', gap: '8px' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 24px', fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'var(--text)', fontWeight: 500, textDecoration: 'none' }}
               >
-                <Heart size={15} />
-                Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
+                <span>♡ Wishlist</span>
+                <span style={{ background: wishlistCount > 0 ? '#ef4444' : '#F3F4F6', color: wishlistCount > 0 ? 'white' : '#9CA3AF', borderRadius: '12px', padding: '2px 10px', fontSize: '12px', fontWeight: 700 }}>
+                  {wishlistCount > 0 ? `${wishlistCount} items` : 'Empty'}
+                </span>
               </NavLink>
-            </nav>
-            <div style={{ padding: '16px 24px 0' }}>
+            </div>
+
+            {/* Export CTA */}
+            <div style={{ padding: '8px 24px 0' }}>
               <Link
                 to="/export"
                 onClick={() => setMobileOpen(false)}

@@ -1,0 +1,14 @@
+{
+  "name": "Velcura Hygiene",
+  "short_name": "Velcura",
+  "description": "Skincare Science Meets Everyday Cleansing",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#0A192F",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/velcura-logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/velcura-logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
