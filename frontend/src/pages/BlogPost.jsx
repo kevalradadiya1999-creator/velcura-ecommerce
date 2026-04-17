@@ -1,0 +1,92 @@
+import { useParams, Link, Navigate } from 'react-router-dom';
+import SEOHead from '../components/SEOHead';
+import { ArrowLeft } from 'lucide-react';
+import { blogPosts } from './Blog';
+
+const BlogPost = () => {
+  const { slug } = useParams();
+  const post = blogPosts.find(p => p.slug === slug);
+
+  if (!post) {
+    return <Navigate to="/journal" />;
+  }
+
+  const otherPosts = blogPosts.filter(p => p.id !== post.id).slice(0, 3);
+
+  return (
+    <div style={{ background: '#FDFBF7', minHeight: '100vh', paddingBottom: '100px' }}>
+      <SEOHead title={`${post.title} | Velcura Journal`} />
+      
+      <div style={{ width: '100%', height: '50vh', position: 'relative' }}>
+        <img src={post.coverImage} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(10,25,47,0.8))' }} />
+        <div className="container" style={{ position: 'absolute', bottom: '40px', left: '0', right: '0' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <Link to="/journal" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.8)', fontSize: '13px', textDecoration: 'none', marginBottom: '24px' }}>
+              <ArrowLeft size={16} /> Back to Journal
+            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px', color: 'rgba(255,255,255,0.8)', fontSize: '12px' }}>
+              <span style={{ background: 'var(--accent)', color: 'white', padding: '4px 12px', borderRadius: '999px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                {post.category}
+              </span>
+              <span>{post.date}</span>
+              <span>•</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 5vw, 48px)', color: 'white', lineHeight: 1.2, marginBottom: '16px' }}>
+              {post.title}
+            </h1>
+            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>By {post.author}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="container" style={{ maxWidth: '800px', paddingTop: '60px' }}>
+        <div className="blog-content" style={{ fontSize: '16px', color: '#4B5563', lineHeight: 1.8 }}>
+          <p style={{ marginBottom: '24px', fontSize: '18px', color: '#0A192F', fontWeight: 500 }}>
+            {post.excerpt}
+          </p>
+          <p style={{ marginBottom: '24px' }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+          </p>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', color: '#0A192F', marginTop: '40px', marginBottom: '16px' }}>
+            The Clinical Perspective
+          </h3>
+          <p style={{ marginBottom: '24px' }}>
+            Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Eleifend aliquet. Mauris mollis feugiat erat, nec imperdiet dui vulputate vulputate. Morbi at tellus at ipsum posuere imperdiet. Nullam tempor, elit auctor egestas ultrices.
+          </p>
+          <blockquote style={{ borderLeft: '4px solid #C9A24A', paddingLeft: '20px', fontStyle: 'italic', fontSize: '18px', color: '#0A192F', margin: '40px 0' }}>
+            "Understanding how ingredients interact with your lipid barrier is the difference between surviving your routine and thriving in it."
+          </blockquote>
+          <p style={{ marginBottom: '24px' }}>
+            Aliquam id nisi id nisl ullamcorper finibus. Vestibulum suscipit mi nisl, vitae egestas risus aliquet et. Vivamus eleifend dolor in risus congue, hendrerit gravida nunc feugiat. Sed et egestas elit, id rutrum felis. Duis consequat convallis congue. Curabitur sed sapien at nisl efficitur viverra non vitae diam.
+          </p>
+          <p style={{ marginBottom: '24px' }}>
+            Phasellus aliquet, urna in pretium luctus, risus dolor posuere est, non bibendum ligula nulla suscipit nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
+          </p>
+        </div>
+
+        <div style={{ marginTop: '80px', paddingTop: '60px', borderTop: '1px solid #eee' }}>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', color: '#0A192F', marginBottom: '32px' }}>
+            More from the Journal
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '24px' }}>
+            {otherPosts.map(p => (
+              <Link key={p.id} to={`/journal/${p.slug}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
+                <img src={p.coverImage} alt={p.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px', marginBottom: '12px' }} />
+                <span style={{ fontSize: '10px', fontWeight: 700, color: '#C9A24A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
+                  {p.category}
+                </span>
+                <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: '16px', color: '#0A192F', lineHeight: 1.3 }}>
+                  {p.title}
+                </h4>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlogPost;

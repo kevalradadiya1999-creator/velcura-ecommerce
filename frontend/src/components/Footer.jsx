@@ -19,6 +19,7 @@ const Footer = () => {
       title: 'Learn',
       links: [
         { label: 'Ingredient Science', to: '/ingredients' },
+        { label: 'Journal', to: '/journal' },
         { label: 'Brand Story', to: '/about' },
         { label: 'FAQ', to: '/faq' },
         { label: 'Skin Type Guide', to: '/faq#skin-type' },
@@ -29,7 +30,7 @@ const Footer = () => {
       title: 'Support',
       links: [
         { label: 'Contact Us', to: '/contact' },
-        { label: 'Order Tracking', to: '/contact#tracking' },
+        { label: 'Order Tracking', to: '/track-order' },
         { label: 'Returns Policy', to: '/faq#returns' },
         { label: 'Shipping Info', to: '/faq#shipping' },
         { label: 'Email: velcura60@gmail.com', to: 'mailto:velcura60@gmail.com', external: true },

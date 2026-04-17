@@ -13,6 +13,8 @@ import SplashScreen from './components/SplashScreen';
 import Layout from './components/Layout';
 import EmailPopup from './components/EmailPopup';
 import CompareBar from './components/CompareBar';
+import RewardsWidget from './components/RewardsWidget';
+import CookieBanner from './components/CookieBanner';
 
 const Home             = lazy(() => import('./pages/Home'));
 const Shop             = lazy(() => import('./pages/Shop'));
@@ -29,6 +31,10 @@ const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
 const Compare          = lazy(() => import('./pages/Compare'));
 const SkinQuiz         = lazy(() => import('./pages/SkinQuiz'));
 const Sitemap          = lazy(() => import('./pages/Sitemap'));
+const OrderTracking    = lazy(() => import('./pages/OrderTracking'));
+const Blog             = lazy(() => import('./pages/Blog'));
+const BlogPost         = lazy(() => import('./pages/BlogPost'));
+const AdminDashboard   = lazy(() => import('./pages/AdminDashboard'));
 const NotFound         = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -62,8 +68,12 @@ const AnimatedRoutes = () => {
           <Route path="compare" element={<Compare />} />
           <Route path="quiz" element={<SkinQuiz />} />
           <Route path="sitemap" element={<Sitemap />} />
+          <Route path="track-order" element={<OrderTracking />} />
+          <Route path="journal" element={<Blog />} />
+          <Route path="journal/:slug" element={<BlogPost />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </AnimatePresence>
   );
@@ -87,6 +97,8 @@ function App() {
           </ErrorBoundary>
           <CompareBar />
           <EmailPopup />
+          <RewardsWidget />
+          <CookieBanner />
           <BackToTop />
           <Toaster
             position="bottom-right"

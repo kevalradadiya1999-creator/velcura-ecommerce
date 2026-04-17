@@ -100,6 +100,7 @@ const Navbar = () => {
     { to: '/shop', label: 'Shop' },
     { to: '/quiz', label: 'Skin Quiz' },
     { to: '/ingredients', label: 'Ingredients' },
+    { to: '/journal', label: 'Journal' },
     { to: '/about', label: 'About' },
     { to: '/faq', label: 'FAQ' },
     { to: '/contact', label: 'Contact' },

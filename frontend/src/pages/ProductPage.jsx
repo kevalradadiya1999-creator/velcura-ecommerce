@@ -1,7 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Check, ChevronDown, Star, Share2, Link as LinkIcon, MessageCircle } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Star, Share2, Link as LinkIcon, MessageCircle, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import StarRating from '../components/StarRating';
@@ -22,6 +23,7 @@ const ProductPage = () => {
   const [imgOpacity, setImgOpacity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const addToCartBtnRef = useRef(null);
 
   // Save to recently viewed on mount
@@ -333,7 +335,12 @@ const ProductPage = () => {
             {/* Size selector */}
             {product.sizes?.length > 0 && (
               <div style={{ marginBottom: '24px' }}>
-                <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '10px', fontWeight: 500 }}>Size</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: 500, margin: 0 }}>Size</p>
+                  <button onClick={() => setSizeGuideOpen(true)} style={{ background: 'none', border: 'none', fontSize: '12px', color: 'var(--text-muted)', textDecoration: 'underline', cursor: 'pointer' }}>
+                    Size Guide
+                  </button>
+                </div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {product.sizes.map(size => (
                     <button
@@ -556,6 +563,54 @@ const ProductPage = () => {
           {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
         </button>
       </div>
+
+      {/* Size Guide Modal */}
+      <AnimatePresence>
+        {sizeGuideOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setSizeGuideOpen(false)}
+              style={{ position: 'fixed', inset: 0, background: 'rgba(10,25,47,0.4)', zIndex: 998, backdropFilter: 'blur(2px)' }}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: '-50%', x: '-50%' }}
+              animate={{ opacity: 1, scale: 1, y: '-50%', x: '-50%' }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              role="dialog" aria-modal="true" aria-labelledby="size-guide-title"
+              style={{ position: 'fixed', top: '50%', left: '50%', background: 'white', borderRadius: '16px', padding: '32px', zIndex: 999, width: '100%', maxWidth: '500px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <h2 id="size-guide-title" style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', margin: 0, color: 'var(--text)' }}>Size Guide</h2>
+                <button onClick={() => setSizeGuideOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>
+                  <X size={20} />
+                </button>
+              </div>
+              <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '16px' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid #eee', textAlign: 'left' }}>
+                    <th style={{ padding: '12px 8px', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Size</th>
+                    <th style={{ padding: '12px 8px', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Volume</th>
+                    <th style={{ padding: '12px 8px', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Best For</th>
+                    <th style={{ padding: '12px 8px', fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Lasts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[['30ml', '30ml', 'Travel / Trial', '~3 weeks'], ['50ml', '50ml', 'Regular use', '~6 weeks'], ['100ml', '100ml', 'Daily use', '~3 months']].map(row => (
+                    <tr key={row[0]} style={{ borderBottom: '1px solid #eee' }}>
+                      <td style={{ padding: '12px 8px', fontSize: '14px', fontWeight: 500 }}>{row[0]}</td>
+                      <td style={{ padding: '12px 8px', fontSize: '14px', color: 'var(--text-muted)' }}>{row[1]}</td>
+                      <td style={{ padding: '12px 8px', fontSize: '14px', color: 'var(--text-muted)' }}>{row[2]}</td>
+                      <td style={{ padding: '12px 8px', fontSize: '14px', color: 'var(--text-muted)' }}>{row[3]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p style={{ fontSize: '12px', color: 'var(--text-subtle)', fontStyle: 'italic', margin: 0 }}>All sizes contain the same formula. Larger sizes offer better value.</p>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (max-width: 768px) {

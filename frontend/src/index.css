@@ -381,3 +381,13 @@ p {
 .cart-badge {
   overflow: hidden;
 }
+  
+/* Phase 1 Mobile Fixes */  
+@media (max-width: 768px) {  
+  .product-grid { grid-template-columns: 1fr !important; gap: 40px !important; }  
+  .quiz-options-grid { grid-template-columns: 1fr !important; }  
+  .cart-drawer { width: 100vw !important; }  
+  .home-hero-split { flex-direction: column !important; text-align: center !important; }  
+  .home-hero-split  { width: 100% !important; align-items: center !important; }  
+  .home-hero-img { height: 300px !important; }  
+} 
