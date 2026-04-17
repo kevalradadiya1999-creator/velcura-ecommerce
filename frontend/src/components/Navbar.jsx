@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Search, User, Menu, X, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { useWishlistContext } from '../context/WishlistContext';
 import { products } from '../data/products';
@@ -231,9 +232,21 @@ const Navbar = () => {
               onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
             >
               <Heart size={19} strokeWidth={1.5} />
-              {wishlistCount > 0 && (
-                <span className="cart-badge" style={{ background: '#ef4444' }}>{wishlistCount}</span>
-              )}
+              <AnimatePresence mode="popLayout">
+                {wishlistCount > 0 && (
+                  <motion.span
+                    key={wishlistCount}
+                    className="cart-badge"
+                    style={{ background: '#ef4444' }}
+                    initial={{ opacity: 0, y: 6, scale: 0.7 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.7 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {wishlistCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </Link>
 
             {/* Cart */}
@@ -246,9 +259,20 @@ const Navbar = () => {
               onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
             >
               <ShoppingBag size={19} strokeWidth={1.5} />
-              {count > 0 && (
-                <span className="cart-badge">{count}</span>
-              )}
+              <AnimatePresence mode="popLayout">
+                {count > 0 && (
+                  <motion.span
+                    key={count}
+                    className="cart-badge"
+                    initial={{ opacity: 0, y: 6, scale: 0.7 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.7 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {count}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
 
             {/* Mobile menu toggle */}

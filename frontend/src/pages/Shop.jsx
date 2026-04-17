@@ -10,6 +10,9 @@ import SEOHead from '../components/SEOHead';
 const Shop = () => {
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('featured');
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const [pendingFilter, setPendingFilter] = useState('all');
+  const [pendingSort, setPendingSort] = useState('featured');
 
   const filters = [
     { id: 'all', label: 'All Products' },
@@ -62,8 +65,28 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Filter + Sort bar */}
-      <div className="bg-white border-b border-[var(--border)] sticky top-16 z-30">
+      {/* Mobile Filter Button */}
+      <div className="mobile-filter-trigger" style={{ background: 'white', borderBottom: '1px solid var(--border)', padding: '12px 16px', display: 'none' }}>
+        <button
+          onClick={() => { setPendingFilter(filter); setPendingSort(sort); setFilterDrawerOpen(true); }}
+          style={{ display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid #0A192F', borderRadius: '999px', padding: '8px 20px', fontSize: '13px', background: 'transparent', cursor: 'pointer', fontFamily: 'Inter, sans-serif', fontWeight: 600, color: '#0A192F' }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="4" y1="6" x2="20" y2="6"/><circle cx="8" cy="6" r="2" fill="currentColor"/>
+            <line x1="4" y1="12" x2="20" y2="12"/><circle cx="16" cy="12" r="2" fill="currentColor"/>
+            <line x1="4" y1="18" x2="20" y2="18"/><circle cx="10" cy="18" r="2" fill="currentColor"/>
+          </svg>
+          Filter & Sort
+          {(filter !== 'all' || sort !== 'featured') && (
+            <span style={{ background: '#0A192F', color: 'white', borderRadius: '50%', width: '18px', height: '18px', fontSize: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>
+              {[filter !== 'all', sort !== 'featured'].filter(Boolean).length}
+            </span>
+          )}
+        </button>
+      </div>
+
+      {/* Desktop Filter + Sort bar */}
+      <div className="desktop-filters bg-white border-b border-[var(--border)] sticky top-16 z-30">
         <div className="container flex items-center gap-2 overflow-x-auto py-3" style={{ flexWrap: 'wrap' }}>
           <Filter size={14} color="var(--text-muted)" className="flex-shrink-0" />
           {filters.map(f => (
@@ -115,6 +138,55 @@ const Shop = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Filter Drawer */}
+      <AnimatePresence>
+        {filterDrawerOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setFilterDrawerOpen(false)}
+              style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.3)', zIndex: 998 }}
+            />
+            <motion.div
+              initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
+              transition={{ type: 'tween', duration: 0.28 }}
+              style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderRadius: '20px 20px 0 0', padding: '20px 20px 40px', zIndex: 999, boxShadow: '0 -4px 24px rgba(0,0,0,0.1)' }}
+            >
+              {/* Drag handle */}
+              <div style={{ width: '40px', height: '4px', background: '#ddd', borderRadius: '999px', margin: '0 auto 16px' }} />
+              <p style={{ fontSize: '16px', fontWeight: 600, marginBottom: '20px', fontFamily: 'Inter, sans-serif' }}>Filter &amp; Sort</p>
+
+              <p style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Category</p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+                {filters.map(f => (
+                  <button key={f.id} onClick={() => setPendingFilter(f.id)}
+                    style={{ borderRadius: '999px', padding: '7px 18px', fontSize: '13px', cursor: 'pointer', border: 'none', background: pendingFilter === f.id ? '#0A192F' : '#F3F4F6', color: pendingFilter === f.id ? 'white' : '#374151', fontFamily: 'Inter, sans-serif', fontWeight: 500, transition: 'all 0.2s' }}>
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              <div style={{ height: '1px', background: '#f0f0f0', margin: '0 0 20px' }} />
+              <p style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Sort by</p>
+              {[['featured','Featured'],['price-asc','Price: Low to High'],['price-desc','Price: High to Low'],['newest','Newest']].map(([val, label]) => (
+                <div key={val} onClick={() => setPendingSort(val)}
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '0.5px solid #f0f0f0', cursor: 'pointer' }}>
+                  <span style={{ fontSize: '14px', color: pendingSort === val ? '#0A192F' : '#6B7280', fontWeight: pendingSort === val ? 600 : 400 }}>{label}</span>
+                  {pendingSort === val && <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0A192F' }} />}
+                </div>
+              ))}
+
+              <button
+                onClick={() => { setFilter(pendingFilter); setSort(pendingSort); setFilterDrawerOpen(false); }}
+                style={{ width: '100%', background: '#0A192F', color: 'white', border: 'none', borderRadius: '999px', padding: '14px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', marginTop: '24px', fontFamily: 'Inter, sans-serif' }}
+              >
+                Apply Filters
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Products grid */}
       <section className="section bg-[var(--bg)]">

@@ -1,10 +1,39 @@
-import { useEffect } from 'react';
-import { X, Trash2, Minus, Plus, ArrowRight, ShoppingBag } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { X, Trash2, Minus, Plus, ArrowRight, ShoppingBag, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+
+const COUPONS = { VELCURA10: 10, WELCOME20: 20, SKIN15: 15 };
 
 const CartDrawer = () => {
   const { items, removeItem, updateQty, total, count, isOpen, setIsOpen } = useCart();
+  const [couponInput, setCouponInput] = useState('');
+  const [couponExpanded, setCouponExpanded] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [discountPct, setDiscountPct] = useState(0);
+  const [couponError, setCouponError] = useState('');
+
+  const discountAmt = Math.round(total * discountPct / 100);
+  const finalTotal = total - discountAmt;
+
+  const applyCoupon = () => {
+    const code = couponInput.trim().toUpperCase();
+    if (COUPONS[code]) {
+      setAppliedCoupon(code);
+      setDiscountPct(COUPONS[code]);
+      setCouponError('');
+    } else {
+      setCouponError('Invalid coupon code');
+    }
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setDiscountPct(0);
+    setCouponInput('');
+    setCouponError('');
+  };
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -146,12 +175,70 @@ const CartDrawer = () => {
           )}
         </div>
 
+        {/* Coupon code section */}
+        {items.length > 0 && (
+          <div style={{ padding: '16px 28px', borderTop: '1px solid var(--border)' }}>
+            {appliedCoupon ? (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#dcfce7', padding: '10px 14px', borderRadius: '8px' }}>
+                <span style={{ fontSize: '13px', color: '#16a34a', fontWeight: 600 }}>
+                  🎉 {appliedCoupon} applied — You save ₹{discountAmt}
+                </span>
+                <button onClick={removeCoupon} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#16a34a', fontSize: '16px' }}>×</button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  onClick={() => setCouponExpanded(v => !v)}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', color: 'var(--text-muted)', padding: 0, fontFamily: 'Inter, sans-serif' }}
+                >
+                  <Tag size={14} />
+                  Have a coupon?
+                </button>
+                <div style={{
+                  maxHeight: couponExpanded ? '80px' : '0',
+                  overflow: 'hidden',
+                  transition: 'max-height 0.3s ease',
+                  marginTop: couponExpanded ? '10px' : 0,
+                }}>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      id="coupon-input"
+                      value={couponInput}
+                      onChange={e => { setCouponInput(e.target.value); setCouponError(''); }}
+                      placeholder="Enter coupon code"
+                      onKeyDown={e => e.key === 'Enter' && applyCoupon()}
+                      style={{ flex: 1, border: '1px solid var(--border)', borderRadius: '6px', padding: '8px 12px', fontSize: '13px', fontFamily: 'Inter, sans-serif', outline: 'none', textTransform: 'uppercase' }}
+                    />
+                    <button
+                      onClick={applyCoupon}
+                      style={{ background: '#0A192F', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer', fontFamily: 'Inter, sans-serif', letterSpacing: '0.05em' }}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                  {couponError && <p style={{ fontSize: '12px', color: '#ef4444', marginTop: '6px' }}>{couponError}</p>}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Footer */}
         {items.length > 0 && (
           <div style={{ padding: '24px 28px', borderTop: '1px solid var(--border)', flexShrink: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
               <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Subtotal</span>
-              <span style={{ fontSize: '15px', fontWeight: 700 }}>₹{total.toLocaleString()}</span>
+              <span style={{ fontSize: '14px', color: discountPct > 0 ? 'var(--text-subtle)' : 'var(--text)', fontWeight: 700, textDecoration: discountPct > 0 ? 'line-through' : 'none' }}>₹{total.toLocaleString()}</span>
+            </div>
+            {discountPct > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontSize: '13px', color: '#16a34a', fontWeight: 600 }}>Discount ({discountPct}%)</span>
+                <span style={{ fontSize: '14px', color: '#16a34a', fontWeight: 700 }}>−₹{discountAmt}</span>
+              </div>
+            )}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <span style={{ fontSize: '14px', fontWeight: 700 }}>Total</span>
+              <span style={{ fontSize: '16px', fontWeight: 800 }}>₹{finalTotal.toLocaleString()}</span>
             </div>
             <p style={{ fontSize: '11px', color: 'var(--text-subtle)', marginBottom: '20px' }}>
               Taxes and shipping calculated at checkout

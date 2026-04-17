@@ -1,9 +1,11 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Star, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useCart } from '../context/CartContext';
 import { useWishlistContext } from '../context/WishlistContext';
+import StarRating from './StarRating';
 
 const ProductCard = ({ product, variant = 'default' }) => {
   const { addItem } = useCart();
@@ -34,7 +36,14 @@ const ProductCard = ({ product, variant = 'default' }) => {
           </div>
         )}
 
-        {/* Wishlist heart */}
+        {/* Low stock badge */}
+        {product.stock != null && product.stock <= 5 && product.stock > 0 && (
+          <div style={{ position: 'absolute', top: '16px', left: product.badge ? '100px' : '16px', zIndex: 3, background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px' }}>
+            Only {product.stock} left
+          </div>
+        )}
+
+        {/* Wishlist heart */}}
         <button
           onClick={() => toggle(product)}
           title={wishlisted ? 'Remove from wishlist' : 'Save for later'}
@@ -91,6 +100,11 @@ const ProductCard = ({ product, variant = 'default' }) => {
               {product.fullName}
             </h3>
           </Link>
+          {product.rating && (
+            <div style={{ marginBottom: '8px' }}>
+              <StarRating rating={product.rating} count={product.reviewCount} size={12} />
+            </div>
+          )}
           <p style={{ fontSize: '13px', color: 'var(--accent)', fontWeight: 600, marginBottom: '20px', letterSpacing: '0.02em' }}>
             {product.mechanismLine}
           </p>
@@ -138,6 +152,13 @@ const ProductCard = ({ product, variant = 'default' }) => {
       whileHover={{ y: -3 }}
       transition={{ duration: 0.2 }}
     >
+      {/* Low stock badge */}
+      {product.stock != null && product.stock <= 5 && product.stock > 0 && (
+        <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 3, background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px' }}>
+          Only {product.stock} left
+        </div>
+      )}
+
       {/* Wishlist heart */}
       <button
         onClick={() => toggle(product)}
@@ -178,6 +199,11 @@ const ProductCard = ({ product, variant = 'default' }) => {
         <h3 className="font-playfair text-[16px] md:text-[17px] text-[var(--text)] mb-1 font-semibold leading-tight">
           {product.name}
         </h3>
+        {product.rating && (
+          <div style={{ marginBottom: '6px' }}>
+            <StarRating rating={product.rating} count={product.reviewCount} size={11} />
+          </div>
+        )}
         <p className="text-[11px] md:text-[12px] text-[#C9A24A] font-semibold mb-4 leading-tight">
           {product.mechanismLine}
         </p>
@@ -207,4 +233,4 @@ const ProductCard = ({ product, variant = 'default' }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

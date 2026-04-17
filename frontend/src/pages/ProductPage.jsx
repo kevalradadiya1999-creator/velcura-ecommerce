@@ -1,8 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Check, ChevronDown, Star } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import StarRating from '../components/StarRating';
 import { useCart } from '../context/CartContext';
 import SEOHead from '../components/SEOHead';
 import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
@@ -12,13 +13,44 @@ const ProductPage = () => {
   const { addItem } = useCart();
   const { addItem: saveToRecent } = useRecentlyViewed();
   const product = products.find(p => p.slug === slug);
+
   const [qty, setQty] = useState(1);
   const [openSection, setOpenSection] = useState('benefits');
+  const [activeImg, setActiveImg] = useState(0);
+  const [imgOpacity, setImgOpacity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const addToCartBtnRef = useRef(null);
 
-  // Save to recently viewed when product loads
+  // Save to recently viewed on mount
   useEffect(() => {
     if (product) saveToRecent(product);
   }, [product?.slug]);
+
+  // Set default size
+  useEffect(() => {
+    if (product?.sizes?.length) {
+      setSelectedSize(product.sizes[Math.floor(product.sizes.length / 2)]);
+    }
+    setActiveImg(0);
+  }, [product?.slug]);
+
+  // Sticky add-to-cart bar (mobile) — watch when CTA button leaves viewport
+  useEffect(() => {
+    const btn = addToCartBtnRef.current;
+    if (!btn) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyBar(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(btn);
+    return () => observer.disconnect();
+  }, [product?.slug]);
+
+  const switchImage = useCallback((idx) => {
+    setImgOpacity(0);
+    setTimeout(() => { setActiveImg(idx); setImgOpacity(1); }, 200);
+  }, []);
 
   if (!product) {
     return (
@@ -32,6 +64,7 @@ const ProductPage = () => {
   const productReviews = reviews.filter(r => r.product === product.slug);
   const related = products.filter(p => p.slug !== slug);
   const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
+  const images = product.images || [product.image];
 
   const accordionSections = [
     {
@@ -136,80 +169,94 @@ const ProductPage = () => {
             "@type": "Offer",
             "price": product.price,
             "priceCurrency": "INR",
-            "availability": "https://schema.org/InStock",
+            "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
             "url": `https://velcurahygiene.in/product/${product.slug}`,
           },
         }}
       />
+
       {/* Breadcrumb */}
       <div style={{ background: 'var(--surface)', padding: '14px 32px', borderBottom: '1px solid var(--border)' }}>
-        <div className="container" style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '12px', color: 'var(--text-muted)' }}>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
-          <span>/</span>
-          <Link to="/shop" style={{ textDecoration: 'none', color: 'inherit' }}>Shop</Link>
-          <span>/</span>
-          <span style={{ color: 'var(--accent)', fontWeight: 600 }}>{product.fullName}</span>
+        <div className="container" style={{ display: 'flex', gap: '6px', alignItems: 'center', fontSize: '13px', color: 'var(--text-muted)', flexWrap: 'wrap' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}
+            onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+            onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}>Home</Link>
+          <span style={{ color: 'var(--border)' }}>/</span>
+          <Link to="/shop" style={{ textDecoration: 'none', color: 'inherit' }}
+            onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+            onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}>Shop</Link>
+          <span style={{ color: 'var(--border)' }}>/</span>
+          <span style={{ color: 'var(--text-muted)' }}>{product.category || 'Face'}</span>
+          <span style={{ color: 'var(--border)' }}>/</span>
+          <span style={{ color: 'var(--text)', fontWeight: 600, maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {product.fullName}
+          </span>
         </div>
       </div>
 
       {/* Main product section */}
       <section style={{ padding: '60px 32px' }}>
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '80px',
-          alignItems: 'start',
-        }}
-        className="product-grid"
+        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}
+          className="product-grid"
         >
-          {/* Left: Images */}
+          {/* Left: Image Gallery */}
           <div>
-            <div
-            style={{
+            {/* Main Image */}
+            <div style={{
               borderRadius: '16px',
               overflow: 'hidden',
               background: product.bgColor,
-              padding: '60px',
+              aspectRatio: '1/1',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: '16px',
-              minHeight: '500px',
               cursor: 'zoom-in',
+              position: 'relative',
             }}
-            onMouseEnter={e => e.currentTarget.querySelector('img').style.transform = 'scale(1.08)'}
-            onMouseLeave={e => e.currentTarget.querySelector('img').style.transform = 'scale(1)'}
-          >
-            <img
-              src={product.image}
-              alt={product.fullName}
-              loading="lazy"
-              width="400"
-              height="380"
-              style={{ maxWidth: '80%', maxHeight: '380px', objectFit: 'contain', filter: 'drop-shadow(0 20px 40px rgba(10,25,47,0.15))', transition: 'transform 0.4s ease' }}
-            />
-          </div>
-            {/* Thumbnail row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-              {[product, ...related.slice(0, 2)].map((p, i) => (
-                <Link key={p.id} to={`/product/${p.slug}`} style={{
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  background: p.bgColor,
-                  padding: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: i === 0 ? '2px solid var(--accent)' : '2px solid transparent',
-                  minHeight: '80px',
-                  transition: 'border-color 0.2s',
-                }}>
-                  <img src={p.image} alt={p.name} style={{ height: '60px', objectFit: 'contain' }} />
-                </Link>
-              ))}
+              onMouseEnter={e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1.08)'; }}
+              onMouseLeave={e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1)'; }}
+            >
+              <img
+                src={images[activeImg]}
+                alt={product.fullName}
+                loading="eager"
+                style={{
+                  maxWidth: '80%',
+                  maxHeight: '80%',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 20px 40px rgba(10,25,47,0.15))',
+                  transition: 'opacity 0.3s ease, transform 0.4s ease',
+                  opacity: imgOpacity,
+                }}
+              />
             </div>
+
+            {/* Thumbnails */}
+            {images.length > 1 && (
+              <div style={{ display: 'flex', gap: '8px', marginTop: '12px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '4px' }}>
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => switchImage(i)}
+                    aria-label={`View image ${i + 1}`}
+                    style={{
+                      width: '72px', height: '72px', flexShrink: 0,
+                      borderRadius: '8px', overflow: 'hidden',
+                      border: i === activeImg ? '2px solid #0A192F' : '2px solid transparent',
+                      cursor: 'pointer', padding: 0, background: product.bgColor,
+                      transition: 'border-color 0.2s',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`${product.name} view ${i + 1}`}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right: Info */}
@@ -226,37 +273,56 @@ const ProductPage = () => {
               {product.skinType}
             </p>
 
-            <h1 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(28px, 3.5vw, 40px)',
-              fontWeight: 600,
-              color: 'var(--text)',
-              marginBottom: '8px',
-              lineHeight: 1.15,
-            }}>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 3.5vw, 40px)', fontWeight: 600, color: 'var(--text)', marginBottom: '8px', lineHeight: 1.15 }}>
               {product.fullName}
             </h1>
-            <p style={{ fontSize: '15px', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '20px' }}>
+            <p style={{ fontSize: '15px', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '12px' }}>
               {product.tagline}
             </p>
 
-            {/* Rating */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--border)' }}>
-              <div style={{ display: 'flex', gap: '2px' }}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={14} fill={i < Math.floor(product.rating) ? 'var(--accent)' : 'none'} stroke="var(--accent)" strokeWidth={1.5} />
-                ))}
-              </div>
-              <span style={{ fontSize: '13px', fontWeight: 600 }}>{product.rating}</span>
-              <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>({product.reviews} reviews)</span>
+            {/* Star Rating */}
+            <div style={{ marginBottom: '20px' }}>
+              <StarRating rating={product.rating} count={product.reviewCount} size={16} />
             </div>
 
-            <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '28px' }}>
+            {/* Rating bar */}
+            <div style={{ marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--border)' }} />
+
+            <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '20px' }}>
               {product.shortDesc}
             </p>
 
+            {/* Size selector */}
+            {product.sizes?.length > 0 && (
+              <div style={{ marginBottom: '24px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '10px', fontWeight: 500 }}>Size</p>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  {product.sizes.map(size => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      style={{
+                        borderRadius: '999px',
+                        padding: '6px 16px',
+                        fontSize: '13px',
+                        cursor: 'pointer',
+                        border: selectedSize === size ? 'none' : '1px solid #ddd',
+                        background: selectedSize === size ? '#0A192F' : 'transparent',
+                        color: selectedSize === size ? 'white' : 'var(--text)',
+                        fontFamily: 'Inter, sans-serif',
+                        fontWeight: selectedSize === size ? 600 : 400,
+                        transition: 'all 0.2s',
+                      }}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Price */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <span style={{ fontSize: '28px', fontWeight: 800, color: 'var(--text)' }}>₹{product.price}</span>
               <span style={{ fontSize: '16px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>₹{product.mrp}</span>
               <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: '12px', fontWeight: 700, padding: '3px 8px', borderRadius: '4px' }}>
@@ -264,12 +330,31 @@ const ProductPage = () => {
               </span>
             </div>
 
+            {/* Stock indicator */}
+            <div style={{ marginBottom: '20px' }}>
+              {product.stock === 0 ? (
+                <span style={{ background: '#fee2e2', color: '#991b1b', fontSize: '12px', fontWeight: 600, padding: '4px 12px', borderRadius: '999px' }}>
+                  ❌ Out of Stock
+                </span>
+              ) : product.stock <= 5 ? (
+                <span style={{ background: '#FEF3C7', color: '#92400E', fontSize: '12px', fontWeight: 600, padding: '4px 12px', borderRadius: '999px' }}>
+                  ⚠️ Only {product.stock} left in stock — order soon!
+                </span>
+              ) : (
+                <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: '12px', fontWeight: 600, padding: '4px 12px', borderRadius: '999px' }}>
+                  <span style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: '#16a34a', marginRight: '5px', verticalAlign: 'middle' }} />
+                  In Stock
+                </span>
+              )}
+            </div>
+
             {/* Qty + Add to Cart */}
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+            <div ref={addToCartBtnRef} style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', border: '1.5px solid var(--border)', borderRadius: '4px', overflow: 'hidden' }}>
                 <button
                   id="qty-decrease"
                   onClick={() => setQty(q => Math.max(1, q - 1))}
+                  aria-label="Decrease quantity"
                   style={{ width: '44px', height: '52px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px', color: 'var(--text)', transition: 'background 0.2s' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'var(--surface)'}
                   onMouseLeave={e => e.currentTarget.style.background = 'none'}
@@ -279,7 +364,8 @@ const ProductPage = () => {
                 <span style={{ width: '48px', textAlign: 'center', fontWeight: 700, fontSize: '16px' }}>{qty}</span>
                 <button
                   id="qty-increase"
-                  onClick={() => setQty(q => q + 1)}
+                  onClick={() => setQty(q => Math.min(10, q + 1))}
+                  aria-label="Increase quantity"
                   style={{ width: '44px', height: '52px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px', color: 'var(--text)', transition: 'background 0.2s' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'var(--surface)'}
                   onMouseLeave={e => e.currentTarget.style.background = 'none'}
@@ -289,11 +375,12 @@ const ProductPage = () => {
               </div>
               <button
                 id="add-to-cart-detail"
-                onClick={() => addItem(product, qty)}
+                onClick={() => product.stock > 0 && addItem(product, qty)}
+                disabled={product.stock === 0}
                 className="btn-primary"
-                style={{ flex: 1 }}
+                style={{ flex: 1, opacity: product.stock === 0 ? 0.5 : 1, cursor: product.stock === 0 ? 'not-allowed' : 'pointer' }}
               >
-                Add to Cart · ₹{(product.price * qty).toLocaleString()}
+                {product.stock === 0 ? 'Notify Me' : `Add to Cart · ₹${(product.price * qty).toLocaleString()}`}
               </button>
             </div>
 
@@ -301,15 +388,11 @@ const ProductPage = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}>
               <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
                 <span>📦 <strong>Duo Pack</strong> (Any 2 variants)</span>
-                <span>₹579 <span style={{color: '#16a34a', fontWeight: 'bold'}}>(Save ₹19)</span></span>
+                <span>₹579 <span style={{ color: '#16a34a', fontWeight: 'bold' }}>(Save ₹19)</span></span>
               </Link>
               <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
                 <span>✨ <strong>Trio Pack</strong> (All 3 variants)</span>
-                <span>₹829 <span style={{color: '#16a34a', fontWeight: 'bold'}}>(Save ₹68 + Free Ship)</span></span>
-              </Link>
-              <Link to="/shop" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '4px', textDecoration: 'none', color: 'var(--text)' }}>
-                <span>🔄 <strong>Subscribe & Save</strong> (Monthly)</span>
-                <span>₹269/mo <span style={{color: '#16a34a', fontWeight: 'bold'}}>(10% Off)</span></span>
+                <span>₹829 <span style={{ color: '#16a34a', fontWeight: 'bold' }}>(Save ₹68 + Free Ship)</span></span>
               </Link>
             </div>
 
@@ -331,17 +414,9 @@ const ProductPage = () => {
                     id={`accordion-${section.id}`}
                     onClick={() => setOpenSection(openSection === section.id ? null : section.id)}
                     style={{
-                      width: '100%',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '18px 0',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '14px',
-                      fontWeight: 600,
+                      width: '100%', background: 'none', border: 'none', cursor: 'pointer',
+                      padding: '18px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 600,
                       color: openSection === section.id ? 'var(--accent)' : 'var(--text)',
                       letterSpacing: '0.02em',
                     }}
@@ -374,10 +449,8 @@ const ProductPage = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
               {productReviews.map(r => (
                 <div key={r.id} style={{ background: 'white', padding: '28px', borderRadius: '12px', border: '1px solid var(--border)' }}>
-                  <div style={{ display: 'flex', gap: '2px', marginBottom: '12px' }}>
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} size={13} fill={i < r.rating ? 'var(--accent)' : 'none'} stroke="var(--accent)" strokeWidth={1.5} />
-                    ))}
+                  <div style={{ marginBottom: '12px' }}>
+                    <StarRating rating={r.rating} size={13} />
                   </div>
                   <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '16px', fontStyle: 'italic' }}>
                     "{r.text}"
@@ -407,9 +480,47 @@ const ProductPage = () => {
         </div>
       </section>
 
+      {/* Mobile sticky add-to-cart bar */}
+      <div
+        className="sticky-atc"
+        style={{
+          position: 'fixed', bottom: 0, left: 0, right: 0,
+          background: 'white', borderTop: '1px solid #eee',
+          padding: '12px 20px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          zIndex: 90,
+          transform: showStickyBar ? 'translateY(0)' : 'translateY(100%)',
+          transition: 'transform 0.3s ease',
+          boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div>
+          <p style={{ fontSize: '14px', fontWeight: 600, color: '#0A192F', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {product.name}
+          </p>
+          <p style={{ fontSize: '16px', fontWeight: 800, color: '#0A192F' }}>₹{product.price}</p>
+        </div>
+        <button
+          onClick={() => product.stock > 0 && addItem(product, qty)}
+          disabled={product.stock === 0}
+          style={{
+            background: '#0A192F', color: 'white', border: 'none',
+            borderRadius: '8px', padding: '10px 20px', fontSize: '14px',
+            fontWeight: 600, cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+            opacity: product.stock === 0 ? 0.5 : 1,
+            fontFamily: 'Inter, sans-serif',
+          }}
+        >
+          {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+        </button>
+      </div>
+
       <style>{`
         @media (max-width: 768px) {
           .product-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+        @media (min-width: 769px) {
+          .sticky-atc { display: none !important; }
         }
       `}</style>
     </div>

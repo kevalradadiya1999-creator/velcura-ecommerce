@@ -367,3 +367,17 @@ p {
 .skip-link:focus {
   top: 0;
 }
+
+/* ─── Shop responsive filters ─── */
+@media (max-width: 768px) {
+  .desktop-filters { display: none !important; }
+  .mobile-filter-trigger { display: block !important; }
+}
+@media (min-width: 769px) {
+  .mobile-filter-trigger { display: none !important; }
+}
+
+/* ─── Cart badge overflow clip ─── */
+.cart-badge {
+  overflow: hidden;
+}
