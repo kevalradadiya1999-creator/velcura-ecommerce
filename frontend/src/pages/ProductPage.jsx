@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Check, ChevronDown, Star } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Star, Share2, Link as LinkIcon, MessageCircle } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import StarRating from '../components/StarRating';
@@ -240,6 +241,8 @@ const ProductPage = () => {
                     key={i}
                     onClick={() => switchImage(i)}
                     aria-label={`View image ${i + 1}`}
+                    tabIndex={0}
+                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchImage(i); } }}
                     style={{
                       width: '72px', height: '72px', flexShrink: 0,
                       borderRadius: '8px', overflow: 'hidden',
@@ -284,6 +287,40 @@ const ProductPage = () => {
             {/* Star Rating */}
             <div style={{ marginBottom: '20px' }}>
               <StarRating rating={product.rating} count={product.reviewCount} size={16} />
+            </div>
+
+            {/* Share row */}
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '24px' }}>
+              <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Share:</span>
+              <button
+                onClick={() => window.open(`https://wa.me/?text=Check out ${product.name} on Velcura - ${window.location.href}`, '_blank')}
+                style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #eee', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s', color: 'var(--text)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#25D366'; e.currentTarget.style.borderColor = '#25D366'; e.currentTarget.style.color = 'white'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#eee'; e.currentTarget.style.color = 'var(--text)'; }}
+                title="Share on WhatsApp"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </button>
+              <button
+                onClick={() => { navigator.clipboard.writeText(window.location.href); toast.success('Link copied!'); }}
+                style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #eee', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s', color: 'var(--text)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#0A192F'; e.currentTarget.style.borderColor = '#0A192F'; e.currentTarget.style.color = 'white'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#eee'; e.currentTarget.style.color = 'var(--text)'; }}
+                title="Copy Link"
+              >
+                <LinkIcon size={16} />
+              </button>
+              {navigator.share && (
+                <button
+                  onClick={() => navigator.share({ title: product.name, url: window.location.href }).catch(() => {})}
+                  style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #eee', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s', color: 'var(--text)' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#C9A24A'; e.currentTarget.style.borderColor = '#C9A24A'; e.currentTarget.style.color = 'white'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#eee'; e.currentTarget.style.color = 'var(--text)'; }}
+                  title="Share"
+                >
+                  <Share2 size={16} />
+                </button>
+              )}
             </div>
 
             {/* Rating bar */}
@@ -414,6 +451,7 @@ const ProductPage = () => {
                   <button
                     id={`accordion-${section.id}`}
                     onClick={() => setOpenSection(openSection === section.id ? null : section.id)}
+                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpenSection(openSection === section.id ? null : section.id); } }}
                     style={{
                       width: '100%', background: 'none', border: 'none', cursor: 'pointer',
                       padding: '18px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center',

@@ -22,6 +22,7 @@ const Footer = () => {
         { label: 'Brand Story', to: '/about' },
         { label: 'FAQ', to: '/faq' },
         { label: 'Skin Type Guide', to: '/faq#skin-type' },
+        { label: 'Sitemap', to: '/sitemap' },
       ]
     },
     {

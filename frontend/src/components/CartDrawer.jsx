@@ -52,7 +52,7 @@ const CartDrawer = () => {
       />
 
       {/* Drawer */}
-      <div id="cart-drawer" className="cart-drawer open">
+      <div id="cart-drawer" className="cart-drawer open" role="dialog" aria-modal="true">
         {/* Header */}
         <div style={{
           padding: '24px 28px',

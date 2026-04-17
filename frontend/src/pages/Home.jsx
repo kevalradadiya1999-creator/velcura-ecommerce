@@ -5,6 +5,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Shield, Droplets, Sun, Leaf, Bad
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
+import toast from 'react-hot-toast';
 import SEOHead from '../components/SEOHead';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
@@ -190,6 +191,11 @@ const Home = () => {
                 >
                   Take 30-Second Skin Quiz
                 </button>
+              </div>
+              <div style={{ marginTop: '20px', textAlign: 'center' }} className="lg:text-left">
+                <Link to="/quiz" style={{ color: 'var(--accent)', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'} onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}>
+                  Take the Skin Quiz →
+                </Link>
               </div>
             </div>
 
@@ -462,52 +468,83 @@ const Home = () => {
       >
         <div className="container">
           <div className="text-center mb-10 lg:mb-16">
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="h-[1px] w-8 bg-[var(--accent)]" />
-              <span className="text-[10px] lg:text-[11px] font-semibold text-[var(--accent)] tracking-[0.2em] uppercase">Exclusive Offers</span>
-              <div className="h-[1px] w-8 bg-[var(--accent)]" />
-            </div>
-            <h2 className="text-[var(--text)]">
-              Build Your Skin Reset Routine & Save
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '36px', color: '#0A192F', marginBottom: '8px' }}>
+              Build Your Routine
             </h2>
+            <p style={{ fontSize: '16px', color: '#6B7280' }}>
+              Curated combinations for every skin type.
+            </p>
           </div>
           <div className="velcura-grid mb-8">
             {[
-              { id: 'b1', name: 'Duo Pack', desc: 'Any 2 variants — Mix & match for your routine.', price: 1099, mrp: 1198, savings: '₹99', tag: 'Popular' },
-              { id: 'b2', name: 'Trio Pack', desc: 'All 3 variants — Oil Balance + HydraGlow + Calm Barrier.', price: 1599, mrp: 1797, savings: '₹200', tag: 'Best Value' },
-              { id: 'b3', name: 'Monthly Subscription', desc: 'Auto-delivered. Cancel anytime. Never run out again.', price: 539, mrp: 599, savings: '10% recurring', tag: 'VIP Perks' },
-            ].map(b => (
-              <div
-                key={b.id}
-                className="bg-white border border-[var(--border)] rounded-xl py-12 px-6 md:px-10 relative flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(10,25,47,0.08)] hover:border-[rgba(201,162,74,0.3)]"
-              >
-                <div className="absolute top-6 right-6 bg-[rgba(201,162,74,0.1)] text-[var(--accent)] text-[10px] font-bold tracking-[0.1em] uppercase py-1.5 px-3 rounded-full">
-                  {b.tag}
-                </div>
-                <h3 className="font-playfair text-3xl font-semibold mb-4 text-[var(--text)]">{b.name}</h3>
-                <p className="text-[15px] text-[var(--text-muted)] mb-8 flex-1 leading-[1.6]">{b.desc}</p>
-                
-                <div className="mb-8">
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-4xl font-semibold text-[var(--text)]">₹{b.price}</span>
-                    <span className="text-sm text-[var(--text-subtle)] line-through">₹{b.mrp}</span>
-                  </div>
-                  <p className="text-[13px] text-[var(--accent)] font-semibold tracking-[0.02em]">Save {b.savings} + Free Shipping</p>
-                </div>
-                
-                <button
-                  id={`bundle-add-${b.id}`}
-                  className="btn-primary w-full justify-center h-14 text-[13px]"
-                  onClick={() => {}}
+              { 
+                id: 'b1', name: 'Morning Glow Kit', 
+                items: [products[0], products[1]], 
+                discount: 0.15 
+              },
+              { 
+                id: 'b2', name: 'Hydration Ritual', 
+                items: [products[1], products[2]], 
+                discount: 0.15 
+              },
+              { 
+                id: 'b3', name: 'Complete Skincare Set', 
+                items: [products[0], products[1], products[2]], 
+                discount: 0.20 
+              },
+            ].map(b => {
+              const originalPrice = b.items.reduce((sum, p) => sum + (p?.price || 0), 0);
+              const bundlePrice = Math.floor(originalPrice * (1 - b.discount));
+              const savings = originalPrice - bundlePrice;
+
+              return (
+                <div
+                  key={b.id}
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    position: 'relative',
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    border: '1px solid #eee'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.06)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
                 >
-                  <ShoppingBag size={16} /> Choose {b.name}
-                </button>
-              </div>
-            ))}
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 600, color: '#0A192F', marginBottom: '16px' }}>{b.name}</h3>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {b.items.map(p => (
+                      <li key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#4B5563' }}>
+                        <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#DEF7EC', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#03543F' }}>✓</div>
+                        {p.name}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
+                    <span style={{ fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>₹{bundlePrice}</span>
+                    <span style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'line-through', marginBottom: '4px' }}>₹{originalPrice}</span>
+                    <span style={{ background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '4px 8px', borderRadius: '4px', marginBottom: '4px', marginLeft: 'auto' }}>
+                      Save ₹{savings}
+                    </span>
+                  </div>
+
+                  <button
+                    className="btn-primary"
+                    style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '14px' }}
+                    onClick={() => {
+                      b.items.forEach(p => addItem(p));
+                      toast.success('Bundle added to cart!');
+                    }}
+                  >
+                    Add Bundle to Cart
+                  </button>
+                </div>
+              );
+            })}
           </div>
-          <p className="text-center text-[13px] text-[var(--text-muted)] italic">
-            *Free Skin Type Guide PDF included with your first bundle order.
-          </p>
         </div>
       </motion.section>
 

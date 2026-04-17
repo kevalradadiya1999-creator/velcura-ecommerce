@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, ShoppingBag, Check, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,6 +13,11 @@ const Shop = () => {
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [pendingFilter, setPendingFilter] = useState('all');
   const [pendingSort, setPendingSort] = useState('featured');
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [filter, sort]);
 
   const filters = [
     { id: 'all', label: 'All Products' },
@@ -152,6 +157,7 @@ const Shop = () => {
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.28 }}
               style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderRadius: '20px 20px 0 0', padding: '20px 20px 40px', zIndex: 999, boxShadow: '0 -4px 24px rgba(0,0,0,0.1)' }}
+              role="dialog" aria-modal="true"
             >
               {/* Drag handle */}
               <div style={{ width: '40px', height: '4px', background: '#ddd', borderRadius: '999px', margin: '0 auto 16px' }} />
@@ -192,11 +198,11 @@ const Shop = () => {
       <section className="section bg-[var(--bg)]">
         <div className="container">
           <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '24px' }}>
-            Showing <strong>{filtered.length}</strong> of <strong>{products.length}</strong> products
+            Showing <strong>{Math.min(visibleCount, filtered.length)}</strong> of <strong>{filtered.length}</strong> products
           </p>
           <div className="velcura-grid" style={{ opacity: 1, transition: 'opacity 0.25s ease' }}>
             <AnimatePresence mode="popLayout">
-              {filtered.map((p, index) => (
+              {filtered.slice(0, visibleCount).map((p, index) => (
                 <motion.div
                   key={p.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -208,6 +214,21 @@ const Shop = () => {
                 </motion.div>
               ))}
             </AnimatePresence>
+          </div>
+          
+          <div style={{ textAlign: 'center', marginTop: '48px' }}>
+            {visibleCount < filtered.length ? (
+              <button
+                onClick={() => setVisibleCount(c => c + 6)}
+                style={{ border: '1px solid var(--color-primary, #0A192F)', background: 'transparent', color: '#0A192F', borderRadius: '999px', padding: '12px 32px', fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'Inter', transition: 'all 0.2s' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#0A192F'; e.currentTarget.style.color = 'white'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0A192F'; }}
+              >
+                Load More Products
+              </button>
+            ) : (
+              <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>You've seen it all ✓</p>
+            )}
           </div>
         </div>
       </section>

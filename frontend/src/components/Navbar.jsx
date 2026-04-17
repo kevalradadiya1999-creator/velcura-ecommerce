@@ -24,6 +24,10 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [recentSearches, setRecentSearches] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('velcura_recent_searches')) || []; } catch { return []; }
+  });
+  const [focusedIdx, setFocusedIdx] = useState(-1);
   const { count, isOpen, setIsOpen } = useCart();
   const { count: wishlistCount } = useWishlistContext();
   const searchContainerRef = useRef(null);
@@ -49,8 +53,8 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  // Filter products as user types
   useEffect(() => {
+    setFocusedIdx(-1);
     if (!searchQuery.trim()) { setSearchResults([]); return; }
     const q = searchQuery.toLowerCase();
     const results = products.filter(p =>
@@ -67,13 +71,25 @@ const Navbar = () => {
     setTimeout(() => inputRef.current?.focus(), 50);
   };
 
+  const saveRecentSearch = (term) => {
+    const t = term.trim();
+    if (!t) return;
+    setRecentSearches(prev => {
+      const updated = [t, ...prev.filter(x => x !== t)].slice(0, 5);
+      localStorage.setItem('velcura_recent_searches', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   const closeSearch = () => {
     setSearchOpen(false);
     setSearchQuery('');
     setSearchResults([]);
+    setFocusedIdx(-1);
   };
 
   const handleResultClick = (result) => {
+    saveRecentSearch(result.name);
     navigate(`/product/${result.slug}`);
     closeSearch();
     setMobileOpen(false);
@@ -82,6 +98,7 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: 'Home', end: true },
     { to: '/shop', label: 'Shop' },
+    { to: '/quiz', label: 'Skin Quiz' },
     { to: '/ingredients', label: 'Ingredients' },
     { to: '/about', label: 'About' },
     { to: '/faq', label: 'FAQ' },
@@ -139,7 +156,25 @@ const Navbar = () => {
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Escape') closeSearch(); }}
+                  onKeyDown={e => { 
+                    if (e.key === 'Escape') {
+                      closeSearch();
+                    } else if (e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      setFocusedIdx(i => Math.min(i + 1, searchResults.length - 1));
+                    } else if (e.key === 'ArrowUp') {
+                      e.preventDefault();
+                      setFocusedIdx(i => Math.max(i - 1, -1));
+                    } else if (e.key === 'Enter') {
+                      if (focusedIdx >= 0 && searchResults[focusedIdx]) {
+                        handleResultClick(searchResults[focusedIdx]);
+                      } else if (searchQuery.trim() && searchResults.length > 0) {
+                        handleResultClick(searchResults[0]);
+                      } else if (searchQuery.trim()) {
+                        saveRecentSearch(searchQuery);
+                      }
+                    }
+                  }}
                   style={{
                     width: searchOpen ? '240px' : '0px',
                     opacity: searchOpen ? 1 : 0,
@@ -167,9 +202,26 @@ const Navbar = () => {
                 </button>
               </div>
 
+              {/* Recent Searches */}
+              {searchOpen && !searchQuery.trim() && recentSearches.length > 0 && (
+                <div style={{ position: 'absolute', top: 'calc(100% + 12px)', right: 0, width: '260px', background: 'white', border: '0.5px solid #eee', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.08)', zIndex: 1000, padding: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 600, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recent Searches</p>
+                    <button onClick={() => { setRecentSearches([]); localStorage.removeItem('velcura_recent_searches'); }} style={{ background: 'none', border: 'none', fontSize: '11px', color: '#ef4444', cursor: 'pointer' }}>Clear</button>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {recentSearches.map(term => (
+                      <button key={term} onClick={() => { setSearchQuery(term); inputRef.current?.focus(); }} style={{ background: '#F5F0E8', border: 'none', borderRadius: '999px', padding: '4px 12px', fontSize: '12px', cursor: 'pointer', fontFamily: 'Inter' }}>
+                        {term}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Search results dropdown */}
               {searchOpen && searchResults.length > 0 && (
-                <div style={{
+                <div role="listbox" style={{
                   position: 'absolute',
                   top: 'calc(100% + 12px)',
                   right: 0,
@@ -181,16 +233,17 @@ const Navbar = () => {
                   zIndex: 1000,
                   overflow: 'hidden',
                 }}>
-                  {searchResults.map(result => (
+                  {searchResults.map((result, i) => (
                     <div
                       key={result.id}
                       onClick={() => handleResultClick(result)}
-                      role="button"
+                      role="option"
+                      aria-selected={focusedIdx === i}
                       tabIndex={0}
                       onKeyDown={e => e.key === 'Enter' && handleResultClick(result)}
-                      style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', cursor: 'pointer', transition: 'background 0.15s' }}
-                      onMouseEnter={e => e.currentTarget.style.background = '#F9F8F5'}
-                      onMouseLeave={e => e.currentTarget.style.background = 'white'}
+                      style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', cursor: 'pointer', transition: 'background 0.15s', background: focusedIdx === i ? '#F9F8F5' : 'white' }}
+                      onMouseEnter={() => setFocusedIdx(i)}
+                      onMouseLeave={() => setFocusedIdx(-1)}
                     >
                       <img
                         src={result.image}

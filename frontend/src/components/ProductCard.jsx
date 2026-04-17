@@ -5,12 +5,15 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useCart } from '../context/CartContext';
 import { useWishlistContext } from '../context/WishlistContext';
+import { useCompare } from '../context/CompareContext';
 import StarRating from './StarRating';
 
 const ProductCard = ({ product, variant = 'default' }) => {
   const { addItem } = useCart();
   const { toggle, isWishlisted } = useWishlistContext();
   const wishlisted = isWishlisted(product.id);
+  const { isInCompare, addToCompare, removeFromCompare } = useCompare() || {};
+  const isCompared = isInCompare ? isInCompare(product.id) : false;
 
   const renderStars = (rating) =>
     Array.from({ length: 5 }).map((_, i) => (
@@ -43,7 +46,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
           </div>
         )}
 
-        {/* Wishlist heart */}}
+        {/* Wishlist heart */}
         <button
           onClick={() => toggle(product)}
           title={wishlisted ? 'Remove from wishlist' : 'Save for later'}
@@ -227,6 +230,30 @@ const ProductCard = ({ product, variant = 'default' }) => {
           >
             Add to Cart
           </button>
+        </div>
+
+        {/* Compare Checkbox */}
+        <div style={{
+          marginTop: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          opacity: isHovered || isCompared ? 1 : 0,
+          transition: 'opacity 0.2s',
+          fontSize: '12px',
+          color: 'var(--text-muted)'
+        }}>
+          <input 
+            type="checkbox" 
+            id={`compare-${product.id}`}
+            checked={isCompared}
+            onChange={(e) => {
+              if (e.target.checked) addToCompare(product);
+              else removeFromCompare(product.id);
+            }}
+            style={{ cursor: 'pointer' }}
+          />
+          <label htmlFor={`compare-${product.id}`} style={{ cursor: 'pointer' }}>Compare</label>
         </div>
       </div>
     </motion.div>

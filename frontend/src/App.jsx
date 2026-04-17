@@ -4,12 +4,15 @@ import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
+import { CompareProvider } from './context/CompareContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import BackToTop from './components/BackToTop';
 import ScrollToTop from './components/ScrollToTop';
 import PromoBanner from './components/PromoBanner';
 import SplashScreen from './components/SplashScreen';
 import Layout from './components/Layout';
+import EmailPopup from './components/EmailPopup';
+import CompareBar from './components/CompareBar';
 
 const Home             = lazy(() => import('./pages/Home'));
 const Shop             = lazy(() => import('./pages/Shop'));
@@ -23,6 +26,9 @@ const Success          = lazy(() => import('./pages/Success'));
 const Export           = lazy(() => import('./pages/Export'));
 const Wishlist         = lazy(() => import('./pages/Wishlist'));
 const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
+const Compare          = lazy(() => import('./pages/Compare'));
+const SkinQuiz         = lazy(() => import('./pages/SkinQuiz'));
+const Sitemap          = lazy(() => import('./pages/Sitemap'));
 const NotFound         = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -53,6 +59,9 @@ const AnimatedRoutes = () => {
           <Route path="export" element={<Export />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="order-confirmation" element={<OrderConfirmation />} />
+          <Route path="compare" element={<Compare />} />
+          <Route path="quiz" element={<SkinQuiz />} />
+          <Route path="sitemap" element={<Sitemap />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
@@ -66,15 +75,18 @@ function App() {
   return (
     <CartProvider>
       <WishlistProvider>
-        {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
-        <PromoBanner />
-        <Router>
-          <ScrollToTop />
+        <CompareProvider>
+          {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
+          <PromoBanner />
+          <Router>
+            <ScrollToTop />
           <ErrorBoundary>
             <Suspense fallback={<PageLoader />}>
               <AnimatedRoutes />
             </Suspense>
           </ErrorBoundary>
+          <CompareBar />
+          <EmailPopup />
           <BackToTop />
           <Toaster
             position="bottom-right"
@@ -87,6 +99,7 @@ function App() {
             }}
           />
         </Router>
+        </CompareProvider>
       </WishlistProvider>
     </CartProvider>
   );
