@@ -179,7 +179,7 @@ const CartDrawer = () => {
         {items.length > 0 && (
           <div style={{ padding: '16px 28px', borderTop: '1px solid var(--border)' }}>
             {appliedCoupon ? (
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#dcfce7', padding: '10px 14px', borderRadius: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', background: '#dcfce7', padding: '10px 14px', borderRadius: '8px' }}>
                 <span style={{ fontSize: '13px', color: '#16a34a', fontWeight: 600 }}>
                   🎉 {appliedCoupon} applied — You save ₹{discountAmt}
                 </span>

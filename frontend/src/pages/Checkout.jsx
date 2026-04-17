@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { logger } from '../utils/logger';
 import { ShieldCheck, CreditCard, Truck, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -65,7 +66,7 @@ const Checkout = () => {
               alert("Payment verification failed.");
             }
           } catch (error) {
-            console.error(error);
+            logger.error(error);
             alert("Order saving failed.");
           } finally {
             setLoading(false);
@@ -93,7 +94,7 @@ const Checkout = () => {
       });
       rzp.open();
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       alert("Error initiating payment.");
       setLoading(false);
     }

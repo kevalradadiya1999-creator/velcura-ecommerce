@@ -125,7 +125,7 @@ const Navbar = () => {
           <VelcuraLogo />
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
+          <div className="desktop-nav" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
             <nav role="navigation" aria-label="Main navigation" style={{ display: 'flex', gap: '28px', alignItems: 'center', whiteSpace: 'nowrap', minWidth: 'max-content' }}>
               {navLinks.map(l => (
                 <NavLink

@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard';
 import { useCart } from '../context/CartContext';
 import toast from 'react-hot-toast';
 import SEOHead from '../components/SEOHead';
+import { formatPrice } from '../utils/helpers';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 
@@ -524,10 +525,10 @@ const Home = () => {
                   </ul>
 
                   <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-                    <span style={{ fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>₹{bundlePrice}</span>
-                    <span style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'line-through', marginBottom: '4px' }}>₹{originalPrice}</span>
+                    <span style={{ fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>{formatPrice(bundlePrice)}</span>
+                    <span style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'line-through', marginBottom: '4px' }}>{formatPrice(originalPrice)}</span>
                     <span style={{ background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '4px 8px', borderRadius: '4px', marginBottom: '4px', marginLeft: 'auto' }}>
-                      Save ₹{savings}
+                      Save {formatPrice(savings)}
                     </span>
                   </div>
 

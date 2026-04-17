@@ -533,11 +533,11 @@ const ProductPage = () => {
       <div
         className="sticky-atc"
         style={{
-          position: 'fixed', bottom: 0, left: 0, right: 0,
+          position: 'fixed', bottom: 'env(safe-area-inset-bottom)', left: 0, right: 0,
           background: 'white', borderTop: '1px solid #eee',
           padding: '12px 20px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          zIndex: 90,
+          zIndex: 85,
           transform: showStickyBar ? 'translateY(0)' : 'translateY(100%)',
           transition: 'transform 0.3s ease',
           boxShadow: '0 -4px 20px rgba(0,0,0,0.08)',

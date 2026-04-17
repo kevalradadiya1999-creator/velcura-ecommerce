@@ -381,6 +381,19 @@ p {
 .cart-badge {
   overflow: hidden;
 }
+
+.desktop-nav {
+  display: flex !important;
+  align-items: center;
+}
+
+@media print {
+  .navbar, .footer, .promo-banner, .back-to-top, .rewards-widget, .cookie-banner, .cart-drawer, .email-popup { display: none !important; }
+  body { font-size: 12pt; color: #000; background: #fff; }
+  a { color: #000; text-decoration: underline; }
+  .product-card { break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+}
   
 /* Phase 1 Mobile Fixes */  
 @media (max-width: 768px) {  
@@ -391,3 +404,7 @@ p {
   .home-hero-split  { width: 100% !important; align-items: center !important; }  
   .home-hero-img { height: 300px !important; }  
 } 
+
+@media (max-width: 768px) { .desktop-nav { display: none !important; } }
+
+@media print { .navbar, .footer, .promo-banner, .back-to-top, .rewards-widget, .cookie-banner, .cart-drawer, .email-popup { display: none !important; } body { font-size: 12pt; color: #000; background: #fff; } a { color: #000; text-decoration: underline; } .product-card { break-inside: avoid; } h1, h2, h3 { page-break-after: avoid; } }
