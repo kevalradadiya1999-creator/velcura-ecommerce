@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { products } from '../data/products';
-import { Package, Star, Tag, LogOut, Edit2, Trash2 } from 'lucide-react';
+import { Package, Star, Tag, LogOut, Edit2, Trash2, MessageCircle, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import SEOHead from '../components/SEOHead';
 
@@ -117,92 +117,158 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
-          {/* Products Table */}
-          <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 10px rgba(0,0,0,0.02)', overflowX: 'auto' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#0A192F', margin: '0 0 20px' }}>Products</h2>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid #E5E7EB', textAlign: 'left' }}>
-                  <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Image</th>
-                  <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Name</th>
-                  <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Price</th>
-                  <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Stock</th>
-                  <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Rating</th>
-                  <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase', textAlign: 'right' }}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map(p => (
-                  <tr key={p.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                    <td style={{ padding: '12px 16px' }}><img src={p.image} alt="" style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover' }} /></td>
-                    <td style={{ padding: '12px 16px', fontSize: '14px', fontWeight: 500, color: '#0A192F' }}>{p.name}<br/><span style={{fontSize:'12px', color:'#6B7280', fontWeight:400}}>{p.category}</span></td>
-                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>₹{p.price}</td>
-                    <td style={{ padding: '12px 16px' }}>
-                      <span style={{ display: 'inline-block', padding: '4px 10px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: p.stock > 0 ? '#ECFDF5' : '#FEF2F2', color: p.stock > 0 ? '#10B981' : '#EF4444' }}>
-                        {p.stock > 0 ? `${p.stock} in stock` : 'Out of stock'}
-                      </span>
-                    </td>
-                    <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>★ {p.rating}</td>
-                    <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-                      <button onClick={() => toast.info('Coming soon')} style={{ background: 'none', border: 'none', color: '#6B7280', cursor: 'pointer', marginRight: '12px' }}><Edit2 size={16} /></button>
-                      <button onClick={() => toast.info('Coming soon')} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer' }}><Trash2 size={16} /></button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Right Column */}
+        {/* Overall Grid Layout */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start' }}>
+          
+          {/* Main Content Area (Left) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             
-            {/* Reviews */}
+            {/* Products Table */}
+            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 10px rgba(0,0,0,0.02)', overflowX: 'auto' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#0A192F', margin: 0 }}>Inventory Management</h2>
+                <span style={{ fontSize: '13px', color: '#6B7280' }}>{products.length} Products</span>
+              </div>
+              <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '700px' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid #E5E7EB', textAlign: 'left' }}>
+                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Product & Image</th>
+                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Category</th>
+                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Price</th>
+                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Stock</th>
+                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase' }}>Rating</th>
+                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#6B7280', fontWeight: 600, textTransform: 'uppercase', textAlign: 'right' }}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map(p => (
+                    <tr key={p.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '12px 16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                          <span style={{ fontSize: '14px', fontWeight: 600, color: '#0A192F' }}>{p.name}</span>
+                          <img src={p.image} alt="" style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover', background: '#F8F9FA' }} />
+                        </div>
+                      </td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#6B7280' }}>{p.category}</td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', fontWeight: 700, color: '#0A192F' }}>₹{p.price}</td>
+                      <td style={{ padding: '12px 16px' }}>
+                        <span style={{ display: 'inline-block', padding: '4px 10px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: p.stock > 0 ? '#ECFDF5' : '#FEF2F2', color: p.stock > 0 ? '#10B981' : '#EF4444' }}>
+                          {p.stock > 0 ? `${p.stock} Units` : 'Low Stock'}
+                        </span>
+                      </td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#EAB308', fontWeight: 600 }}>★ {p.rating}</td>
+                      <td style={{ padding: '12px 16px', textAlign: 'right' }}>
+                        <button onClick={() => toast.info('Edit: Coming soon')} style={{ background: 'none', border: 'none', color: '#6B7280', cursor: 'pointer', marginRight: '12px' }}><Edit2 size={16} /></button>
+                        <button onClick={() => toast.info('Delete: Coming soon')} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer' }}><Trash2 size={16} /></button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Recent Reviews (Now below the table) */}
             <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#0A192F', margin: '0 0 20px' }}>Recent Reviews</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#0A192F', margin: 0 }}>Customer Feedback</h2>
+                <button style={{ fontSize: '12px', color: '#C9A24A', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer' }}>View All Reviews</button>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
                 {mockReviews.map((r, i) => (
-                  <div key={i} style={{ borderBottom: i < mockReviews.length - 1 ? '1px solid #f3f4f6' : 'none', paddingBottom: i < mockReviews.length - 1 ? '16px' : 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 600, color: '#0A192F' }}>{r.user}</span>
-                      <span style={{ fontSize: '12px', color: '#EAB308' }}>{'★'.repeat(r.rating)}</span>
+                  <div key={i} style={{ border: '1px solid #F3F4F6', borderRadius: '12px', padding: '16px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '14px', fontWeight: 700, color: '#0A192F' }}>{r.user}</span>
+                      <div style={{ display: 'flex', gap: '2px' }}>
+                        {[...Array(5)].map((_, starI) => <Star key={starI} size={12} fill={starI < r.rating ? "#EAB308" : "none"} stroke={starI < r.rating ? "#EAB308" : "#D1D5DB"} />)}
+                      </div>
                     </div>
-                    <span style={{ fontSize: '11px', color: '#C9A24A', display: 'block', marginBottom: '4px' }}>{r.pName}</span>
-                    <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.4 }}>"{r.body.substring(0, 60)}..."</p>
+                    <span style={{ fontSize: '11px', color: '#C9A24A', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '8px' }}>{r.pName}</span>
+                    <p style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.6, fontStyle: 'italic' }}>"{r.body}"</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Coupons */}
-            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-               <h2 style={{ fontSize: '18px', fontWeight: 600, color: '#0A192F', margin: '0 0 20px' }}>Coupon Codes</h2>
-               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid #E5E7EB', textAlign: 'left' }}>
-                      <th style={{ padding: '8px 0', fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Code</th>
-                      <th style={{ padding: '8px 0', fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>Off</th>
-                      <th style={{ padding: '8px 0', fontSize: '12px', color: '#6B7280', fontWeight: 600, textAlign: 'right' }}>Status</th>
+          </div>
+
+          {/* Sidebar Area (Right) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            
+            {/* WhatsApp Widget */}
+            <div style={{ background: '#25D366', borderRadius: '16px', padding: '24px', color: 'white', boxShadow: '0 10px 20px rgba(37, 211, 102, 0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <div style={{ background: 'rgba(255,255,255,0.2)', width: '40px', height: '40px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <MessageCircle size={24} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0 }}>Chat Support</h3>
+                  <p style={{ fontSize: '12px', opacity: 0.9, margin: 0 }}>+91 98765 43210</p>
+                </div>
+              </div>
+              <p style={{ fontSize: '13px', lineHeight: 1.5, marginBottom: '20px', opacity: 0.9 }}>Need technical help or have queries about orders? Our team is live.</p>
+              <a 
+                href="https://wa.me/919876543210" 
+                target="_blank" 
+                rel="noreferrer"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'white', color: '#25D366', textDecoration: 'none', padding: '12px', borderRadius: '8px', fontWeight: 700, fontSize: '14px', transition: 'transform 0.2s ease' }}
+                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.02)'}
+                onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                Open WhatsApp
+              </a>
+            </div>
+
+            {/* AI Insights Widget */}
+            <div style={{ background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid rgba(10,25,47,0.05)', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                <Sparkles size={18} color="#C9A24A" />
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0A192F', margin: 0 }}>AI Insights</h3>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {[
+                  "Oil Balance Cleanser has the highest rating (4.8★)",
+                  "WELCOME20 is your most-used coupon",
+                  "Stock running low on 1 product",
+                  "3 new reviews this week"
+                ].map((insight, idx) => (
+                  <li key={idx} style={{ display: 'flex', gap: '10px', fontSize: '13px', color: '#4B5563', lineHeight: 1.4 }}>
+                    <div style={{ minWidth: '6px', height: '6px', borderRadius: '50%', background: '#C9A24A', marginTop: '6px' }} />
+                    {insight}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Coupons Table */}
+            <div style={{ background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid rgba(10,25,47,0.05)', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+              <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0A192F', marginBottom: '20px', margin: '0 0 20px' }}>Promo Codes</h3>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ textAlign: 'left', borderBottom: '1px solid #F3F4F6' }}>
+                    <th style={{ paddingBottom: '10px', fontSize: '11px', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Code</th>
+                    <th style={{ paddingBottom: '10px', fontSize: '11px', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { c: 'WELCOME20', d: '20%', s: true },
+                    { c: 'VELCURA10', d: '10%', s: true },
+                    { c: 'SKIN15', d: '15%', s: true }
+                  ].map(c => (
+                    <tr key={c.c} style={{ borderBottom: '1px solid #FAFAFA' }}>
+                      <td style={{ padding: '12px 0' }}>
+                        <span style={{ fontSize: '13px', fontWeight: 700, color: '#0A192F', display: 'block' }}>{c.c}</span>
+                        <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 600 }}>{c.d} OFF</span>
+                      </td>
+                      <td style={{ padding: '12px 0', textAlign: 'right' }}>
+                        <span style={{ fontSize: '10px', fontWeight: 700, color: c.s ? '#10B981' : '#9CA3AF', background: c.s ? '#ECFDF5' : '#F3F4F6', padding: '4px 8px', borderRadius: '4px' }}>
+                          {c.s ? 'ACTIVE' : 'EXPIRED'}
+                        </span>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { c: 'WELCOME20', d: '20%', s: true },
-                      { c: 'VELCURA10', d: '10%', s: true },
-                      { c: 'SKIN15', d: '15%', s: true }
-                    ].map(c => (
-                      <tr key={c.c} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                        <td style={{ padding: '12px 0', fontSize: '13px', fontWeight: 600, fontFamily: 'monospace' }}>{c.c}</td>
-                        <td style={{ padding: '12px 0', fontSize: '13px', color: '#4B5563' }}>{c.d}</td>
-                        <td style={{ padding: '12px 0', textAlign: 'right' }}>
-                          <span style={{ background: c.s ? '#ECFDF5' : '#F3F4F6', color: c.s ? '#10B981' : '#9CA3AF', padding: '2px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase' }}>
-                            {c.s ? 'Active' : 'Inactive'}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-               </table>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
           </div>
