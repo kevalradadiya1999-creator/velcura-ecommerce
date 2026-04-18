@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
@@ -91,7 +91,7 @@ function App() {
           <Router>
             <ScrollToTop />
           <ErrorBoundary>
-            <Suspense fallback={<div className="page-loader" />}>
+            <Suspense fallback={<PageLoader />}>
               <AnimatedRoutes />
             </Suspense>
           </ErrorBoundary>
