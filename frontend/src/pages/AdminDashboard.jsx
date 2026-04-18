@@ -5,35 +5,30 @@ import toast from 'react-hot-toast';
 import SEOHead from '../components/SEOHead';
 
 const AdminDashboard = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
+  const [unlocked, setUnlocked] = useState(
+    localStorage.getItem('velcura_admin') === 'true'
+  );
+  const [pwd, setPwd] = useState('');
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem('velcura_admin') === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (password === 'velcura2025') {
+  const handleLogin = () => {
+    if (pwd === 'velcura2025') {
       localStorage.setItem('velcura_admin', 'true');
-      setIsAuthenticated(true);
+      setUnlocked(true);
       setError(false);
     } else {
       setError(true);
-      setTimeout(() => setError(false), 500); // For shake animation clearing
+      setPwd('');
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('velcura_admin');
-    setIsAuthenticated(false);
-    setPassword('');
+    setUnlocked(false);
+    setPwd('');
   };
 
-  if (!isAuthenticated) {
+  if (!unlocked) {
     return (
       <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FDFBF7' }}>
         <SEOHead title="Admin Login | Velcura" />
@@ -41,24 +36,25 @@ const AdminDashboard = () => {
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', color: '#0A192F', marginBottom: '8px' }}>Admin Access</h1>
           <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '32px' }}>Please enter your password to continue.</p>
           
-          <form onSubmit={handleLogin}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <input 
               type="password" 
               placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              value={pwd}
+              onChange={e => { setPwd(e.target.value); setError(false); }}
+              onKeyDown={e => e.key === 'Enter' && handleLogin()}
               className={error ? 'shake' : ''}
               style={{
                 width: '100%', padding: '14px 16px', borderRadius: '8px',
                 border: `1px solid ${error ? '#ef4444' : '#ddd'}`,
-                marginBottom: '16px', fontSize: '14px', outline: 'none'
+                fontSize: '14px', outline: 'none'
               }}
             />
-            {error && <p style={{ color: '#ef4444', fontSize: '12px', marginBottom: '16px', textAlign: 'left' }}>Incorrect password</p>}
-            <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+            {error && <p style={{ color: '#ef4444', fontSize: '12px', textAlign: 'left' }}>Incorrect password</p>}
+            <button onClick={handleLogin} className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
               Unlock Dashboard
             </button>
-          </form>
+          </div>
           <style>{`
             @keyframes shake {
               0%, 100% { transform: translateX(0); }

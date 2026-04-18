@@ -3,13 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
 const EmailPopup = () => {
+  const { pathname } = useLocation();
+  if (pathname === '/admin') return null;
+
   const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (localStorage.getItem('velcura_email_captured') || sessionStorage.getItem('velcura_popup_dismissed') || pathname === '/admin') {
+    if (localStorage.getItem('velcura_email_captured') || sessionStorage.getItem('velcura_popup_dismissed')) {
       return;
     }
     const timer = setTimeout(() => {

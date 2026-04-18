@@ -55,13 +55,14 @@ const Navbar = () => {
 
   useEffect(() => {
     setFocusedIdx(-1);
-    if (!searchQuery.trim()) { setSearchResults([]); return; }
-    const q = searchQuery.toLowerCase();
-    const results = products.filter(p =>
-      p.name?.toLowerCase().includes(q) ||
-      p.fullName?.toLowerCase().includes(q) ||
-      p.skinType?.toLowerCase().includes(q) ||
-      p.keyIngredient?.toLowerCase().includes(q)
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    const query = searchQuery.toLowerCase();
+    const results = products.filter(p => 
+      p.name?.toLowerCase().includes(query) || 
+      p.category?.toLowerCase().includes(query)
     ).slice(0, 5);
     setSearchResults(results);
   }, [searchQuery]);

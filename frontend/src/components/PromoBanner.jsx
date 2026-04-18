@@ -8,9 +8,15 @@ const MESSAGES = [
 ];
 
 const PromoBanner = () => {
-  const [visible, setVisible] = useState(() => sessionStorage.getItem('promo_dismissed') !== 'true');
+  const [visible, setVisible] = useState(true);
   const [msgIdx, setMsgIdx] = useState(0);
   const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('promo_dismissed') === 'true') {
+      setVisible(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (!visible) return;

@@ -368,25 +368,45 @@ p {
   top: 0;
 }
 
-/* ─── Shop responsive filters ─── */
-@media (max-width: 768px) {
-  .desktop-filters { display: none !important; }
-  .mobile-filter-trigger { display: block !important; }
-}
-@media (min-width: 769px) {
-  .mobile-filter-trigger { display: none !important; }
-}
+/* ─── Z-Index Stack ─── */
+.promo-banner { position: relative; z-index: 100; }
+#navbar { position: fixed; top: 0; z-index: 99; }
+.cart-drawer { z-index: 999; }
+.cart-overlay { z-index: 998; }
+.email-popup-overlay { z-index: 1000; }
+.rewards-widget { z-index: 85; }
+.back-to-top { z-index: 80; }
+.compare-bar { z-index: 90; }
+.cookie-banner { z-index: 95; }
 
-/* ─── Cart badge overflow clip ─── */
-.cart-badge {
-  overflow: hidden;
-}
-
+/* ─── Desktop Nav Utility ─── */
 .desktop-nav {
   display: flex !important;
   align-items: center;
 }
 
+/* ─── Shop responsive filters ─── */
+@media (max-width: 768px) {
+  .desktop-filters { display: none !important; }
+  .mobile-filter-trigger { display: block !important; }
+  .desktop-nav { display: none !important; }
+}
+
+@media (min-width: 769px) {
+  .mobile-filter-trigger { display: none !important; }
+}
+
+/* ─── Phase 1 Mobile Fixes ─── */  
+@media (max-width: 768px) {  
+  .product-grid { grid-template-columns: 1fr !important; gap: 40px !important; }  
+  .quiz-options-grid { grid-template-columns: 1fr !important; }  
+  .cart-drawer { width: 100vw !important; }  
+  .home-hero-split { flex-direction: column !important; text-align: center !important; }  
+  .home-hero-split { width: 100% !important; align-items: center !important; }  
+  .home-hero-img { height: 300px !important; }  
+}
+
+/* ─── Print Styles ─── */
 @media print {
   .navbar, .footer, .promo-banner, .back-to-top, .rewards-widget, .cookie-banner, .cart-drawer, .email-popup { display: none !important; }
   body { font-size: 12pt; color: #000; background: #fff; }
@@ -394,17 +414,3 @@ p {
   .product-card { break-inside: avoid; }
   h1, h2, h3 { page-break-after: avoid; }
 }
-  
-/* Phase 1 Mobile Fixes */  
-@media (max-width: 768px) {  
-  .product-grid { grid-template-columns: 1fr !important; gap: 40px !important; }  
-  .quiz-options-grid { grid-template-columns: 1fr !important; }  
-  .cart-drawer { width: 100vw !important; }  
-  .home-hero-split { flex-direction: column !important; text-align: center !important; }  
-  .home-hero-split  { width: 100% !important; align-items: center !important; }  
-  .home-hero-img { height: 300px !important; }  
-} 
-
-@media (max-width: 768px) { .desktop-nav { display: none !important; } }
-
-@media print { .navbar, .footer, .promo-banner, .back-to-top, .rewards-widget, .cookie-banner, .cart-drawer, .email-popup { display: none !important; } body { font-size: 12pt; color: #000; background: #fff; } a { color: #000; text-decoration: underline; } .product-card { break-inside: avoid; } h1, h2, h3 { page-break-after: avoid; } }

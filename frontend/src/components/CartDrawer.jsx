@@ -11,26 +11,28 @@ const CartDrawer = () => {
   const [couponInput, setCouponInput] = useState('');
   const [couponExpanded, setCouponExpanded] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
-  const [discountPct, setDiscountPct] = useState(0);
+  const [discount, setDiscount] = useState(0);
   const [couponError, setCouponError] = useState('');
 
-  const discountAmt = Math.round(total * discountPct / 100);
+  const discountAmt = Math.round(total * discount / 100);
   const finalTotal = total - discountAmt;
 
   const applyCoupon = () => {
     const code = couponInput.trim().toUpperCase();
     if (COUPONS[code]) {
       setAppliedCoupon(code);
-      setDiscountPct(COUPONS[code]);
+      setDiscount(COUPONS[code]);
       setCouponError('');
     } else {
       setCouponError('Invalid coupon code');
+      setAppliedCoupon(null);
+      setDiscount(0);
     }
   };
 
   const removeCoupon = () => {
     setAppliedCoupon(null);
-    setDiscountPct(0);
+    setDiscount(0);
     setCouponInput('');
     setCouponError('');
   };
@@ -228,17 +230,17 @@ const CartDrawer = () => {
           <div style={{ padding: '24px 28px', borderTop: '1px solid var(--border)', flexShrink: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
               <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Subtotal</span>
-              <span style={{ fontSize: '14px', color: discountPct > 0 ? 'var(--text-subtle)' : 'var(--text)', fontWeight: 700, textDecoration: discountPct > 0 ? 'line-through' : 'none' }}>₹{total.toLocaleString()}</span>
+              <span style={{ fontSize: '14px', color: discount > 0 ? 'var(--text-subtle)' : 'var(--text)', fontWeight: 700, textDecoration: discount > 0 ? 'line-through' : 'none' }}>₹{total.toLocaleString()}</span>
             </div>
-            {discountPct > 0 && (
+            {discount > 0 && (
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ fontSize: '13px', color: '#16a34a', fontWeight: 600 }}>Discount ({discountPct}%)</span>
+                <span style={{ fontSize: '13px', color: '#16a34a', fontWeight: 600 }}>Discount ({discount}%)</span>
                 <span style={{ fontSize: '14px', color: '#16a34a', fontWeight: 700 }}>−₹{discountAmt}</span>
               </div>
             )}
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
               <span style={{ fontSize: '14px', fontWeight: 700 }}>Total</span>
-              <span style={{ fontSize: '16px', fontWeight: 800 }}>₹{finalTotal.toLocaleString()}</span>
+              <span style={{ fontSize: '16px', fontWeight: 800 }}>₹{finalTotal.toFixed(2)}</span>
             </div>
             <p style={{ fontSize: '11px', color: 'var(--text-subtle)', marginBottom: '20px' }}>
               Taxes and shipping calculated at checkout
