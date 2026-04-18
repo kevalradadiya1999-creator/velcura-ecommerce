@@ -38,10 +38,15 @@ const AdminDashboard   = lazy(() => import('./pages/AdminDashboard'));
 const NotFound         = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
-  <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <style>{`@keyframes velcuraPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.95)} }`}</style>
+  <div className="page-loader">
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', animation: 'velcuraPulse 1.5s ease infinite' }}>
-      <img src="/velcura-logo.png" alt="Loading Velcura..." style={{ height: '40px', opacity: 0.6 }} />
+      <style>{`@keyframes velcuraPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.95)} }`}</style>
+      <img 
+        src="/velcura-logo.png" 
+        alt="Loading Velcura..." 
+        style={{ height: '40px', opacity: 0.6 }} 
+        onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+      />
       <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: '#9CA3AF', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Loading...</p>
     </div>
   </div>

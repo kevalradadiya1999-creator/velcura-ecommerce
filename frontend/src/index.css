@@ -62,6 +62,7 @@ body {
 img {
   width: 100%;
   height: auto;
+  background-color: #F5F0E8; /* warm beige fallback for broken images */
 }
 
 /* ─── Regulated Typography ─── */
@@ -404,6 +405,27 @@ p {
   .home-hero-split { flex-direction: column !important; text-align: center !important; }  
   .home-hero-split { width: 100% !important; align-items: center !important; }  
   .home-hero-img { height: 300px !important; }  
+}
+
+/* ─── Page Loader ─── */
+.page-loader {
+  min-height: 100vh;
+  background: #F9F8F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Shimmer / Skeleton Animation ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #f0ece4 25%, #e8e4dc 50%, #f0ece4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
 }
 
 /* ─── Print Styles ─── */

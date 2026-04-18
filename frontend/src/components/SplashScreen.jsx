@@ -27,7 +27,12 @@ const SplashScreen = ({ onDone }) => {
             zIndex: 9999,
           }}
         >
-          <img src="/velcura-logo.png" alt="Velcura" style={{ height: '56px', marginBottom: '32px', opacity: 0.9 }} />
+          <img 
+            src="/velcura-logo.png" 
+            alt="Velcura" 
+            style={{ height: '56px', marginBottom: '32px', opacity: 0.9 }} 
+            onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+          />
           <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '14px', color: '#C9A24A', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '32px' }}>
             Skincare Science
           </p>

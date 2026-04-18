@@ -18,7 +18,12 @@ const BlogPost = () => {
       <SEOHead title={`${post.title} | Velcura Journal`} />
       
       <div style={{ width: '100%', height: '50vh', position: 'relative' }}>
-        <img src={post.coverImage} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img 
+          src={post.coverImage} 
+          alt={post.title} 
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+          onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+        />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(10,25,47,0.8))' }} />
         <div className="container" style={{ position: 'absolute', bottom: '40px', left: '0', right: '0' }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -73,7 +78,12 @@ const BlogPost = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '24px' }}>
             {otherPosts.map(p => (
               <Link key={p.id} to={`/journal/${p.slug}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
-                <img src={p.coverImage} alt={p.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px', marginBottom: '12px' }} />
+                <img 
+                  src={p.coverImage} 
+                  alt={p.title} 
+                  style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px', marginBottom: '12px' }} 
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+                />
                 <span style={{ fontSize: '10px', fontWeight: 700, color: '#C9A24A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
                   {p.category}
                 </span>

@@ -80,7 +80,12 @@ const Blog = () => {
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.08)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
               >
-                <img src={post.coverImage} alt={post.title} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover' }} />
+                <img 
+                  src={post.coverImage} 
+                  alt={post.title} 
+                  style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover' }} 
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+                />
                 <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: '#C9A24A', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '12px' }}>
                     {post.category}

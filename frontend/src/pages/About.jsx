@@ -93,6 +93,7 @@ const About = () => (
               src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&fit=crop&crop=faces&auto=format"
               alt="Velcura Founder"
               style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 20px 60px rgba(10,25,47,0.12)' }}
+              onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
             />
           </div>
           <div>

@@ -5,18 +5,6 @@ const SkeletonCard = () => (
     background: '#fff',
     border: '1px solid rgba(10,25,47,0.06)',
   }}>
-    <style>{`
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-      .skeleton-shimmer {
-        background: linear-gradient(90deg, #f0ece4 25%, #e8e4dc 50%, #f0ece4 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-      }
-    `}</style>
-
     {/* Image area */}
     <div className="skeleton-shimmer" style={{ height: '260px', width: '100%' }} />
 

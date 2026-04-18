@@ -68,7 +68,7 @@ const ProductPage = () => {
   const productReviews = reviews.filter(r => r.product === product.slug);
   const related = products.filter(p => p.slug !== slug);
   const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
-  const images = product.images || [product.image];
+  const galleryImages = product.images?.length > 0 ? product.images : [product.image];
 
   const accordionSections = [
     {
@@ -221,34 +221,35 @@ const ProductPage = () => {
               onMouseLeave={e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1)'; }}
             >
               <img
-                src={images[activeImg]}
-                alt={product.fullName}
-                loading="eager"
+                src={galleryImages[activeImg]}
+                alt={product.name}
                 style={{
-                  maxWidth: '80%',
-                  maxHeight: '80%',
+                  width: '100%',
+                  height: 'auto',
+                  maxHeight: '520px',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 20px 40px rgba(10,25,47,0.15))',
-                  transition: 'opacity 0.3s ease, transform 0.4s ease',
                   opacity: imgOpacity,
+                  transition: 'opacity 0.2s ease-in-out',
+                  filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.1))',
                 }}
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
               />
             </div>
 
             {/* Thumbnails */}
-            {images.length > 1 && (
+            {galleryImages.length > 1 && (
               <div style={{ display: 'flex', gap: '8px', marginTop: '12px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '4px' }}>
-                {images.map((img, i) => (
+                {galleryImages.map((img, idx) => (
                   <button
-                    key={i}
-                    onClick={() => switchImage(i)}
-                    aria-label={`View image ${i + 1}`}
+                    key={idx}
+                    onClick={() => switchImage(idx)}
+                    aria-label={`View image ${idx + 1}`}
                     tabIndex={0}
-                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchImage(i); } }}
+                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchImage(idx); } }}
                     style={{
                       width: '72px', height: '72px', flexShrink: 0,
                       borderRadius: '8px', overflow: 'hidden',
-                      border: i === activeImg ? '2px solid #0A192F' : '2px solid transparent',
+                      border: idx === activeImg ? '2px solid #0A192F' : '2px solid transparent',
                       cursor: 'pointer', padding: 0, background: product.bgColor,
                       transition: 'border-color 0.2s',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -256,8 +257,9 @@ const ProductPage = () => {
                   >
                     <img
                       src={img}
-                      alt={`${product.name} view ${i + 1}`}
+                      alt={`${product.name} shadow ${idx + 1}`}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
                     />
                   </button>
                 ))}

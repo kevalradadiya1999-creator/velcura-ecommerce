@@ -135,7 +135,14 @@ const AdminDashboard = () => {
               <tbody>
                 {products.map(p => (
                   <tr key={p.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                    <td style={{ padding: '12px 16px' }}><img src={p.image} alt="" style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover' }} /></td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <img 
+                        src={p.image} 
+                        alt={p.name} 
+                        style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover' }} 
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+                      />
+                    </td>
                     <td style={{ padding: '12px 16px', fontSize: '14px', fontWeight: 500, color: '#0A192F' }}>{p.name}<br/><span style={{fontSize:'12px', color:'#6B7280', fontWeight:400}}>{p.category}</span></td>
                     <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>₹{p.price}</td>
                     <td style={{ padding: '12px 16px' }}>

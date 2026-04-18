@@ -65,7 +65,13 @@ const ProductCard = ({ product, variant = 'default' }) => {
 
         <Link to={`/product/${product.slug}`} className="block w-full" style={{ position: 'relative' }}>
           <div className="product-img-wrap h-[240px] md:h-[280px] w-full" style={{ background: product.bgColor, position: 'relative', overflow: 'hidden' }}>
-            <img src={product.image} alt={product.fullName} className="w-full h-full object-cover" loading="lazy" />
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="w-full h-full object-cover" 
+              loading="lazy" 
+              onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+            />
             {/* Quick-add overlay */}
             <div
               className="quick-add-overlay"
@@ -181,7 +187,13 @@ const ProductCard = ({ product, variant = 'default' }) => {
 
       <Link to={`/product/${product.slug}`} className="block w-full">
         <div className="product-img-wrap h-[200px] md:h-[220px] w-full" style={{ background: product.bgColor, position: 'relative', overflow: 'hidden' }}>
-          <img src={product.image} alt={product.fullName} className="w-full h-full object-cover" loading="lazy" />
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover" 
+            loading="lazy" 
+            onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+          />
           <div
             className="quick-add-overlay"
             onClick={e => { e.preventDefault(); e.stopPropagation(); addItem(product, 1); toast.success(`${product.name} added to cart!`); }}

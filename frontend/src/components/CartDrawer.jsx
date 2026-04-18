@@ -126,6 +126,7 @@ const CartDrawer = () => {
                       src={item.image}
                       alt={item.name}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
                     />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>

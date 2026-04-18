@@ -234,7 +234,9 @@ const Home = () => {
                   <img 
                     src="/product-trio.jpg" 
                     alt="Velcura Product Trio" 
+                    loading="lazy"
                     style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} 
+                    onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
                   />
                 </div>
               </div>
@@ -389,7 +391,7 @@ const Home = () => {
                   }}>
                     <img 
                       src={p.image} 
-                      alt={p.fullName} 
+                      alt={p.name} 
                       loading="lazy"
                       style={{ 
                         maxWidth: '90%', 
@@ -397,6 +399,7 @@ const Home = () => {
                         objectFit: 'contain', 
                         filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.1))' 
                       }} 
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
                     />
                   </div>
               </div>

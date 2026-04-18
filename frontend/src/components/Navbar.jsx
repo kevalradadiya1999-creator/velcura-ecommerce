@@ -14,6 +14,7 @@ const VelcuraLogo = () => (
       src="/velcura-logo.png"
       alt="Velcura Hygiene Pvt Ltd"
       style={{ height: '42px', width: 'auto', objectFit: 'contain' }}
+      onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
     />
   </Link>
 );
@@ -252,6 +253,7 @@ const Navbar = () => {
                         alt={result.fullName}
                         width="40" height="40"
                         style={{ borderRadius: '8px', objectFit: 'cover', background: result.bgColor, flexShrink: 0 }}
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <p style={{ fontSize: '13px', fontWeight: 500, color: '#0A192F', marginBottom: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>

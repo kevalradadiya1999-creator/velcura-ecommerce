@@ -34,7 +34,12 @@ const CompareBar = () => {
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             {compareList.map(p => (
               <div key={p.id} style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px', background: '#F9F8F5', padding: '6px 10px 6px 6px', borderRadius: '8px', border: '1px solid #eee' }}>
-                <img src={p.image} alt={p.name} style={{ width: '32px', height: '32px', borderRadius: '4px', objectFit: 'cover', background: p.bgColor }} />
+                <img 
+                  src={p.image} 
+                  alt={p.name} 
+                  style={{ width: '32px', height: '32px', borderRadius: '4px', objectFit: 'cover', background: p.bgColor }} 
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+                />
                 <span style={{ fontSize: '12px', fontWeight: 600, color: '#0A192F', maxWidth: '80px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</span>
                 <button
                   onClick={() => removeFromCompare(p.id)}

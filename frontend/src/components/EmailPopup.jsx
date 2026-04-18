@@ -56,7 +56,12 @@ const EmailPopup = () => {
           >
             <button onClick={close} aria-label="Close dialog" style={{ position: 'absolute', top: '16px', right: '16px', background: 'rgba(255,255,255,0.8)', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10 }}>✕</button>
             
-            <img src="https://images.unsplash.com/photo-1615397323282-3151ebf38c3c?w=600&q=80&fit=crop" alt="Lifestyle" style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
+            <img 
+              src="https://images.unsplash.com/photo-1615397323282-3151ebf38c3c?w=600&q=80&fit=crop" 
+              alt="Lifestyle" 
+              style={{ width: '100%', height: '180px', objectFit: 'cover' }} 
+              onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+            />
             
             <div style={{ padding: '40px' }}>
               {submitted ? (
