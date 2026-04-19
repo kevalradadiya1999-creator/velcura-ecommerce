@@ -95,173 +95,20 @@ const Home = () => {
       />
 
       {/* ────────────── HERO ────────────── */}
-      <section
+      <section 
         id="hero"
         style={{
+          position: 'relative',
           minHeight: '100vh',
+          overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
-          background: 'linear-gradient(135deg, #FDFBF7 0%, #EEF2F6 100%)',
-          position: 'relative',
-          overflow: 'hidden',
+          justifyContent: 'center',
+          background: `rgba(0,0,0,0.2) url('/product-trio.jpg') center center / cover no-repeat`,
+          backgroundBlendMode: 'overlay'
         }}
       >
-        {/* Background decoration */}
-        <div style={{
-          position: 'absolute',
-          top: '-10%',
-          right: '-5%',
-          width: '600px',
-          height: '600px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(201,162,74,0.08) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '-5%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(10,25,47,0.04) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-
-        <div className="container relative z-10 py-16 lg:py-20">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center text-center lg:text-left">
-            
-            {/* Left: Content */}
-            <div
-              ref={heroRef}
-              style={{
-                opacity: heroVisible ? 1 : 0,
-                transform: heroVisible ? 'none' : 'translateY(24px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              <div className="flex flex-col items-center lg:items-start gap-2 mb-8">
-                <div className="flex items-center gap-4">
-                  <div className="h-[1px] w-8 lg:w-12 bg-[#C9A24A]" />
-                  <span className="section-label !mb-0 tracking-[0.2em] uppercase text-[10px] lg:text-[11px] text-[#C9A24A] font-semibold">Clinical Beauty Standard</span>
-                  <div className="h-[1px] w-8 lg:w-12 bg-[#C9A24A] lg:hidden" />
-                </div>
-              </div>
-
-              <h1 className="text-[26px] md:text-[34px] lg:text-[40px] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--text)] mb-6 font-playfair">
-                Premium Makeup Remover Wipes<br />
-                <span className="text-[var(--accent)]">Made for Your Exact Skin Type</span>
-              </h1>
-
-              <p className="text-[var(--text-muted)] max-w-[560px] mx-auto lg:mx-0 mb-8 lg:mb-10 font-normal">
-                Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
-              </p>
-
-              {/* Step 1: Trust bar */}
-              <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-4 gap-y-2 mb-10 lg:mb-12 py-3 px-4 lg:py-4 lg:px-6 bg-[rgba(201,162,74,0.03)] border border-[rgba(201,162,74,0.15)] rounded-lg">
-                {[
-                  'Made in India',
-                  'Dermatologically Inspired',
-                  'Alcohol-Free',
-                  'Skin-Type Specific',
-                  'Free Skin Guide with First Order'
-                ].map((item, i, arr) => (
-                  <div key={item} className="flex items-center gap-4">
-                    <span className="text-[11px] lg:text-[12px] font-semibold text-[rgba(10,25,47,0.6)] tracking-[0.05em]">
-                      {item === 'Free Skin Guide with First Order' ? <span className="text-[#C9A24A]">{item}</span> : item}
-                    </span>
-                    {i < arr.length - 1 && <span className="text-[rgba(201,162,74,0.4)] text-[12px] hidden sm:inline">•</span>}
-                  </div>
-                ))}
-              </div>
-
-              {/* Step 1: 4 Buttons Grid */}
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-3 w-full max-w-[560px] mx-auto lg:mx-0">
-                <Link to="/shop?type=oily" className="btn-outline w-full sm:w-auto justify-center text-[12px] py-3 px-5 rounded-lg">
-                  Shop Oily Skin
-                </Link>
-                <Link to="/shop?type=dry" className="btn-outline w-full sm:w-auto justify-center text-[12px] py-3 px-5 rounded-lg">
-                  Shop Dry Skin
-                </Link>
-                <Link to="/shop?type=sensitive" className="btn-outline w-full sm:w-auto justify-center text-[12px] py-3 px-5 rounded-lg">
-                  Shop Sensitive Skin
-                </Link>
-                <button 
-                  onClick={() => document.getElementById('skin-advisor-trigger')?.click()}
-                  className="btn-primary w-full sm:w-auto justify-center text-[12px] py-3 px-5 bg-[#C9A24A] border-[#C9A24A] rounded-lg shadow-[0_8px_20px_rgba(201,162,74,0.15)]"
-                >
-                  Take 30-Second Skin Quiz
-                </button>
-              </div>
-              <div style={{ marginTop: '20px', textAlign: 'center' }} className="lg:text-left">
-                <Link to="/quiz" style={{ color: 'var(--accent)', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'} onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}>
-                  Take the Skin Quiz →
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: BRAND HERO VISUAL - Product Trio */}
-            <div className="relative flex items-center justify-center h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] w-full mt-4 lg:mt-0">
-              {/* Luxury Spotlight Background */}
-              <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '700px',
-                height: '700px',
-                background: 'radial-gradient(circle, rgba(201,162,74,0.08) 0%, transparent 70%)',
-                zIndex: 0,
-                animation: 'glow 6s infinite alternate ease-in-out'
-              }} />
-
-              {/* Product Visual Container */}
-              <div style={{
-                position: 'relative',
-                zIndex: 1,
-                animation: 'float 6s infinite ease-in-out',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                width: '100%',
-                maxWidth: '680px',
-              }}>
-                <div style={{
-                  position: 'relative',
-                  width: '100%',
-                  filter: 'drop-shadow(0 40px 80px rgba(10,25,47,0.15))'
-                }}>
-                  <img 
-                    src="/product-trio.jpg" 
-                    alt="Velcura Product Trio" 
-                    loading="lazy"
-                    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div style={{
-          position: 'absolute',
-          bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <div style={{
-            width: '1px',
-            height: '48px',
-            background: 'linear-gradient(to bottom, transparent, var(--accent))',
-          }} />
-          <span style={{ fontSize: '10px', color: 'var(--text-subtle)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Scroll</span>
-        </div>
+        {/* Clean fullscreen background image - no text, no buttons */}
       </section>
 
       {/* ────────────── TRUST ELEMENTS ────────────── */}
