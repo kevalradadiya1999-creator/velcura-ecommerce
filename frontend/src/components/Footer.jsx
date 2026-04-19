@@ -113,7 +113,7 @@ const Footer = () => {
             Skincare Science Meets Everyday Cleansing. Dermatologically inspired wipes for every skin type.
           </p>
           <div style={{ display: 'flex', gap: '16px' }}>
-            <a href="#" aria-label="Instagram" style={{ color: 'rgba(253,251,247,0.5)', transition: 'color 0.2s' }}
+            <a href="https://www.instagram.com/velcurahygiene" target="_blank" aria-label="Instagram" style={{ color: 'rgba(253,251,247,0.5)', transition: 'color 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
               onMouseLeave={e => e.currentTarget.style.color = 'rgba(253,251,247,0.5)'}
             >

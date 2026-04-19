@@ -12,7 +12,7 @@ export const blogPosts = [
     readTime: '4 min read',
     date: 'Oct 12, 2024',
     coverImage: 'https://images.unsplash.com/photo-1615397323719-54d92410a7db?w=800&q=80&fit=crop',
-    author: 'Dr. Sarah Chen'
+    author: 'Velcura Skincare Team'
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ export const blogPosts = [
     readTime: '5 min read',
     date: 'Sep 15, 2024',
     coverImage: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800&q=80&fit=crop',
-    author: 'Jessica Rivera, Esthetician'
+    author: 'Velcura Skincare Team'
   },
   {
     id: 4,

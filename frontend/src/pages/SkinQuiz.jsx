@@ -63,22 +63,22 @@ const SkinQuiz = () => {
     let text = `Based on your ${answers[1].toLowerCase()} skin and concern with ${answers[2].toLowerCase()}, we've curated a ${answers[3].toLowerCase()} routine tailored for you. `;
     
     let recommendedProducts = [];
-    if (answers[1] === 'Oily' || answers[2] === 'Acne & Breakouts') {
-      recommendedProducts.push(products.find(p => p.id === '1') || products[0]); // Oil Balance
-      text += "Managing excess sebum without stripping the skin's barrier is key.";
-    } else if (answers[1] === 'Dry' || answers[2] === 'Dryness & Flaking') {
-      recommendedProducts.push(products.find(p => p.id === '2') || products[1]); // HydraGlow
-      text += "Deep hydration and moisture retention are the primary focus of these selections.";
+    if (answers[1] === 'Oily' || answers[2] === 'Acne & Breakouts' || answers[1] === 'Combination') {
+      recommendedProducts.push(products.find(p => p.id === 'oil-balance') || products[0]); // Oil Balance
+      text += "Managing excess sebum and minimizing pores without stripping the skin's barrier is key. Our 4% Niacinamide formulation provides clinical-grade oil regulation.";
+    } else if (answers[1] === 'Dry' || answers[2] === 'Dryness & Flaking' || answers[1] === 'Normal') {
+      recommendedProducts.push(products.find(p => p.id === 'hydraglow') || products[1]); // HydraGlow
+      text += "Deep hydration and moisture retention are the primary focus of these selections. We recommend our Sodium Hyaluronate formula to plump the skin.";
     } else {
-      recommendedProducts.push(products.find(p => p.id === '3') || products[2]); // Calm Barrier
-      text += "We highly prioritize maintaining your skin barrier and soothing sensitivity.";
+      recommendedProducts.push(products.find(p => p.id === 'calm-skin') || products[2]); // Calm Barrier
+      text += "We highly prioritize maintaining your skin barrier and soothing sensitivity. The Ceramide Complex serves to restore and heal reactive skin tones.";
     }
 
     if (answers[3] === 'Detailed') {
-      if (!recommendedProducts.find(p => p.id === '2')) recommendedProducts.push(products[1]);
-      if (!recommendedProducts.find(p => p.id === '3')) recommendedProducts.push(products[2]);
+      if (!recommendedProducts.find(p => p.id === 'hydraglow')) recommendedProducts.push(products[1]);
+      if (!recommendedProducts.find(p => p.id === 'calm-skin')) recommendedProducts.push(products[2]);
     } else if (answers[3] === 'Moderate') {
-      if (!recommendedProducts.find(p => p.id === '1') && answers[1] !== 'Dry') recommendedProducts.push(products[0]);
+      if (!recommendedProducts.find(p => p.id === 'oil-balance') && answers[1] !== 'Dry') recommendedProducts.push(products[0]);
     }
     
     // Ensure unique items

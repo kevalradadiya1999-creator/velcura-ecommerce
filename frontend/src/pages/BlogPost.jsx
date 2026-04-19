@@ -52,22 +52,22 @@ const BlogPost = () => {
             {post.excerpt}
           </p>
           <p style={{ marginBottom: '24px' }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            When discussing barrier health, active ingredients and moisture retention are invariably at the forefront. At Velcura, we believe that understanding the fundamental building blocks of your skin’s outermost layer—the stratum corneum—is the first step toward achieving a truly balanced complexion. Your skin barrier acts not only as a shield against environmental stressors but also as a seal that prevents transepidermal water loss (TEWL). When this structure is compromised, your skin is prone to irritation, rapid moisture loss, and an overproduction of sebum.
           </p>
           <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', color: '#0A192F', marginTop: '40px', marginBottom: '16px' }}>
             The Clinical Perspective
           </h3>
           <p style={{ marginBottom: '24px' }}>
-            Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Eleifend aliquet. Mauris mollis feugiat erat, nec imperdiet dui vulputate vulputate. Morbi at tellus at ipsum posuere imperdiet. Nullam tempor, elit auctor egestas ultrices.
+            Dermatological research continues to validate the fact that supporting the lipid matrix requires a targeted approach. Introducing ceramides, hyaluronic acid, and proper cleansing into your regimen helps to bridge the gaps in an impaired barrier. By using clinically tested, gentle cleansing methods—like those integrated into our formulated wipes—you allow essential lipids to remain intact. Stripping the skin of these natural oils leads to a paradoxical effect where dehydration triggers more oil production.
+          </p>
+          <p style={{ marginBottom: '24px' }}>
+            Our meticulously engineered formulations are designed with this physiology in mind. They don't just cleanse; they actively work to limit inflammation, regulate sebaceous output, and promote natural synthesis. We recommend paying close attention to how your skin feels post-cleanse—if it's tight or "squeaky," you are likely deteriorating your barrier. True clinical hygiene should leave the skin calm, plump, and deeply fortified.
           </p>
           <blockquote style={{ borderLeft: '4px solid #C9A24A', paddingLeft: '20px', fontStyle: 'italic', fontSize: '18px', color: '#0A192F', margin: '40px 0' }}>
             "Understanding how ingredients interact with your lipid barrier is the difference between surviving your routine and thriving in it."
           </blockquote>
           <p style={{ marginBottom: '24px' }}>
-            Aliquam id nisi id nisl ullamcorper finibus. Vestibulum suscipit mi nisl, vitae egestas risus aliquet et. Vivamus eleifend dolor in risus congue, hendrerit gravida nunc feugiat. Sed et egestas elit, id rutrum felis. Duis consequat convallis congue. Curabitur sed sapien at nisl efficitur viverra non vitae diam.
-          </p>
-          <p style={{ marginBottom: '24px' }}>
-            Phasellus aliquet, urna in pretium luctus, risus dolor posuere est, non bibendum ligula nulla suscipit nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
+            In conclusion, whether you are dealing with oily, dry, or sensitive skin, the goal should always be to maintain an intact, healthy barrier. By understanding the science behind your skincare, you empower yourself to make choices that lead to long-term resilience and radiance.
           </p>
         </div>
 
