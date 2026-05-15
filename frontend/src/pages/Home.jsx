@@ -270,58 +270,65 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ────────────── VALUE PROPOSITION ────────────── */}
-      <motion.section
-        className="bg-white section border-b border-[var(--border)] text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container">
-          <h2 className="text-[var(--text)] mb-8 lg:mb-12">Not Just Makeup Removal</h2>
-          <div className="velcura-grid">
-            <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
-              <Droplets size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
-              <h3 className="font-semibold text-lg lg:text-xl mb-2">Removes Everything</h3>
-              <p className="text-[var(--text-muted)]">Effectively dissolves waterproof makeup, SPF, and urban pollution without harsh rubbing.</p>
+      {/* ────────────── THE COLLECTION ────────────── */}
+      <motion.section style={{ background: '#F5F0E8', padding: '100px 0' }} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '60px', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>The Collection</span>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>
+                Find your<br /><em style={{ fontStyle: 'italic' }}>perfect wipe.</em>
+              </h2>
             </div>
-            <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
-              <Gem size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
-              <h3 className="font-semibold text-lg lg:text-xl mb-2">Treats Skin</h3>
-              <p className="text-[var(--text-muted)]">Infused with active ingredients like Niacinamide and Hyaluronic Acid to nourish while you cleanse.</p>
-            </div>
-            <div className="flex flex-col items-center p-6 bg-[var(--surface)] rounded-2xl">
-              <Shield size={40} className="text-[#C9A24A] mb-4" strokeWidth={1.5} />
-              <h3 className="font-semibold text-lg lg:text-xl mb-2">Protects Barrier</h3>
-              <p className="text-[var(--text-muted)]">Maintains your skin's natural pH and lipid barrier. Zero post-cleanse tightness or irritation.</p>
-            </div>
+            <Link to="/shop" style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0A192F', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(10,25,47,0.2)', padding: '14px 24px', borderRadius: '4px' }}>
+              VIEW ALL <ArrowRight size={14} />
+            </Link>
           </div>
-        </div>
-      </motion.section>
 
-      {/* ────────────── SKIN TYPE SELECTOR ────────────── */}
-      <motion.section
-        className="bg-[var(--surface)] section border-b border-[var(--border)] text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, delay: 0.05 }}
-      >
-        <div className="container">
-          <h2 className="text-[var(--text)] mb-4 lg:mb-8">Find Your Perfect Wipe</h2>
-          <p className="text-[var(--text-muted)] mb-8 lg:mb-10 max-w-lg mx-auto">Select your primary concern below to jump directly to the clinical formula designed exclusively for your skin.</p>
-          <div className="flex flex-col md:flex-row justify-center gap-4">
-          <a href="#sku-oil-balance" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
-            Oily Skin &rarr;
-          </a>
-          <a href="#sku-hydraglow" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
-            Dry Skin &rarr;
-          </a>
-          <a href="#sku-calm-skin" className="w-full md:w-auto btn-primary bg-white text-[var(--text)] border border-[var(--border)] hover:bg-[#C9A24A] hover:text-white justify-center text-[14px] py-5 px-8 rounded-xl shadow-sm transition-all duration-300">
-            Sensitive Skin &rarr;
-          </a>
-        </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="collection-grid">
+            {products.map((p, i) => (
+              <motion.div key={p.id} id={`sku-${p.id}`} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}
+                style={{ background: p.bgColor || ['#E8EEF0', '#F5EDE0', '#EDE8F0'][i], borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column', cursor: 'pointer', position: 'relative' }}>
+                <div style={{ height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px', position: 'relative' }}>
+                  <div style={{ position: 'absolute', top: '16px', left: '16px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.15em', color: p.accentColor || '#C9A24A', textTransform: 'uppercase', opacity: 0.7 }}>
+                    {['DOCTOR APPROVED', 'HYDRATION HERO', 'CLINICAL GRADE'][i]}
+                  </div>
+                  <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+                    <ArrowRight size={16} color={p.accentColor || '#C9A24A'} style={{ transform: 'rotate(-45deg)' }} />
+                  </div>
+                  <img src={p.image} alt={p.name} loading="lazy"
+                    style={{ maxHeight: '180px', objectFit: 'contain', filter: 'drop-shadow(0 16px 32px rgba(0,0,0,0.12))' }}
+                    onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }} />
+                </div>
+                <div style={{ padding: '24px 28px 28px', background: '#F5F0E8', flex: 1 }}>
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 400, color: '#0A192F', marginBottom: '4px' }}>{p.name}</h3>
+                  <p style={{ fontSize: '13px', color: 'rgba(10,25,47,0.5)', marginBottom: '16px' }}>{p.tagline}</p>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {(p.benefits || ['Instantly mattifies shine', 'Dissolves waterproof makeup', 'Zero post-cleanse tightness']).slice(0, 3).map(b => (
+                      <li key={b} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(10,25,47,0.6)' }}>
+                        <span style={{ color: '#C9A24A', fontSize: '16px' }}>◇</span> {b}
+                      </li>
+                    ))}
+                  </ul>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', gap: '2px' }}>{[...Array(5)].map((_, j) => <svg key={j} width="12" height="12" viewBox="0 0 14 14" fill="#C9A24A"><polygon points="7,1 8.8,5.2 13.5,5.5 10,8.5 11,13 7,10.5 3,13 4,8.5 0.5,5.5 5.2,5.2" /></svg>)}</div>
+                    <span style={{ fontSize: '12px', color: 'rgba(10,25,47,0.4)' }}>({[186, 214, 312][i]})</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div>
+                      <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 700, color: '#0A192F' }}>₹{p.price}</span>
+                      <span style={{ fontSize: '13px', color: 'rgba(10,25,47,0.35)', textDecoration: 'line-through', marginLeft: '8px' }}>₹{p.originalPrice || 399}</span>
+                      <span style={{ fontSize: '11px', color: 'rgba(10,25,47,0.4)', marginLeft: '4px' }}>(30 Wipes)</span>
+                    </div>
+                    <button onClick={() => addItem(p)}
+                      style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: '#0A192F', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      + ADD TO CART
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </motion.section>
 
@@ -441,89 +448,50 @@ const Home = () => {
         ))}
       </motion.section>
 
-      {/* ────────────── BUNDLE SECTION ────────────── */}
-      <motion.section
-        id="bundles"
-        className="bg-[var(--surface)] section border-t border-[var(--border)]"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container">
-          <div className="text-center mb-10 lg:mb-16">
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '36px', color: '#0A192F', marginBottom: '8px' }}>
-              Build Your Routine
-            </h2>
-            <p style={{ fontSize: '16px', color: '#6B7280' }}>
-              Curated combinations for every skin type.
-            </p>
+      {/* ────────────── BUILD YOUR ROUTINE ────────────── */}
+      <motion.section id="bundles" style={{ background: '#F5F0E8', padding: '100px 0' }} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>Build Your Routine</span>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>Curated combinations.</h2>
           </div>
-          <div className="velcura-grid mb-8">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="collection-grid">
             {[
-              { 
-                id: 'b1', name: 'Morning Glow Kit', 
-                items: [products[0], products[1]], 
-                discount: 0.15 
-              },
-              { 
-                id: 'b2', name: 'Hydration Ritual', 
-                items: [products[1], products[2]], 
-                discount: 0.15 
-              },
-              { 
-                id: 'b3', name: 'Complete Skincare Set', 
-                items: [products[0], products[1], products[2]], 
-                discount: 0.20 
-              },
+              { id: 'b1', badge: 'POPULAR', badgeStyle: { background: '#0A192F', color: 'white' }, name: 'Duo Pack', sub: 'Any 2 variants — Mix & match for your routine.', items: [products[0], products[1]], discount: 0.085, dark: false },
+              { id: 'b2', badge: 'BEST VALUE', badgeStyle: { background: '#C9A24A', color: 'white' }, name: 'Trio Pack', sub: 'All 3 variants — Oil Balance + HydraGlow + Calm Barrier.', items: [products[0], products[1], products[2]], discount: 0.20, dark: true },
+              { id: 'b3', badge: 'VIP PERKS', badgeStyle: { background: '#0A192F', color: 'white' }, name: 'Monthly Subscription', sub: 'Auto-delivered. Cancel anytime. Never run out again.', items: [products[1]], discount: 0.10, dark: false },
             ].map(b => {
               const originalPrice = b.items.reduce((sum, p) => sum + (p?.price || 0), 0);
               const bundlePrice = Math.floor(originalPrice * (1 - b.discount));
-              const savings = originalPrice - bundlePrice;
-
               return (
-                <div
-                  key={b.id}
-                  style={{
-                    background: 'white',
-                    borderRadius: '16px',
-                    padding: '24px',
-                    position: 'relative',
-                    transition: 'transform 0.3s, box-shadow 0.3s',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    border: '1px solid #eee'
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.06)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
-                >
-                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 600, color: '#0A192F', marginBottom: '16px' }}>{b.name}</h3>
+                <div key={b.id} style={{ background: b.dark ? '#0A192F' : 'white', borderRadius: '16px', padding: '32px', display: 'flex', flexDirection: 'column', position: 'relative', transition: 'transform 0.2s', border: b.dark ? 'none' : '1px solid rgba(10,25,47,0.08)' }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                  <span style={{ ...b.badgeStyle, fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', padding: '6px 14px', borderRadius: '999px', display: 'inline-block', marginBottom: '24px', alignSelf: 'flex-start' }}>{b.badge}</span>
+                  <div style={{ display: 'flex', gap: '-8px', marginBottom: '20px' }}>
+                    {b.items.slice(0, 3).map((p, pi) => (
+                      <img key={p.id} src={p.image} alt={p.name} style={{ width: '64px', height: '64px', objectFit: 'contain', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', marginLeft: pi > 0 ? '-8px' : 0 }}
+                        onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=80&q=80'; }} />
+                    ))}
+                  </div>
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 400, color: b.dark ? 'white' : '#0A192F', marginBottom: '8px' }}>{b.name}</h3>
+                  <p style={{ fontSize: '13px', color: b.dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,25,47,0.5)', marginBottom: '20px' }}>{b.sub}</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {b.items.map(p => (
-                      <li key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#4B5563' }}>
-                        <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#DEF7EC', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#03543F' }}>✓</div>
-                        {p.name}
+                      <li key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: b.dark ? 'rgba(255,255,255,0.7)' : 'rgba(10,25,47,0.6)' }}>
+                        <span style={{ color: '#C9A24A' }}>✓</span> {p.name}
                       </li>
                     ))}
                   </ul>
-
-                  <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-                    <span style={{ fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>{formatPrice(bundlePrice)}</span>
-                    <span style={{ fontSize: '14px', color: '#9CA3AF', textDecoration: 'line-through', marginBottom: '4px' }}>{formatPrice(originalPrice)}</span>
-                    <span style={{ background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '4px 8px', borderRadius: '4px', marginBottom: '4px', marginLeft: 'auto' }}>
-                      Save {formatPrice(savings)}
-                    </span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
+                    <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 700, color: b.dark ? 'white' : '#0A192F' }}>₹{bundlePrice}</span>
+                    <span style={{ fontSize: '14px', color: b.dark ? 'rgba(255,255,255,0.35)' : 'rgba(10,25,47,0.3)', textDecoration: 'line-through' }}>₹{originalPrice}</span>
                   </div>
-
-                  <button
-                    className="btn-primary"
-                    style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '14px' }}
-                    onClick={() => {
-                      b.items.forEach(p => addItem(p));
-                      toast.success('Bundle added to cart!');
-                    }}
-                  >
-                    Add Bundle to Cart
+                  <button style={{ width: '100%', padding: '14px', borderRadius: '4px', border: b.dark ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(10,25,47,0.15)', background: b.dark ? 'rgba(255,255,255,0.08)' : 'transparent', color: b.dark ? 'white' : '#0A192F', fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', cursor: 'pointer', transition: 'all 0.2s' }}
+                    onClick={() => { b.items.forEach(p => addItem(p)); toast.success('Bundle added to cart!'); }}
+                    onMouseEnter={e => { e.currentTarget.style.background = b.dark ? 'rgba(255,255,255,0.15)' : '#0A192F'; if (!b.dark) e.currentTarget.style.color = 'white'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = b.dark ? 'rgba(255,255,255,0.08)' : 'transparent'; if (!b.dark) e.currentTarget.style.color = '#0A192F'; }}>
+                    ADD TO CART
                   </button>
                 </div>
               );
@@ -833,6 +801,10 @@ const Home = () => {
 
       {/* Responsive styles */}
       <style>{`
+        @media (max-width: 900px) {
+          .collection-grid { grid-template-columns: 1fr !important; }
+          .hero-two-col { grid-template-columns: 1fr !important; }
+        }
         @media (max-width: 768px) {
           .hero-grid { grid-template-columns: 1fr !important; padding: 100px 24px 60px !important; }
           .brand-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
