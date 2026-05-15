@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Shield, Droplets, Sun, Leaf, BadgeCheck, Feather, Fingerprint, Gem, ShoppingBag } from 'lucide-react';
 import { products, reviews } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -50,6 +50,11 @@ const Home = () => {
   const [heroRef, heroVisible] = useInview(0.05);
   const [shopRef, shopVisible] = useInview(0.1);
   const [sciRef, sciVisible] = useInview(0.1);
+  
+  const { scrollY } = useScroll();
+  const yBg = useTransform(scrollY, [0, 1000], [0, 250]);
+  const yHeroObj = useTransform(scrollY, [0, 1000], [0, -150]);
+  const opacityHero = useTransform(scrollY, [0, 600], [1, 0]);
   const [reviewIdx, setReviewIdx] = useState(0);
 
   const nextReview = () => {
@@ -95,185 +100,160 @@ const Home = () => {
       />
 
       {/* ────────────── HERO ────────────── */}
-      <section
-        id="hero"
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          background: 'linear-gradient(135deg, #FDFBF7 0%, #EEF2F6 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Background decoration */}
-        <div style={{
-          position: 'absolute',
-          top: '-10%',
-          right: '-5%',
-          width: '600px',
-          height: '600px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(201,162,74,0.08) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '-5%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(10,25,47,0.04) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+      <section id="hero" style={{ minHeight: '100vh', background: '#F5F0E8', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        {/* Top announcement bar */}
+        <div style={{ background: '#0A192F', color: 'rgba(253,251,247,0.85)', fontSize: '12px', fontWeight: 500, letterSpacing: '0.08em', padding: '10px 20px', textAlign: 'center' }}>
+          ◇ 100% Natural Ingredients · Dermatologist Tested · Free Shipping above ₹499
+        </div>
 
-        <div className="container relative z-10 py-16 lg:py-20">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center text-center lg:text-left">
-            
-            {/* Left: Content */}
-            <div
-              ref={heroRef}
-              style={{
-                opacity: heroVisible ? 1 : 0,
-                transform: heroVisible ? 'none' : 'translateY(24px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              <div className="flex flex-col items-center lg:items-start gap-2 mb-8">
-                <div className="flex items-center gap-4">
-                  <div className="h-[1px] w-8 lg:w-12 bg-[#C9A24A]" />
-                  <span className="section-label !mb-0 tracking-[0.2em] uppercase text-[10px] lg:text-[11px] text-[#C9A24A] font-semibold">Clinical Beauty Standard</span>
-                  <div className="h-[1px] w-8 lg:w-12 bg-[#C9A24A] lg:hidden" />
-                </div>
-              </div>
-
-              <h1 className="text-[26px] md:text-[34px] lg:text-[40px] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--text)] mb-6 font-playfair">
-                Premium Makeup Remover Wipes<br />
-                <span className="text-[var(--accent)]">Made for Your Exact Skin Type</span>
-              </h1>
-
-              <p className="text-[var(--text-muted)] max-w-[560px] mx-auto lg:mx-0 mb-8 lg:mb-10 font-normal">
-                Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
-              </p>
-
-              {/* Step 1: Trust bar */}
-              <div className="flex flex-wrap justify-center lg:justify-start items-center gap-x-4 gap-y-2 mb-10 lg:mb-12 py-3 px-4 lg:py-4 lg:px-6 bg-[rgba(201,162,74,0.03)] border border-[rgba(201,162,74,0.15)] rounded-lg">
-                {[
-                  'Made in India',
-                  'Dermatologically Inspired',
-                  'Alcohol-Free',
-                  'Skin-Type Specific',
-                  'Free Skin Guide with First Order'
-                ].map((item, i, arr) => (
-                  <div key={item} className="flex items-center gap-4">
-                    <span className="text-[11px] lg:text-[12px] font-semibold text-[rgba(10,25,47,0.6)] tracking-[0.05em]">
-                      {item === 'Free Skin Guide with First Order' ? <span className="text-[#C9A24A]">{item}</span> : item}
-                    </span>
-                    {i < arr.length - 1 && <span className="text-[rgba(201,162,74,0.4)] text-[12px] hidden sm:inline">•</span>}
-                  </div>
-                ))}
-              </div>
-
-              {/* Step 1: 4 Buttons Grid */}
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-3 w-full max-w-[560px] mx-auto lg:mx-0">
-                <Link to="/shop?type=oily" className="btn-outline w-full sm:w-auto justify-center text-[12px] py-3 px-5 rounded-lg">
-                  Shop Oily Skin
-                </Link>
-                <Link to="/shop?type=dry" className="btn-outline w-full sm:w-auto justify-center text-[12px] py-3 px-5 rounded-lg">
-                  Shop Dry Skin
-                </Link>
-                <Link to="/shop?type=sensitive" className="btn-outline w-full sm:w-auto justify-center text-[12px] py-3 px-5 rounded-lg">
-                  Shop Sensitive Skin
-                </Link>
-                <button 
-                  onClick={() => document.getElementById('skin-advisor-trigger')?.click()}
-                  className="btn-primary w-full sm:w-auto justify-center text-[12px] py-3 px-5 bg-[#C9A24A] border-[#C9A24A] rounded-lg shadow-[0_8px_20px_rgba(201,162,74,0.15)]"
-                >
-                  Take 30-Second Skin Quiz
-                </button>
-              </div>
-              <div style={{ marginTop: '20px', textAlign: 'center' }} className="lg:text-left">
-                <Link to="/quiz" style={{ color: 'var(--accent)', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }} onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'} onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}>
-                  Take the Skin Quiz →
-                </Link>
-              </div>
+        {/* Main hero body */}
+        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: 'calc(100vh - 40px)' }} className="hero-two-col">
+          {/* LEFT: editorial text */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 60px 80px', position: 'relative', zIndex: 2 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+              <div style={{ width: '32px', height: '1px', background: '#C9A24A' }} />
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A24A' }}>Clinical Beauty Standard</span>
             </div>
 
-            {/* Right: BRAND HERO VISUAL - Product Trio */}
-            <div className="relative flex items-center justify-center h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] w-full mt-4 lg:mt-0">
-              {/* Luxury Spotlight Background */}
-              <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '700px',
-                height: '700px',
-                background: 'radial-gradient(circle, rgba(201,162,74,0.08) 0%, transparent 70%)',
-                zIndex: 0,
-                animation: 'glow 6s infinite alternate ease-in-out'
-              }} />
+            <h1 ref={heroRef} style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, lineHeight: 1.05, color: '#0A192F', marginBottom: '0', letterSpacing: '-0.02em' }}>
+              Premium Makeup<br />Remover Wipes
+            </h1>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.05, color: '#C9A24A', marginBottom: '32px', letterSpacing: '-0.02em' }}>
+              Made for Your Exact<br />Skin Type
+            </h1>
 
-              {/* Product Visual Container */}
-              <div style={{
-                position: 'relative',
-                zIndex: 1,
-                animation: 'float 6s infinite ease-in-out',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                width: '100%',
-                maxWidth: '680px',
-              }}>
-                <div style={{
-                  position: 'relative',
-                  width: '100%',
-                  filter: 'drop-shadow(0 40px 80px rgba(10,25,47,0.15))'
-                }}>
-                  <img 
-                    src="/product-trio.jpg" 
-                    alt="Velcura Product Trio" 
-                    loading="lazy"
-                    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
-                  />
+            <p style={{ fontSize: '16px', color: 'rgba(10,25,47,0.6)', lineHeight: 1.7, maxWidth: '420px', marginBottom: '48px' }}>
+              Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
+            </p>
+
+            {/* Shop buttons */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
+              {[
+                { label: 'SHOP OILY SKIN', to: '/shop?type=oily' },
+                { label: 'SHOP DRY SKIN', to: '/shop?type=dry' },
+                { label: 'SHOP SENSITIVE SKIN', to: '/shop?type=sensitive' },
+              ].map(btn => (
+                <Link key={btn.to} to={btn.to} style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', padding: '14px 24px', border: '1px solid rgba(10,25,47,0.2)', borderRadius: '4px', color: '#0A192F', textDecoration: 'none', background: 'transparent', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#0A192F'; e.currentTarget.style.color = 'white'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0A192F'; }}>
+                  {btn.label}
+                </Link>
+              ))}
+              <button onClick={() => document.getElementById('skin-advisor-trigger')?.click()}
+                style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', padding: '14px 24px', borderRadius: '4px', color: 'white', background: '#C9A24A', border: '1px solid #C9A24A', cursor: 'pointer', transition: 'all 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#A8833C'}
+                onMouseLeave={e => e.currentTarget.style.background = '#C9A24A'}>
+                TAKE 30S SKIN QUIZ
+              </button>
+            </div>
+
+            {/* Trust micro-stats */}
+            <div style={{ display: 'flex', gap: '32px', marginTop: '16px' }}>
+              {[['4.8/5', 'Average Rating'], ['500+', 'Happy Users'], ['0%', 'Harsh Alcohol']].map(([n, l]) => (
+                <div key={l}>
+                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 700, color: '#C9A24A' }}>{n}</div>
+                  <div style={{ fontSize: '11px', color: 'rgba(10,25,47,0.5)', letterSpacing: '0.05em' }}>{l}</div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT: product image */}
+          <div style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #EDE8DE 0%, #D8D0C0 100%)' }}>
+            {/* Glassmorphism Rating Badge */}
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8, duration: 0.6 }}
+              style={{ position: 'absolute', top: '10%', right: '8%', zIndex: 10, background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.6)', borderRadius: '16px', padding: '16px 20px', boxShadow: '0 8px 32px rgba(10,25,47,0.1)' }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>4.8<span style={{ fontSize: '14px', fontWeight: 400 }}>/5</span></div>
+              <div style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.15em', color: '#C9A24A', textTransform: 'uppercase', marginTop: '4px' }}>Clinically Rated</div>
+            </motion.div>
+
+            {/* Niacinamide Badge */}
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1, duration: 0.6 }}
+              style={{ position: 'absolute', bottom: '15%', right: '6%', zIndex: 10, background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.6)', borderRadius: '999px', padding: '10px 18px', boxShadow: '0 8px 32px rgba(10,25,47,0.1)' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: '#0A192F' }}>4% NIACINAMIDE</span>
+            </motion.div>
+
+            <motion.img
+              src="/product-trio.jpg"
+              alt="Velcura Product Collection"
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+              onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80'; }}
+            />
+
+            {/* Scroll indicator */}
+            <div style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '1px', height: '40px', background: 'linear-gradient(to bottom, transparent, rgba(10,25,47,0.3))' }} />
+              <span style={{ fontSize: '9px', letterSpacing: '0.2em', color: 'rgba(10,25,47,0.4)', textTransform: 'uppercase' }}>Scroll</span>
             </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div style={{
-          position: 'absolute',
-          bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <div style={{
-            width: '1px',
-            height: '48px',
-            background: 'linear-gradient(to bottom, transparent, var(--accent))',
-          }} />
-          <span style={{ fontSize: '10px', color: 'var(--text-subtle)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Scroll</span>
-        </div>
       </section>
+
+      {/* ────────────── MARQUEE STRIP ────────────── */}
+      <div style={{ background: '#F5F0E8', borderTop: '1px solid rgba(10,25,47,0.08)', borderBottom: '1px solid rgba(10,25,47,0.08)', overflow: 'hidden', padding: '18px 0' }}>
+        <style>{`
+          @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+          .marquee-inner { display: flex; gap: 0; animation: marqueeScroll 28s linear infinite; width: max-content; }
+          .marquee-inner span { white-space: nowrap; padding: 0 40px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: rgba(10,25,47,0.5); text-transform: uppercase; }
+          .marquee-inner span.dot { color: #C9A24A; padding: 0; font-size: 16px; }
+          @media (max-width: 768px) { .hero-two-col { grid-template-columns: 1fr !important; } }
+        `}</style>
+        <div className="marquee-inner">
+          {[...Array(4)].map((_, rep) => (
+            ['Made in India', '◇', 'Dermatologically Inspired', '◇', 'Alcohol-Free', '◇', 'Skin-Type Specific', '◇', 'Premium Actives', '◇'].map((item, i) => (
+              <span key={`${rep}-${i}`} className={item === '◇' ? 'dot' : ''}>{item}</span>
+            ))
+          ))}
+        </div>
+      </div>
+
+      {/* ────────────── OUR APPROACH ────────────── */}
+      <motion.section style={{ background: '#F5F0E8', padding: '100px 0' }} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+            <div>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '20px' }}>Our Approach</span>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, marginBottom: '0' }}>
+                Not just makeup<br /><em style={{ fontStyle: 'italic', color: '#0A192F' }}>removal.</em>
+              </h2>
+            </div>
+            <div>
+              <p style={{ fontSize: '16px', color: 'rgba(10,25,47,0.6)', lineHeight: 1.8, marginBottom: '32px' }}>
+                A wipe shouldn't be a compromise. Velcura combines high-performance cleansing with active ingredients you'd find in a serum — leaving your barrier stronger, not weaker.
+              </p>
+              <Link to="/ingredients" style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0A192F', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid #0A192F', paddingBottom: '4px' }}>
+                Explore The Science <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          {/* 3 feature cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px', marginTop: '80px', background: 'rgba(10,25,47,0.08)', borderRadius: '16px', overflow: 'hidden' }}>
+            {[
+              { icon: <Droplets size={28} strokeWidth={1.5} />, title: 'Removes Everything', body: 'Effectively dissolves waterproof makeup, SPF, and urban pollution without harsh rubbing.' },
+              { icon: <Gem size={28} strokeWidth={1.5} />, title: 'Treats Skin', body: 'Infused with Niacinamide and Hyaluronic Acid to nourish while you cleanse.' },
+              { icon: <Shield size={28} strokeWidth={1.5} />, title: 'Protects Barrier', body: 'Maintains your skin\'s natural pH and lipid barrier. Zero post-cleanse tightness.' },
+            ].map((card, i) => (
+              <div key={i} style={{ background: '#F5F0E8', padding: '40px 32px', transition: 'background 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#EDE5D5'}
+                onMouseLeave={e => e.currentTarget.style.background = '#F5F0E8'}>
+                <div style={{ color: '#C9A24A', marginBottom: '20px' }}>{card.icon}</div>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '20px', color: '#0A192F', marginBottom: '12px', fontWeight: 500 }}>{card.title}</h3>
+                <p style={{ fontSize: '14px', color: 'rgba(10,25,47,0.55)', lineHeight: 1.7 }}>{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
 
       {/* ────────────── TRUST ELEMENTS ────────────── */}
       <section className="bg-white section border-b border-[var(--border)]">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-8 text-center">
           <div className="flex flex-col items-center gap-2">
             <div className="flex text-[#C9A24A]">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>
+              {[...Array(5)].map((_, i) => <svg key={i} width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15,9 22,9 17,14 18.5,21 12,17 5.5,21 7,14 2,9 9,9"/></svg>)}
             </div>
             <span className="font-semibold text-[16px] text-gray-800">4.8/5 Average Rating</span>
           </div>
