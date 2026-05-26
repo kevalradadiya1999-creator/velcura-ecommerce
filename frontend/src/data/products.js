@@ -194,6 +194,26 @@ export const ingredients = [
   }
 ];
 
-export const reviews = [];
+export const reviews = [
+  {
+    rating: 5,
+    text: "Finally, a makeup remover wipe that doesn't leave my face greasy! The 4% Niacinamide makes a noticeable difference in my pore size and sebum control.",
+    name: "Aditi Sharma, Mumbai",
+    skinType: "Oily & Acne-Prone Skin"
+  },
+  {
+    rating: 5,
+    text: "Most wipes leave my skin feeling incredibly tight and dry, but these leave my skin plumper and hydrated. The Hyaluronic Acid really locks in moisture.",
+    name: "Priya Patel, Bangalore",
+    skinType: "Dry & Dehydrated Skin"
+  },
+  {
+    rating: 5,
+    text: "Fragrance-free and so soft on the skin. I have highly sensitive skin and rosacea, and these cause zero redness or burning. The ceramides are a lifesaver.",
+    name: "Rhea Kapoor, Delhi",
+    skinType: "Sensitive & Reactive Skin"
+  }
+];
+
 
 
