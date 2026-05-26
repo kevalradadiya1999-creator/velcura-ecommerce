@@ -229,7 +229,7 @@ const SkinAdvisor = () => {
     <>
       {/* Floating trigger */}
       {!isOpen && (
-        <div className="fixed bottom-[80px] right-4 md:bottom-[108px] md:right-8 z-[9998] flex items-center justify-end gap-3">
+        <div className="fixed bottom-[96px] right-4 md:bottom-[128px] md:right-8 z-[9998] flex items-center justify-end gap-3">
           <div className="hidden sm:block bg-white px-3 py-2 md:px-4 md:py-2 rounded-xl text-[10px] md:text-[11px] font-semibold text-[#0A192F] shadow-[0_8px_24px_rgba(10,25,47,0.08)] tracking-wide border border-[rgba(201,162,74,0.2)]">
             Ask Skin Advisor
           </div>
@@ -522,3 +522,5 @@ const SkinAdvisor = () => {
 };
 
 export default SkinAdvisor;
+
+

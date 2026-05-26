@@ -1,275 +1,198 @@
-import { memo } from 'react';
+import { memo, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Star, Heart } from 'lucide-react';
-import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import { ArrowUpRight, ShoppingBag, Heart, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlistContext } from '../context/WishlistContext';
-import { useCompare } from '../context/CompareContext';
-import StarRating from './StarRating';
+
+const StarRating = ({ rating, count }) => {
+  if (!rating) return null;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+      <div style={{ display: 'flex', gap: '2px' }}>
+        {[1,2,3,4,5].map(i => (
+          <Star key={i} size={11} fill={i <= Math.round(rating) ? '#C9A24A' : 'none'} color="#C9A24A" strokeWidth={1.5} />
+        ))}
+      </div>
+      <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>
+        {rating} {count ? `(${count})` : ''}
+      </span>
+    </div>
+  );
+};
 
 const ProductCard = ({ product, variant = 'default' }) => {
   const { addItem } = useCart();
   const { toggle, isWishlisted } = useWishlistContext();
   const wishlisted = isWishlisted(product.id);
-  const { isInCompare, addToCompare, removeFromCompare } = useCompare() || {};
-  const isCompared = isInCompare ? isInCompare(product.id) : false;
+  const cardRef = useRef(null);
 
-  const renderStars = (rating) =>
-    Array.from({ length: 5 }).map((_, i) => (
-      <Star key={i} size={11}
-        fill={i < Math.floor(rating) ? 'var(--accent)' : 'none'}
-        stroke={i < Math.floor(rating) ? 'var(--accent)' : 'rgba(10,25,47,0.25)'}
-        strokeWidth={1.5}
-      />
-    ));
+  const handleMouseMove = useCallback((e) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(1100px) rotateX(${-py * 5}deg) rotateY(${px * 7}deg) translateY(-6px)`;
+  }, []);
 
-  if (variant === 'featured') {
-    return (
-      <motion.div
-        id={`product-card-${product.id}`}
-        className="card-lift bg-white border border-[var(--border)] rounded-xl overflow-hidden flex flex-col relative w-full"
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.2 }}
-        style={{ position: 'relative' }}
+  const handleMouseLeave = useCallback(() => {
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    }
+  }, []);
+
+  const softBg = product.softBg || product.bgColor || '#F5F0E8';
+  const accentColor = product.accentColor || 'var(--accent)';
+
+  return (
+    <div
+      ref={cardRef}
+      id={`product-card-${product.id}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        borderRadius: '28px',
+        padding: '36px 32px 28px',
+        background: softBg,
+        position: 'relative',
+        overflow: 'hidden',
+        transition: 'transform 0.12s ease-out, box-shadow 0.3s ease',
+        transformStyle: 'preserve-3d',
+        willChange: 'transform',
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: 'default',
+      }}
+      onMouseEnter={e => e.currentTarget.style.boxShadow = '0 40px 80px rgba(10,25,47,0.18)'}
+      onMouseLeave2={e => e.currentTarget.style.boxShadow = 'none'}
+    >
+      {/* Radial glow from product accent color */}
+      <div style={{
+        position: 'absolute',
+        top: '20%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '280px',
+        height: '280px',
+        background: `radial-gradient(circle, ${accentColor}22 0%, transparent 70%)`,
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
+      {/* Arrow button top-right */}
+      <Link
+        to={`/product/${product.slug}`}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          zIndex: 10,
+          width: '36px',
+          height: '36px',
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.7)',
+          border: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#0A192F',
+          textDecoration: 'none',
+          transition: 'background 0.2s, color 0.2s',
+          backdropFilter: 'blur(8px)',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.background = '#0A192F'; e.currentTarget.style.color = '#FDFBF7'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.7)'; e.currentTarget.style.color = '#0A192F'; }}
       >
-        {product.badge && (
-          <div style={{ position: 'absolute', top: '16px', left: '16px', zIndex: 2, background: 'var(--text)', color: 'white', fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 10px' }}>
-            {product.badge}
-          </div>
-        )}
+        <ArrowUpRight size={16} />
+      </Link>
 
-        {/* Low stock badge */}
-        {product.stock != null && product.stock <= 5 && product.stock > 0 && (
-          <div style={{ position: 'absolute', top: '16px', left: product.badge ? '100px' : '16px', zIndex: 3, background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px' }}>
-            Only {product.stock} left
-          </div>
-        )}
-
-        {/* Wishlist heart */}
+      {/* Wishlist */}
+      {toggle && (
         <button
           onClick={() => toggle(product)}
-          title={wishlisted ? 'Remove from wishlist' : 'Save for later'}
-          style={{
-            position: 'absolute', top: '14px', right: '14px', zIndex: 3,
-            background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%',
-            width: '34px', height: '34px', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)', transition: 'transform 0.2s',
-          }}
+          style={{ position: 'absolute', top: '20px', right: '64px', zIndex: 10, width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(255,255,255,0.7)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', backdropFilter: 'blur(8px)', transition: 'transform 0.2s' }}
           onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.15)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          <Heart size={16} fill={wishlisted ? '#ef4444' : 'none'} color={wishlisted ? '#ef4444' : '#9CA3AF'} />
+          <Heart size={14} fill={wishlisted ? '#ef4444' : 'none'} color={wishlisted ? '#ef4444' : '#9CA3AF'} />
         </button>
-
-        <Link to={`/product/${product.slug}`} className="block w-full" style={{ position: 'relative' }}>
-          <div className="product-img-wrap h-[240px] md:h-[280px] w-full" style={{ background: product.bgColor, position: 'relative', overflow: 'hidden' }}>
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              className="w-full h-full object-cover" 
-              loading="lazy" 
-              onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
-            />
-            {/* Quick-add overlay */}
-            <div
-              className="quick-add-overlay"
-              onClick={e => { e.preventDefault(); e.stopPropagation(); addItem(product, 1); toast.success(`${product.name} added to cart!`); }}
-              role="button"
-              tabIndex={0}
-              aria-label={`Quick add ${product.name} to cart`}
-              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addItem(product, 1); } }}
-              style={{
-                position: 'absolute', bottom: 0, left: 0, right: 0,
-                background: 'rgba(10,25,47,0.85)', color: 'white',
-                textAlign: 'center', padding: '10px', fontSize: '13px',
-                fontWeight: 500, letterSpacing: '0.5px', cursor: 'pointer',
-                opacity: 0, transition: 'opacity 0.2s ease',
-                fontFamily: 'Inter, sans-serif',
-              }}
-              onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-              onMouseLeave={e => e.currentTarget.style.opacity = '0'}
-            >
-              + Quick Add
-            </div>
-          </div>
-        </Link>
-
-        <div className="p-5 md:p-6 flex-1 flex flex-col">
-          <span className="inline-block px-3 py-1 bg-[#0A192F] text-white text-[10px] font-bold uppercase tracking-widest rounded-md self-start mb-3">
-            Best for: {product.skinType}
-          </span>
-          <Link to={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
-            <h3
-              style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
-            >
-              {product.fullName}
-            </h3>
-          </Link>
-          {product.rating && (
-            <div style={{ marginBottom: '8px' }}>
-              <StarRating rating={product.rating} count={product.reviewCount} size={12} />
-            </div>
-          )}
-          <p style={{ fontSize: '13px', color: 'var(--accent)', fontWeight: 600, marginBottom: '20px', letterSpacing: '0.02em' }}>
-            {product.mechanismLine}
-          </p>
-          <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px 0', flex: 1 }}>
-            {product.cardBullets?.map((bullet, i) => (
-              <li key={i} style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginBottom: '10px', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                <span style={{ color: 'var(--accent)', fontSize: '12px', marginTop: '3px' }}>◇</span>
-                <span style={{ lineHeight: '1.4' }}>{bullet}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="flex items-center gap-1.5 mb-5 text-[#C9A24A]">
-            <span className="text-[10px] font-semibold tracking-widest uppercase flex items-center gap-1 shadow-sm">
-              <span className="text-[12px] pb-[1px]">✦</span> Export Quality • Globally Compliant
-            </span>
-          </div>
-          <div className="flex flex-col md:flex-row md:items-center justify-between mt-auto gap-4">
-            <div>
-              <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--text)' }}>₹{product.price}</span>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)', marginLeft: '8px', fontWeight: 500 }}>(30 Wipes)</span>
-            </div>
-            <button
-              id={`add-to-cart-${product.id}`}
-              onClick={() => addItem(product)}
-              className="w-full md:w-auto flex items-center justify-center gap-2 transition-colors duration-200"
-              style={{ background: 'var(--text)', border: 'none', color: 'white', padding: '12px 24px', fontSize: '12px', fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}
-              onMouseEnter={e => e.currentTarget.style.background = 'var(--accent)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'var(--text)'}
-            >
-              <ShoppingBag size={14} />
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
-
-  // Default smaller card
-  return (
-    <motion.div
-      id={`product-card-${product.id}`}
-      className="card-lift bg-white border border-[var(--border)] rounded-xl overflow-hidden flex flex-col w-full h-full"
-      style={{ position: 'relative' }}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.2 }}
-    >
-      {/* Low stock badge */}
-      {product.stock != null && product.stock <= 5 && product.stock > 0 && (
-        <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 3, background: '#FEF3C7', color: '#92400E', fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '999px' }}>
-          Only {product.stock} left
-        </div>
       )}
 
-      {/* Wishlist heart */}
-      <button
-        onClick={() => toggle(product)}
-        title={wishlisted ? 'Remove from wishlist' : 'Save for later'}
-        style={{
-          position: 'absolute', top: '10px', right: '10px', zIndex: 3,
-          background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%',
-          width: '30px', height: '30px', cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.08)', transition: 'transform 0.2s',
-        }}
-        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.15)'}
-        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-      >
-        <Heart size={14} fill={wishlisted ? '#ef4444' : 'none'} color={wishlisted ? '#ef4444' : '#9CA3AF'} />
-      </button>
-
-      <Link to={`/product/${product.slug}`} className="block w-full">
-        <div className="product-img-wrap h-[200px] md:h-[220px] w-full" style={{ background: product.bgColor, position: 'relative', overflow: 'hidden' }}>
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            className="w-full h-full object-cover" 
-            loading="lazy" 
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+      {/* Product Image with translateZ */}
+      <Link to={`/product/${product.slug}`} style={{ textDecoration: 'none', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px', marginBottom: '24px' }}>
+          <img
+            src={product.image}
+            alt={product.fullName || product.name}
+            className="card-img"
+            loading="lazy"
+            style={{
+              width: '180px',
+              height: '180px',
+              objectFit: 'contain',
+              transition: 'transform 0.2s ease',
+              filter: 'drop-shadow(0 24px 36px rgba(10,25,47,0.22))',
+              transform: 'translateZ(20px)',
+            }}
+            onError={e => { e.target.onerror = null; e.target.src = product.bgColor ? '' : 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
           />
-          <div
-            className="quick-add-overlay"
-            onClick={e => { e.preventDefault(); e.stopPropagation(); addItem(product, 1); toast.success(`${product.name} added to cart!`); }}
-            role="button" tabIndex={0}
-            aria-label={`Quick add ${product.name} to cart`}
-            style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(10,25,47,0.85)', color: 'white', textAlign: 'center', padding: '8px', fontSize: '12px', fontWeight: 500, cursor: 'pointer', opacity: 0, transition: 'opacity 0.2s ease', fontFamily: 'Inter, sans-serif' }}
-            onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-            onMouseLeave={e => e.currentTarget.style.opacity = '0'}
-          >
-            + Quick Add
-          </div>
         </div>
       </Link>
-      <div className="p-4 md:p-5 flex flex-col flex-1">
-        <span className="inline-block px-2 py-1 bg-[#0A192F] text-white text-[9px] md:text-[10px] font-bold uppercase tracking-widest rounded-[4px] self-start mb-2">
-          Best for: {product.skinType}
+
+      {/* Content */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* Key Ingredient badge */}
+        <span className="font-mono-mini" style={{ color: accentColor, display: 'block', marginBottom: '8px' }}>
+          {product.keyIngredient}
         </span>
-        <h3 className="font-playfair text-[16px] md:text-[17px] text-[var(--text)] mb-1 font-semibold leading-tight">
-          {product.name}
-        </h3>
-        {product.rating && (
-          <div style={{ marginBottom: '6px' }}>
-            <StarRating rating={product.rating} count={product.reviewCount} size={11} />
-          </div>
-        )}
-        <p className="text-[11px] md:text-[12px] text-[#C9A24A] font-semibold mb-4 leading-tight">
-          {product.mechanismLine}
+
+        <Link to={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '24px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px', lineHeight: 1.1 }}>
+            {product.name}
+          </h3>
+        </Link>
+
+        <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '12px' }}>
+          {product.skinType}
         </p>
-        <div className="flex items-center gap-1.5 mb-3 text-[#C9A24A]">
-          <span className="text-[9px] md:text-[8px] font-semibold tracking-widest uppercase flex items-center gap-1">
-            <span className="text-[10px] pb-[1px]">✦</span> Globally Compliant
-          </span>
-        </div>
-        <div className="flex flex-col md:flex-row md:items-center justify-between mt-auto gap-3">
+
+        <StarRating rating={product.rating} count={product.reviews} />
+
+        <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '20px' }}>
+          {product.shortDesc}
+        </p>
+
+        {/* Price + CTA */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
           <div>
-            <span style={{ fontWeight: 700 }}>₹{product.price}</span>
-            <span style={{ fontSize: '10px', color: 'var(--text-muted)', marginLeft: '4px' }}>(30 Wipes)</span>
+            <span style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text)' }}>₹{product.price}</span>
+            {product.mrp && product.mrp > product.price && (
+              <span style={{ fontSize: '13px', color: 'var(--text-muted)', marginLeft: '8px', textDecoration: 'line-through' }}>₹{product.mrp}</span>
+            )}
           </div>
           <button
-            id={`add-to-cart-small-${product.id}`}
+            id={`add-to-cart-${product.id}`}
             onClick={() => addItem(product)}
-            className="w-full md:w-auto transition-colors duration-200 flex items-center justify-center p-[10px_16px] md:p-[8px_14px] text-[11px] md:text-[10px]"
-            style={{ background: 'none', border: '1px solid var(--text)', color: 'var(--text)', fontFamily: 'Inter, sans-serif', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'var(--text)'; e.currentTarget.style.color = 'white'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'var(--text)'; }}
+            style={{
+              display: 'flex', alignItems: 'center', gap: '6px',
+              padding: '10px 18px',
+              background: '#0A192F', color: 'white',
+              border: 'none', borderRadius: '10px',
+              fontSize: '11px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase',
+              cursor: 'pointer', transition: 'background 0.2s, transform 0.2s',
+              fontFamily: 'Inter, sans-serif',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = accentColor; e.currentTarget.style.color = '#0A192F'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#0A192F'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(0)'; }}
           >
+            <ShoppingBag size={13} />
             Add to Cart
           </button>
         </div>
-
-        {/* Compare Checkbox */}
-        <div style={{
-          marginTop: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          opacity: isHovered || isCompared ? 1 : 0,
-          transition: 'opacity 0.2s',
-          fontSize: '12px',
-          color: 'var(--text-muted)'
-        }}>
-          <input 
-            type="checkbox" 
-            id={`compare-${product.id}`}
-            checked={isCompared}
-            onChange={(e) => {
-              if (e.target.checked) addToCompare(product);
-              else removeFromCompare(product.id);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
-          <label htmlFor={`compare-${product.id}`} style={{ cursor: 'pointer' }}>Compare</label>
-        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 export default memo(ProductCard);
+

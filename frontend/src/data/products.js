@@ -26,7 +26,7 @@ export const products = [
     ],
     substrate: '70% Viscose / 30% Polyester Spunlace, 40 GSM',
     howToUse: 'Gently sweep across face, eyes, and lips using light circular motions. No rinsing required. Ideal for morning and evening routines.',
-    image: '/oil-balance-v3.png',
+    image: 'https://customer-assets.emergentagent.com/job_velcura-3d-immersive/artifacts/s99po0kd_OILY%20SKIN.png',
     images: [
       '/oil-balance-v3.png',
       'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80&fit=crop&crop=faces&auto=format',
@@ -34,6 +34,7 @@ export const products = [
     ],
     color: 'teal',
     accentColor: '#2D7D77',
+    softBg: '#EAF5F4',
     bgColor: '#EAF5F4',
     price: 299,
     mrp: 399,
@@ -79,7 +80,7 @@ export const products = [
     ],
     substrate: '70% Viscose / 30% Polyester Spunlace, 45 GSM',
     howToUse: 'Press gently against skin and sweep outward. Allow actives like HA to absorb. No need to rinse.',
-    image: '/hydraglow-v3.png',
+    image: 'https://customer-assets.emergentagent.com/job_velcura-3d-immersive/artifacts/mn7zpjip_DRY%20SKIN.png',
     images: [
       '/hydraglow-v3.png',
       'https://images.unsplash.com/photo-1629732051103-11e82c7e73a2?w=800&q=80&fit=crop&crop=faces&auto=format',
@@ -87,6 +88,7 @@ export const products = [
     ],
     color: 'cream',
     accentColor: '#8B6B3D',
+    softBg: '#FDF5E8',
     bgColor: '#FDF5E8',
     price: 299,
     mrp: 399,
@@ -132,7 +134,7 @@ export const products = [
     ],
     substrate: '100% Viscose (Ultra-Soft), 40 GSM',
     howToUse: 'Gently press and glide — avoid rubbing. Specifically tested for use on highly sensitive skin around eyes and lips.',
-    image: '/calm-skin-v3.png',
+    image: 'https://customer-assets.emergentagent.com/job_velcura-3d-immersive/artifacts/cw9jzz4t_SENSITIVE%20SKIN.png',
     images: [
       '/calm-skin-v3.png',
       'https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=800&q=80&fit=crop&crop=faces&auto=format',
@@ -140,6 +142,7 @@ export const products = [
     ],
     color: 'lavender',
     accentColor: '#7B6B8A',
+    softBg: '#F4EFF8',
     bgColor: '#F4EFF8',
     price: 299,
     mrp: 399,
@@ -192,3 +195,5 @@ export const ingredients = [
 ];
 
 export const reviews = [];
+
+

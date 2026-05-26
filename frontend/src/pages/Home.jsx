@@ -115,10 +115,10 @@ const Home = () => {
               <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A24A' }}>Clinical Beauty Standard</span>
             </div>
 
-            <h1 ref={heroRef} style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, lineHeight: 1.05, color: '#0A192F', marginBottom: '0', letterSpacing: '-0.02em' }}>
+            <h1 ref={heroRef} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, lineHeight: 1.05, color: '#0A192F', marginBottom: '0', letterSpacing: '-0.02em' }}>
               Premium Makeup<br />Remover Wipes
             </h1>
-            <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.05, color: '#C9A24A', marginBottom: '32px', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.05, color: '#C9A24A', marginBottom: '32px', letterSpacing: '-0.02em' }}>
               Made for Your Exact<br />Skin Type
             </h1>
 
@@ -151,7 +151,7 @@ const Home = () => {
             <div style={{ display: 'flex', gap: '32px', marginTop: '16px' }}>
               {[['4.8/5', 'Average Rating'], ['500+', 'Happy Users'], ['0%', 'Harsh Alcohol']].map(([n, l]) => (
                 <div key={l}>
-                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 700, color: '#C9A24A' }}>{n}</div>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', fontWeight: 700, color: '#C9A24A' }}>{n}</div>
                   <div style={{ fontSize: '11px', color: 'rgba(10,25,47,0.5)', letterSpacing: '0.05em' }}>{l}</div>
                 </div>
               ))}
@@ -163,7 +163,7 @@ const Home = () => {
             {/* Glassmorphism Rating Badge */}
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8, duration: 0.6 }}
               style={{ position: 'absolute', top: '10%', right: '8%', zIndex: 10, background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.6)', borderRadius: '16px', padding: '16px 20px', boxShadow: '0 8px 32px rgba(10,25,47,0.1)' }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>4.8<span style={{ fontSize: '14px', fontWeight: 400 }}>/5</span></div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 700, color: '#0A192F', lineHeight: 1 }}>4.8<span style={{ fontSize: '14px', fontWeight: 400 }}>/5</span></div>
               <div style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.15em', color: '#C9A24A', textTransform: 'uppercase', marginTop: '4px' }}>Clinically Rated</div>
             </motion.div>
 
@@ -215,7 +215,7 @@ const Home = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '20px' }}>Our Approach</span>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, marginBottom: '0' }}>
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, marginBottom: '0' }}>
                 Not just makeup<br /><em style={{ fontStyle: 'italic', color: '#0A192F' }}>removal.</em>
               </h2>
             </div>
@@ -240,7 +240,7 @@ const Home = () => {
                 onMouseEnter={e => e.currentTarget.style.background = '#EDE5D5'}
                 onMouseLeave={e => e.currentTarget.style.background = '#F5F0E8'}>
                 <div style={{ color: '#C9A24A', marginBottom: '20px' }}>{card.icon}</div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '20px', color: '#0A192F', marginBottom: '12px', fontWeight: 500 }}>{card.title}</h3>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', color: '#0A192F', marginBottom: '12px', fontWeight: 500 }}>{card.title}</h3>
                 <p style={{ fontSize: '14px', color: 'rgba(10,25,47,0.55)', lineHeight: 1.7 }}>{card.body}</p>
               </div>
             ))}
@@ -276,7 +276,7 @@ const Home = () => {
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '60px', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>The Collection</span>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>
                 Find your<br /><em style={{ fontStyle: 'italic' }}>perfect wipe.</em>
               </h2>
             </div>
@@ -285,48 +285,9 @@ const Home = () => {
             </Link>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="collection-grid">
-            {products.map((p, i) => (
-              <motion.div key={p.id} id={`sku-${p.id}`} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}
-                style={{ background: p.bgColor || ['#E8EEF0', '#F5EDE0', '#EDE8F0'][i], borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column', cursor: 'pointer', position: 'relative' }}>
-                <div style={{ height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px', position: 'relative' }}>
-                  <div style={{ position: 'absolute', top: '16px', left: '16px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.15em', color: p.accentColor || '#C9A24A', textTransform: 'uppercase', opacity: 0.7 }}>
-                    {['DOCTOR APPROVED', 'HYDRATION HERO', 'CLINICAL GRADE'][i]}
-                  </div>
-                  <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
-                    <ArrowRight size={16} color={p.accentColor || '#C9A24A'} style={{ transform: 'rotate(-45deg)' }} />
-                  </div>
-                  <img src={p.image} alt={p.name} loading="lazy"
-                    style={{ maxHeight: '180px', objectFit: 'contain', filter: 'drop-shadow(0 16px 32px rgba(0,0,0,0.12))' }}
-                    onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }} />
-                </div>
-                <div style={{ padding: '24px 28px 28px', background: '#F5F0E8', flex: 1 }}>
-                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 400, color: '#0A192F', marginBottom: '4px' }}>{p.name}</h3>
-                  <p style={{ fontSize: '13px', color: 'rgba(10,25,47,0.5)', marginBottom: '16px' }}>{p.tagline}</p>
-                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                    {(p.benefits || ['Instantly mattifies shine', 'Dissolves waterproof makeup', 'Zero post-cleanse tightness']).slice(0, 3).map(b => (
-                      <li key={b} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'rgba(10,25,47,0.6)' }}>
-                        <span style={{ color: '#C9A24A', fontSize: '16px' }}>◇</span> {b}
-                      </li>
-                    ))}
-                  </ul>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                    <div style={{ display: 'flex', gap: '2px' }}>{[...Array(5)].map((_, j) => <svg key={j} width="12" height="12" viewBox="0 0 14 14" fill="#C9A24A"><polygon points="7,1 8.8,5.2 13.5,5.5 10,8.5 11,13 7,10.5 3,13 4,8.5 0.5,5.5 5.2,5.2" /></svg>)}</div>
-                    <span style={{ fontSize: '12px', color: 'rgba(10,25,47,0.4)' }}>({[186, 214, 312][i]})</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div>
-                      <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 700, color: '#0A192F' }}>₹{p.price}</span>
-                      <span style={{ fontSize: '13px', color: 'rgba(10,25,47,0.35)', textDecoration: 'line-through', marginLeft: '8px' }}>₹{p.originalPrice || 399}</span>
-                      <span style={{ fontSize: '11px', color: 'rgba(10,25,47,0.4)', marginLeft: '4px' }}>(30 Wipes)</span>
-                    </div>
-                    <button onClick={() => addItem(p)}
-                      style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: '#0A192F', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      + ADD TO CART
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }} className="collection-grid">
+            {products.map((p) => (
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         </div>
@@ -453,7 +414,7 @@ const Home = () => {
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>Build Your Routine</span>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>Curated combinations.</h2>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>Curated combinations.</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="collection-grid">
             {[
@@ -474,7 +435,7 @@ const Home = () => {
                         onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=80&q=80'; }} />
                     ))}
                   </div>
-                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 400, color: b.dark ? 'white' : '#0A192F', marginBottom: '8px' }}>{b.name}</h3>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 400, color: b.dark ? 'white' : '#0A192F', marginBottom: '8px' }}>{b.name}</h3>
                   <p style={{ fontSize: '13px', color: b.dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,25,47,0.5)', marginBottom: '20px' }}>{b.sub}</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {b.items.map(p => (
@@ -484,7 +445,7 @@ const Home = () => {
                     ))}
                   </ul>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
-                    <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 700, color: b.dark ? 'white' : '#0A192F' }}>₹{bundlePrice}</span>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 700, color: b.dark ? 'white' : '#0A192F' }}>₹{bundlePrice}</span>
                     <span style={{ fontSize: '14px', color: b.dark ? 'rgba(255,255,255,0.35)' : 'rgba(10,25,47,0.3)', textDecoration: 'line-through' }}>₹{originalPrice}</span>
                   </div>
                   <button style={{ width: '100%', padding: '14px', borderRadius: '4px', border: b.dark ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(10,25,47,0.15)', background: b.dark ? 'rgba(255,255,255,0.08)' : 'transparent', color: b.dark ? 'white' : '#0A192F', fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', cursor: 'pointer', transition: 'all 0.2s' }}
@@ -589,13 +550,13 @@ const Home = () => {
                   background: ing.color,
                   opacity: 0.7,
                 }} />
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '48px', color: 'rgba(201,162,74,0.15)', fontWeight: 700, lineHeight: 1, display: 'block', marginBottom: '24px' }}>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '48px', color: 'rgba(201,162,74,0.15)', fontWeight: 700, lineHeight: 1, display: 'block', marginBottom: '24px' }}>
                   {ing.number}
                 </span>
                 <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.15em', color: ing.color, textTransform: 'uppercase', marginBottom: '8px' }}>
                   {ing.sub} · {ing.product}
                 </p>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '26px', fontWeight: 600, color: '#FDFBF7', marginBottom: '16px' }}>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '26px', fontWeight: 600, color: '#FDFBF7', marginBottom: '16px' }}>
                   {ing.name}
                 </h3>
                 <p style={{ fontSize: '14px', color: 'rgba(253,251,247,0.6)', lineHeight: '1.7' }}>
@@ -762,7 +723,7 @@ const Home = () => {
                 background: 'rgba(253,251,247,0.03)',
                 textAlign: 'center',
               }}>
-                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '40px', fontWeight: 700, color: 'var(--accent)', lineHeight: 1.1, marginBottom: '8px' }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '40px', fontWeight: 700, color: 'var(--accent)', lineHeight: 1.1, marginBottom: '8px' }}>
                   {stat.num}
                 </p>
                 <p style={{ fontSize: '12px', color: 'rgba(253,251,247,0.5)', fontWeight: 500, letterSpacing: '0.05em' }}>
@@ -841,7 +802,7 @@ const Home = () => {
         >
           <div className="container">
             <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '8px' }}>Your History</p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 600, color: '#0A192F', marginBottom: '32px' }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 600, color: '#0A192F', marginBottom: '32px' }}>
               Recently Viewed
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px' }}>
