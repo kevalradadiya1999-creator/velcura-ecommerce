@@ -39,28 +39,28 @@ const Shop = () => {
     {
       id: 'starter-trio',
       name: 'Starter Trio',
-      desc: 'All 3 variants (75 wipes) â€” Oil Balance + Daily Reset + Calm & Restore.',
+      desc: 'All 3 variants (75 wipes) — Oil Balance + Daily Reset + Calm & Restore.',
       price: 399,
       mrp: 499,
-      savings: 'â‚¹100',
+      savings: '₹100',
       tag: 'Best Value'
     },
     {
       id: 'try-any-2',
       name: 'Try Any 2',
-      desc: 'Choose your variants (50 wipes) â€” Mix & match any 2 packs.',
+      desc: 'Choose your variants (50 wipes) — Mix & match any 2 packs.',
       price: 269,
       mrp: 349,
-      savings: 'â‚¹80',
+      savings: '₹80',
       tag: 'Popular'
     },
     {
       id: 'monthly-supply',
       name: 'Monthly Supply',
-      desc: '2 packs same variant (50 wipes) â€” Stock up on your favorite formula.',
+      desc: '2 packs same variant (50 wipes) — Stock up on your favorite formula.',
       price: 259,
       mrp: 349,
-      savings: 'â‚¹90',
+      savings: '₹90',
       tag: 'Great Value'
     },
     {
@@ -69,7 +69,7 @@ const Shop = () => {
       desc: 'All 3 variants + premium gift box (75 wipes). Perfect for gifting.',
       price: 549,
       mrp: 649,
-      savings: 'â‚¹100',
+      savings: '₹100',
       tag: 'Premium'
     },
     {
@@ -78,7 +78,7 @@ const Shop = () => {
       desc: 'Subscribe to any SKU monthly (25 wipes). Cancel or modify anytime.',
       price: 129,
       mrp: 179,
-      savings: 'â‚¹50/month',
+      savings: '₹50/month',
       tag: 'VIP Perks',
       isSubscription: true
     }
@@ -315,12 +315,12 @@ const Shop = () => {
                   
                   <div style={{ marginBottom: '32px' }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '36px', fontWeight: 600, color: 'var(--text)' }}>â‚¹{b.price}{b.isSubscription ? '/month' : ''}</span>
-                      <span style={{ fontSize: '14px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>â‚¹{b.mrp}{b.isSubscription ? '/month' : ''}</span>
+                      <span style={{ fontSize: '36px', fontWeight: 600, color: 'var(--text)' }}>₹{b.price}{b.isSubscription ? '/month' : ''}</span>
+                      <span style={{ fontSize: '14px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>₹{b.mrp}{b.isSubscription ? '/month' : ''}</span>
                     </div>
                     <p style={{ fontSize: '13px', color: 'var(--accent)', fontWeight: 600, letterSpacing: '0.02em', marginBottom: '4px' }}>Save {b.savings} + Free Shipping</p>
                     <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>
-                      Launch price â€” limited to first batch only.
+                      Launch price — limited to first batch only.
                     </div>
                   </div>
                   
