@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import WhatsAppButton from './WhatsAppButton';
+import AuthModal from './AuthModal';
 import SkinAdvisor from './SkinAdvisor';
 import { useCart } from '../context/CartContext';
 
@@ -64,6 +65,7 @@ const Layout = () => {
       <SkinAdvisor />
       <RewardsTab />
       <Toast />
+      <AuthModal />
     </div>
   );
 };

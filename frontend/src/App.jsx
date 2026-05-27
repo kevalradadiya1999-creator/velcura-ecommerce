@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { CompareProvider } from './context/CompareContext';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -88,9 +89,10 @@ function App() {
   const [splashDone, setSplashDone] = useState(false);
 
   return (
-    <CartProvider>
-      <WishlistProvider>
-        <CompareProvider>
+    <AuthProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <CompareProvider>
           {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
           <PromoBanner />
           <Router>
@@ -116,9 +118,10 @@ function App() {
             }}
           />
         </Router>
-        </CompareProvider>
-      </WishlistProvider>
-    </CartProvider>
+          </CompareProvider>
+        </WishlistProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

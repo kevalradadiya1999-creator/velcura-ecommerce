@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const paymentRoutes = require('./routes/paymentRoute');
 const orderRoutes = require('./routes/orderRoute');
+const authRoutes = require('./routes/authRoute');
 
 dotenv.config();
 
@@ -61,6 +62,7 @@ app.use('/api', generalLimiter);
 // ── Routes ──────────────────────────────────────────────────────────────────
 app.use('/api/payment', paymentRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/auth', authRoutes);
 
 // Static sitemap endpoint
 app.get('/api/sitemap.xml', (req, res) => {
@@ -102,3 +104,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Velcura API running on port ${PORT}`);
 });
+

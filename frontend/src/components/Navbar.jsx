@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Search, User, Menu, X, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { useWishlistContext } from '../context/WishlistContext';
 import { products } from '../data/products';
 import CartDrawer from './CartDrawer';
@@ -30,6 +31,7 @@ const Navbar = () => {
   });
   const [focusedIdx, setFocusedIdx] = useState(-1);
   const { count, isOpen, setIsOpen } = useCart();
+  const { user, logout, openAuthModal } = useAuth();
   const { count: wishlistCount } = useWishlistContext();
   const searchContainerRef = useRef(null);
   const inputRef = useRef(null);
@@ -267,16 +269,41 @@ const Navbar = () => {
               )}
             </div>
 
-            <button
-              id="account-btn"
-              aria-label="My account"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text)', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
-              className="hidden md:flex"
-            >
-              <User size={19} strokeWidth={1.5} />
-            </button>
+            {user ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="hidden md:flex">
+                <span style={{ fontSize: '13px', fontWeight: 500, fontFamily: 'Inter, sans-serif', color: 'var(--text)' }}>
+                  Hi, {user.name.split(' ')[0]}
+                </span>
+                <button
+                  onClick={logout}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--accent)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    fontFamily: 'Inter, sans-serif'
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                id="account-btn"
+                aria-label="My account"
+                onClick={() => openAuthModal()}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text)', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
+                className="hidden md:flex"
+              >
+                <User size={19} strokeWidth={1.5} />
+              </button>
+            )}
 
             {/* Wishlist */}
             <Link
@@ -417,6 +444,30 @@ const Navbar = () => {
               >
                 Export Inquiry
               </Link>
+            </div>
+
+            {/* User Session Row on Mobile */}
+            <div style={{ padding: '16px 24px 0' }}>
+              {user ? (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(10,25,47,0.05)', paddingTop: '16px' }}>
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'var(--text)', fontWeight: 500 }}>
+                    Hi, {user.name}
+                  </span>
+                  <button
+                    onClick={() => { logout(); setMobileOpen(false); }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--accent)', fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase' }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => { openAuthModal(); setMobileOpen(false); }}
+                  style={{ width: '100%', background: 'none', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--text)', padding: '12px', fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}
+                >
+                  Login / Register
+                </button>
+              )}
             </div>
           </div>
         )}

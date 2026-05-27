@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext(null);
 
@@ -17,6 +18,7 @@ export const CartProvider = ({ children }) => {
   });
 
   const [isOpen, setIsOpen] = useState(false);
+  const { user, openAuthModal } = useAuth();
 
   // Persist cart to localStorage on every change
   useEffect(() => {
@@ -27,7 +29,14 @@ export const CartProvider = ({ children }) => {
     }
   }, [items]);
 
-  const addItem = useCallback((product, quantity = 1) => {
+  const addItem = useCallback((product, quantity = 1, bypassUser = null) => {
+    const currentUser = bypassUser || user;
+    if (!currentUser) {
+      openAuthModal((loggedInUser) => {
+        addItem(product, quantity, loggedInUser);
+      });
+      return;
+    }
     setItems(prev => {
       const exists = prev.find(i => i.id === product.id);
       if (exists) {
@@ -37,7 +46,7 @@ export const CartProvider = ({ children }) => {
     });
     toast.success(`${product.name} added to cart!`);
     setIsOpen(true);
-  }, []);
+  }, [user, openAuthModal]);
 
   const removeItem = useCallback((id) => {
     setItems(prev => prev.filter(i => i.id !== id));

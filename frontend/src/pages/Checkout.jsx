@@ -1,14 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { logger } from '../utils/logger';
 import { ShieldCheck, CreditCard, Truck, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Checkout = () => {
   const { items, total, count, clearCart } = useCart();
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user, openAuthModal } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/', { replace: true });
+      openAuthModal();
+      toast.error('Please login or register to proceed to checkout.');
+    }
+  }, [user, navigate, openAuthModal]);
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -54,7 +65,12 @@ const Checkout = () => {
                    items,
                    total,
                    paymentId: response.razorpay_payment_id,
-                   shippingDetails: {}
+                   shippingDetails: {},
+                   user: {
+                     name: user?.name,
+                     email: user?.email,
+                     phone: user?.phone
+                   }
                 })
               });
               
@@ -73,9 +89,9 @@ const Checkout = () => {
           }
         },
         prefill: {
-          name: "Velcura Customer",
-          email: "customer@velcura.in",
-          contact: "9999999999"
+          name: user?.name || "Velcura Customer",
+          email: user?.email || "customer@velcura.in",
+          contact: user?.phone || "9999999999"
         },
         theme: {
           color: "#0A192F",
