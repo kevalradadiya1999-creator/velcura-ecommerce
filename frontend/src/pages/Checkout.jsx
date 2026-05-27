@@ -21,7 +21,7 @@ const Checkout = () => {
     }
   }, [user, navigate, openAuthModal]);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = import.meta.env.VITE_API_URL || "https://velcurahygiene-backend.onrender.com";
 
   const handleNext = async (e) => {
     e.preventDefault();
