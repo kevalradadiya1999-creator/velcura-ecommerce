@@ -16,7 +16,8 @@ export const products = [
       'Visibly reduces pore appearance',
       'Calms acne-related inflammation',
       'Non-comedogenic (won\'t clog pores)',
-      'Infused with antibacterial Zinc PCA'
+      'Infused with antibacterial Zinc PCA',
+      'Dissolves SPF 50 with 0 burning'
     ],
     formulation: [
       { name: 'Niacinamide', conc: '4.0%', role: 'Sebum regulation & oil control' },
@@ -70,7 +71,8 @@ export const products = [
       'Locks in moisture for a fresh feel',
       'Nourishes with Sweet Almond Oil',
       'Alcohol-free and non-stripping',
-      'Infused with antioxidant Vitamin E'
+      'Infused with antioxidant Vitamin E',
+      'Dissolves SPF 50 with 0 burning'
     ],
     formulation: [
       { name: 'Sodium Hyaluronate', conc: '1.0%', role: 'Deep hydration & plumping' },
@@ -124,7 +126,8 @@ export const products = [
       'Fragrance-Free & Alcohol-Free',
       'Soothes with Aloe and Licorice Root',
       'Minimalist formula (< 15 ingredients)',
-      'Hypoallergenic & friction-free'
+      'Hypoallergenic & friction-free',
+      'Dissolves SPF 50 with 0 burning'
     ],
     formulation: [
       { name: 'Ceramide NP + AP + EOP', conc: '1.2%', role: 'Lipid barrier restoration' },
