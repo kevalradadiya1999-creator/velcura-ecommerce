@@ -36,9 +36,52 @@ const Shop = () => {
 
   // Bundle packs
   const bundles = [
-    { id: 'b1', name: 'Duo Pack', desc: 'Any 2 variants — Mix & match for your routine.', price: 1099, mrp: 1198, savings: '₹99', tag: 'Popular' },
-    { id: 'b2', name: 'Trio Pack', desc: 'All 3 variants — Oil Balance + HydraGlow + Calm Barrier.', price: 1599, mrp: 1797, savings: '₹200', tag: 'Best Value' },
-    { id: 'b3', name: 'Monthly Subscription', desc: 'Auto-delivered. Cancel anytime. Never run out again.', price: 539, mrp: 599, savings: '10% recurring', tag: 'VIP Perks' },
+    {
+      id: 'starter-trio',
+      name: 'Starter Trio',
+      desc: 'All 3 variants (75 wipes) â€” Oil Balance + Daily Reset + Calm & Restore.',
+      price: 399,
+      mrp: 499,
+      savings: 'â‚¹100',
+      tag: 'Best Value'
+    },
+    {
+      id: 'try-any-2',
+      name: 'Try Any 2',
+      desc: 'Choose your variants (50 wipes) â€” Mix & match any 2 packs.',
+      price: 269,
+      mrp: 349,
+      savings: 'â‚¹80',
+      tag: 'Popular'
+    },
+    {
+      id: 'monthly-supply',
+      name: 'Monthly Supply',
+      desc: '2 packs same variant (50 wipes) â€” Stock up on your favorite formula.',
+      price: 259,
+      mrp: 349,
+      savings: 'â‚¹90',
+      tag: 'Great Value'
+    },
+    {
+      id: 'gift-set',
+      name: 'Gift Set',
+      desc: 'All 3 variants + premium gift box (75 wipes). Perfect for gifting.',
+      price: 549,
+      mrp: 649,
+      savings: 'â‚¹100',
+      tag: 'Premium'
+    },
+    {
+      id: 'subscribe-save',
+      name: 'Subscribe & Save',
+      desc: 'Subscribe to any SKU monthly (25 wipes). Cancel or modify anytime.',
+      price: 129,
+      mrp: 179,
+      savings: 'â‚¹50/month',
+      tag: 'VIP Perks',
+      isSubscription: true
+    }
   ];
   
   const faqs = [
@@ -54,7 +97,7 @@ const Shop = () => {
     <div>
       <SEOHead
         title="Shop Velcura — Clinical Skincare Wipes for Every Skin Type"
-        description="Shop our range of clinical-grade makeup remover wipes. Oil Balance (Niacinamide), HydraGlow (Hyaluronic Acid), Calm Barrier (Ceramides). Free shipping on Trio Pack."
+        description="Shop our range of clinical-grade makeup remover wipes. Oil Balance (Oily & Acne-Prone), Daily Reset (Normal & Combination), Calm & Restore (Dry & Sensitive). Free shipping on Starter Trio."
         url="/shop"
       />
       {/* Header */}
@@ -248,45 +291,58 @@ const Shop = () => {
           </div>
           <div className="velcura-grid mb-8">
             {bundles.map(b => (
-              <div
-                key={b.id}
-                style={{
-                  background: 'white',
-                  border: '1px solid var(--border)',
-                  borderRadius: '12px',
-                  padding: '48px 40px',
-                  position: 'relative',
-                  transition: 'box-shadow 0.3s, transform 0.3s',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-                onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 30px 60px rgba(10,25,47,0.08)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(201,162,74,0.3)'; }}
-                onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border)'; }}
-              >
-                <div style={{ position: 'absolute', top: '24px', right: '24px', background: 'rgba(201,162,74,0.1)', color: 'var(--accent)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: '20px' }}>
-                  {b.tag}
-                </div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>{b.name}</h3>
-                <p style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '32px', lineHeight: '1.6', flex: 1 }}>{b.desc}</p>
-                
-                <div style={{ marginBottom: '32px' }}>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '36px', fontWeight: 600, color: 'var(--text)' }}>₹{b.price}</span>
-                    <span style={{ fontSize: '14px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>₹{b.mrp}</span>
-                  </div>
-                  <p style={{ fontSize: '13px', color: 'var(--accent)', fontWeight: 600, letterSpacing: '0.02em' }}>Save {b.savings} + Free Shipping</p>
-                </div>
-                
-                <button
-                  id={`bundle-add-${b.id}`}
-                  className="btn-primary w-full justify-center h-14 text-[13px]"
-                  onClick={() => {}}
+                <div
+                  key={b.id}
+                  style={{
+                    background: 'white',
+                    border: '1px solid var(--border)',
+                    borderRadius: '12px',
+                    padding: '48px 40px',
+                    position: 'relative',
+                    transition: 'box-shadow 0.3s, transform 0.3s',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 30px 60px rgba(10,25,47,0.08)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(201,162,74,0.3)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.borderColor = 'var(--border)'; }}
                 >
-                  <ShoppingBag size={16} /> Choose {b.name}
-                </button>
-              </div>
-            ))}
+                  <div style={{ position: 'absolute', top: '24px', right: '24px', background: 'rgba(201,162,74,0.1)', color: 'var(--accent)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '6px 12px', borderRadius: '20px' }}>
+                    {b.tag}
+                  </div>
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 600, marginBottom: '16px', color: 'var(--text)' }}>{b.name}</h3>
+                  <p style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '32px', lineHeight: '1.6', flex: 1 }}>{b.desc}</p>
+                  
+                  <div style={{ marginBottom: '32px' }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '36px', fontWeight: 600, color: 'var(--text)' }}>â‚¹{b.price}{b.isSubscription ? '/month' : ''}</span>
+                      <span style={{ fontSize: '14px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>â‚¹{b.mrp}{b.isSubscription ? '/month' : ''}</span>
+                    </div>
+                    <p style={{ fontSize: '13px', color: 'var(--accent)', fontWeight: 600, letterSpacing: '0.02em', marginBottom: '4px' }}>Save {b.savings} + Free Shipping</p>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>
+                      Launch price â€” limited to first batch only.
+                    </div>
+                  </div>
+                  
+                  <button
+                    id={`bundle-add-${b.id}`}
+                    className="btn-primary w-full justify-center h-14 text-[13px]"
+                    onClick={() => {
+                      addItem({
+                        id: b.id,
+                        name: b.name,
+                        price: b.price,
+                        image: b.id === 'starter-trio' || b.id === 'gift-set' ? products[0].image : '/velcura-logo.png',
+                        skinType: b.desc,
+                        stock: 10,
+                        qty: 1
+                      });
+                    }}
+                  >
+                    <ShoppingBag size={16} /> Choose {b.name}
+                  </button>
+                </div>
+              ))}
           </div>
           <p style={{ textAlign: 'center', fontSize: '13px', color: 'var(--text-muted)', fontStyle: 'italic' }}>
             *Free Skin Type Guide PDF included with your first bundle order.

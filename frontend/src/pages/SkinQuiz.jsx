@@ -67,16 +67,16 @@ const SkinQuiz = () => {
       recommendedProducts.push(products.find(p => p.id === 'oil-balance') || products[0]); // Oil Balance
       text += "Managing excess sebum and minimizing pores without stripping the skin's barrier is key. Our 4% Niacinamide formulation provides clinical-grade oil regulation.";
     } else if (answers[1] === 'Dry' || answers[2] === 'Dryness & Flaking' || answers[1] === 'Normal') {
-      recommendedProducts.push(products.find(p => p.id === 'hydraglow') || products[1]); // HydraGlow
+      recommendedProducts.push(products.find(p => p.id === 'daily-reset') || products[1]); // HydraGlow
       text += "Deep hydration and moisture retention are the primary focus of these selections. We recommend our Sodium Hyaluronate formula to plump the skin.";
     } else {
-      recommendedProducts.push(products.find(p => p.id === 'calm-skin') || products[2]); // Calm Barrier
+      recommendedProducts.push(products.find(p => p.id === 'calm-restore') || products[2]); // Calm Barrier
       text += "We highly prioritize maintaining your skin barrier and soothing sensitivity. The Ceramide Complex serves to restore and heal reactive skin tones.";
     }
 
     if (answers[3] === 'Detailed') {
-      if (!recommendedProducts.find(p => p.id === 'hydraglow')) recommendedProducts.push(products[1]);
-      if (!recommendedProducts.find(p => p.id === 'calm-skin')) recommendedProducts.push(products[2]);
+      if (!recommendedProducts.find(p => p.id === 'daily-reset')) recommendedProducts.push(products[1]);
+      if (!recommendedProducts.find(p => p.id === 'calm-restore')) recommendedProducts.push(products[2]);
     } else if (answers[3] === 'Moderate') {
       if (!recommendedProducts.find(p => p.id === 'oil-balance') && answers[1] !== 'Dry') recommendedProducts.push(products[0]);
     }

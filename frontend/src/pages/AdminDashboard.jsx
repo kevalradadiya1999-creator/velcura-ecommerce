@@ -75,10 +75,10 @@ const AdminDashboard = () => {
 
   const mockReviews = [
     { pName: 'Oil Balance', user: 'Jessica T.', rating: 5, body: 'These wipes are incredible. They don\'t leave my skin feeling tight at all.' },
-    { pName: 'HydraGlow', user: 'Amanda R.', rating: 4, body: 'Very hydrating, but I wish the wipe itself was a tiny bit larger.' },
-    { pName: 'Calm Skin', user: 'Michelle K.', rating: 5, body: 'Finally a wipe that doesn\'t burn my sensitive rosacea skin. Lifesaver!' },
+    { pName: 'Daily Reset', user: 'Amanda R.', rating: 4, body: 'Very hydrating, but I wish the wipe itself was a tiny bit larger.' },
+    { pName: 'Calm & Restore', user: 'Michelle K.', rating: 5, body: 'Finally a wipe that doesn\'t burn my sensitive rosacea skin. Lifesaver!' },
     { pName: 'Oil Balance', user: 'David W.', rating: 5, body: 'Use them after the gym. Perfect for quick cleansing without a sink.' },
-    { pName: 'HydraGlow', user: 'Sarah L.', rating: 5, body: 'Leaves a beautiful dewy finish. I actually look forward to taking my makeup off.' },
+    { pName: 'Daily Reset', user: 'Sarah L.', rating: 5, body: 'Leaves a beautiful dewy finish. I actually look forward to taking my makeup off.' },
   ];
 
   return (

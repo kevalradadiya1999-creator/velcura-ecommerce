@@ -67,7 +67,7 @@ app.use('/api/auth', authRoutes);
 // Static sitemap endpoint
 app.get('/api/sitemap.xml', (req, res) => {
   const staticRoutes = ['/', '/shop', '/about', '/faq', '/contact', '/export', '/ingredients'];
-  const productSlugs = ['oil-balance', 'hydraglow', 'calm-skin'];
+  const productSlugs = ['oil-balance', 'daily-reset', 'calm-restore'];
   const base = 'https://velcurahygiene.in';
 
   const urls = [

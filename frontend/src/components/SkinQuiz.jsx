@@ -60,8 +60,8 @@ const SkinQuiz = () => {
     
     // Map to product
     if (highest === 'oily') return products.find(p => p.id === 'oil-balance');
-    if (highest === 'dry') return products.find(p => p.id === 'hydraglow');
-    return products.find(p => p.id === 'calm-skin');
+    if (highest === 'dry') return products.find(p => p.id === 'daily-reset');
+    return products.find(p => p.id === 'calm-restore');
   };
 
   if (step >= questions.length) {

@@ -5,19 +5,19 @@ import { Search } from 'lucide-react';
 const ingredientsData = [
   { name: 'Salicylic Acid', category: 'Exfoliant', benefit: 'Clears pores & reduces breakouts', safetyRating: 'safe', commonIn: ['Oil Balance Wipes'] },
   { name: 'Niacinamide', category: 'Vitamin', benefit: 'Regulates oil & brightens tone', safetyRating: 'safe', commonIn: ['Oil Balance Wipes', 'Serum'] },
-  { name: 'Hyaluronic Acid', category: 'Humectant', benefit: 'Deeply hydrates & plumps', safetyRating: 'safe', commonIn: ['HydraGlow Wipes'] },
-  { name: 'Glycerin', category: 'Humectant', benefit: 'Draws moisture into the skin', safetyRating: 'safe', commonIn: ['HydraGlow Wipes', 'Calm Barrier Wipes'] },
+  { name: 'Hyaluronic Acid', category: 'Humectant', benefit: 'Deeply hydrates & plumps', safetyRating: 'safe', commonIn: ['Daily Reset Wipes'] },
+  { name: 'Glycerin', category: 'Humectant', benefit: 'Draws moisture into the skin', safetyRating: 'safe', commonIn: ['Daily Reset Wipes', 'Calm & Restore Wipes'] },
   { name: 'Zinc PCA', category: 'Mineral', benefit: 'Controls sebum & soothes acne', safetyRating: 'safe', commonIn: ['Oil Balance Wipes'] },
-  { name: 'Aloe Vera', category: 'Soothing', benefit: 'Calms irritation & hydrates', safetyRating: 'safe', commonIn: ['Calm Barrier Wipes'] },
+  { name: 'Aloe Vera', category: 'Soothing', benefit: 'Calms irritation & hydrates', safetyRating: 'safe', commonIn: ['Calm & Restore Wipes'] },
   { name: 'Green Tea Extract', category: 'Antioxidant', benefit: 'Protects against environmental stressors', safetyRating: 'safe', commonIn: ['Oil Balance Wipes'] },
   { name: 'Vitamin C', category: 'Antioxidant', benefit: 'Brightens skin & boosts collagen', safetyRating: 'caution', commonIn: ['Day Serum'] },
   { name: 'Retinol', category: 'Anti-aging', benefit: 'Speeds cellular turnover', safetyRating: 'caution', commonIn: ['Night Cream'] },
-  { name: 'Ceramides', category: 'Lipid', benefit: 'Restores skin barrier function', safetyRating: 'safe', commonIn: ['Calm Barrier Wipes'] },
-  { name: 'Centella Asiatica', category: 'Soothing', benefit: 'Heals & reduces inflammation', safetyRating: 'safe', commonIn: ['Calm Barrier Wipes'] },
-  { name: 'Panthenol', category: 'Vitamin', benefit: 'Soothes & repairs skin barrier', safetyRating: 'safe', commonIn: ['HydraGlow Wipes', 'Calm Barrier Wipes'] },
+  { name: 'Ceramides', category: 'Lipid', benefit: 'Restores skin barrier function', safetyRating: 'safe', commonIn: ['Calm & Restore Wipes'] },
+  { name: 'Centella Asiatica', category: 'Soothing', benefit: 'Heals & reduces inflammation', safetyRating: 'safe', commonIn: ['Calm & Restore Wipes'] },
+  { name: 'Panthenol', category: 'Vitamin', benefit: 'Soothes & repairs skin barrier', safetyRating: 'safe', commonIn: ['Daily Reset Wipes', 'Calm & Restore Wipes'] },
   { name: 'Lactic Acid', category: 'Exfoliant', benefit: 'Gently exfoliates & hydrates', safetyRating: 'caution', commonIn: ['Resurfacing Pads'] },
   { name: 'Kojic Acid', category: 'Brightening', benefit: 'Fades hyperpigmentation', safetyRating: 'caution', commonIn: ['Dark Spot Corrector'] },
-  { name: 'Squalane', category: 'Emollient', benefit: 'Locks in moisture without clogging', safetyRating: 'safe', commonIn: ['HydraGlow Wipes', 'Moisturizer'] },
+  { name: 'Squalane', category: 'Emollient', benefit: 'Locks in moisture without clogging', safetyRating: 'safe', commonIn: ['Daily Reset Wipes', 'Moisturizer'] },
 ];
 
 const Ingredients = () => {

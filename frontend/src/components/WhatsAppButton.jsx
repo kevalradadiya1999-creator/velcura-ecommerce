@@ -8,10 +8,10 @@ const WhatsAppButton = () => {
   
   if (location.pathname.includes('/product/oil-balance')) {
     message = "Hi Velcura, I'm interested in your Oil Balance wipes. Please guide me and help me place an order.";
-  } else if (location.pathname.includes('/product/hydraglow')) {
-    message = "Hi Velcura, I'm interested in your HydraGlow wipes. Please guide me and help me place an order.";
-  } else if (location.pathname.includes('/product/calm-skin') || location.pathname.includes('/product/calm-barrier') || location.pathname.includes('/product/calm')) {
-    message = "Hi Velcura, I'm interested in your Calm Barrier wipes. Please guide me and help me place an order.";
+  } else if (location.pathname.includes('/product/daily-reset')) {
+    message = "Hi Velcura, I'm interested in your Daily Reset wipes. Please guide me and help me place an order.";
+  } else if (location.pathname.includes('/product/calm-restore') || location.pathname.includes('/product/calm-barrier') || location.pathname.includes('/product/calm')) {
+    message = "Hi Velcura, I'm interested in your Calm & Restore wipes. Please guide me and help me place an order.";
   }
 
   const encodedMessage = encodeURIComponent(message);

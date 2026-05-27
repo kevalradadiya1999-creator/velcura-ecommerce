@@ -17,9 +17,9 @@ const faqs = [
     category: 'Skin Type',
     id: 'skin-type',
     items: [
-      { q: 'Which Velcura wipe is right for my skin?', a: 'If you have oily or acne-prone skin, choose Oil Balance (Niacinamide). If your skin is dry or dehydrated, choose HydraGlow (Hyaluronic Acid). If you have sensitive, reactive, or easily irritated skin, choose Calm Skin (Ceramide Complex). Combination skin types often find the Oil Balance formula most effective.' },
-      { q: 'Can I use Velcura wipes if I have eczema?', a: 'The Calm Skin (Ceramide Complex) formula is specifically designed for compromised and sensitive skin types, including those prone to eczema. However, we always recommend a patch test and consulting your dermatologist for active eczema flare-ups.' },
-      { q: 'I have combination skin — which should I use?', a: 'This is very common. Oil Balance (Niacinamide) tends to work well for combination skin as it regulates without over-drying. You could also use HydraGlow on drier areas if needed.' },
+      { q: 'Which Velcura wipe is right for my skin?', a: 'If you have oily or acne-prone skin, choose Oil Balance (Niacinamide). If your skin is dry or dehydrated, choose Daily Reset (Hyaluronic Acid). If you have sensitive, reactive, or easily irritated skin, choose Calm & Restore (Ceramide Complex). Combination skin types often find the Oil Balance formula most effective.' },
+      { q: 'Can I use Velcura wipes if I have eczema?', a: 'The Calm & Restore (Ceramide Complex) formula is specifically designed for compromised and sensitive skin types, including those prone to eczema. However, we always recommend a patch test and consulting your dermatologist for active eczema flare-ups.' },
+      { q: 'I have combination skin — which should I use?', a: 'This is very common. Oil Balance (Niacinamide) tends to work well for combination skin as it regulates without over-drying. You could also use Daily Reset on drier areas if needed.' },
     ],
   },
   {
@@ -27,7 +27,7 @@ const faqs = [
     id: 'ingredients',
     items: [
       { q: 'Are Velcura wipes alcohol-free?', a: 'Yes. All Velcura formulas are completely free from harsh, drying alcohols (such as Ethanol, Isopropyl Alcohol, and Denatured Alcohol). We use only skin-compatible, non-drying alcohols where structurally required (such as Cetyl Alcohol, which is a fatty alcohol that actually moisturizes).' },
-      { q: 'Are Velcura wipes fragrance-free?', a: 'The Calm Skin formula is completely fragrance-free. The Oil Balance and HydraGlow formulas contain a very low concentration of skin-safe fragrance. If you have fragrance allergies, select Calm Skin.' },
+      { q: 'Are Velcura wipes fragrance-free?', a: 'The Calm & Restore formula is completely fragrance-free. The Oil Balance and Daily Reset formulas contain a very low concentration of skin-safe fragrance. If you have fragrance allergies, select Calm & Restore.' },
       { q: 'Are your products cruelty-free?', a: 'Yes. Velcura does not conduct or commission any animal testing at any stage of product development.' },
     ],
   },

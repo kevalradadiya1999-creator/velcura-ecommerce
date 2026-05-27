@@ -165,11 +165,16 @@ const ProductCard = ({ product, variant = 'default' }) => {
         {/* Price + CTA */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
           <div>
-            <span style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text)' }}>₹{product.price}</span>
-            {product.mrp && product.mrp > product.price && (
-              <span style={{ fontSize: '13px', color: 'var(--text-muted)', marginLeft: '8px', textDecoration: 'line-through' }}>₹{product.mrp}</span>
-            )}
-          </div>
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <span style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text)' }}>â‚¹{product.price}</span>
+                {product.mrp && product.mrp > product.price && (
+                  <span style={{ fontSize: '13px', color: 'var(--text-muted)', marginLeft: '8px', textDecoration: 'line-through' }}>â‚¹{product.mrp}</span>
+                )}
+              </div>
+              <div style={{ fontSize: '10px', color: 'var(--accent)', marginTop: '2px', fontWeight: 500, letterSpacing: '0.02em' }}>
+                Launch price â€” limited to first batch only.
+              </div>
+            </div>
           <button
             id={`add-to-cart-${product.id}`}
             onClick={() => addItem(product)}

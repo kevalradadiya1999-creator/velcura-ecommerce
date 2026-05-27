@@ -10,8 +10,8 @@ const Footer = () => {
       links: [
         { label: 'All Products', to: '/shop' },
         { label: 'Oil Balance', to: '/product/oil-balance' },
-        { label: 'HydraGlow', to: '/product/hydraglow' },
-        { label: 'Calm Skin', to: '/product/calm-skin' },
+        { label: 'Daily Reset', to: '/product/daily-reset' },
+        { label: 'Calm & Restore', to: '/product/calm-restore' },
         { label: 'Bundles', to: '/shop#bundles' },
       ]
     },

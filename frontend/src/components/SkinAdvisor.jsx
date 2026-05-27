@@ -26,13 +26,13 @@ const SKIN_RULES = {
       'dehydrated', 'parched', 'cracked', 'peeling', 'lack moisture', 'no moisture',
       'not hydrated', 'dryness', 'dry skin', 'moisture'
     ],
-    product: 'hydraglow',
-    productName: 'Velcura HydraGlow Wipes',
+    product: 'daily-reset',
+    productName: 'Velcura Daily Reset Wipes',
     skinLabel: 'dry',
     diagnosis:
       "This sounds like **dry skin**. Dry skin lacks moisture, which causes that tight, rough, or flaky feeling — especially after cleansing.",
     recommendation:
-      "I recommend **Velcura HydraGlow Wipes** — they use 1.0% Hyaluronic Acid and Sweet Almond Oil to deeply hydrate your skin as you remove makeup. You'll feel soft and nourished, never dry or tight.",
+      "I recommend **Velcura Daily Reset Wipes** — they use 1.0% Hyaluronic Acid and Sweet Almond Oil to deeply hydrate your skin as you remove makeup. You'll feel soft and nourished, never dry or tight.",
   },
   sensitive: {
     signals: [
@@ -40,13 +40,13 @@ const SKIN_RULES = {
       'allerg', 'inflam', 'flush', 'itchy', 'itch', 'fragrance', 'breakout reaction',
       'product reaction', 'sensitive skin', 'easily irritated', 'skin reacts'
     ],
-    product: 'calm-skin',
-    productName: 'Velcura Calm Barrier Wipes',
+    product: 'calm-restore',
+    productName: 'Velcura Calm & Restore Wipes',
     skinLabel: 'sensitive',
     diagnosis:
       "Your skin sounds **sensitive**. Sensitive skin has a weaker barrier, which means it reacts easily to products, weather changes, or friction — causing redness, burning, or stinging.",
     recommendation:
-      "I recommend **Velcura Calm Barrier Wipes** — they're built on Ceramide NP+AP+EOP (1.2%) and Allantoin to repair your skin's lipid barrier, calm redness, and cleanse without any irritation. Fragrance-free.",
+      "I recommend **Velcura Calm & Restore Wipes** — they're built on Ceramide NP+AP+EOP (1.2%) and Allantoin to repair your skin's lipid barrier, calm redness, and cleanse without any irritation. Fragrance-free.",
   },
 };
 

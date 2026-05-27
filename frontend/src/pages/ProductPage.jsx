@@ -98,7 +98,7 @@ const ProductPage = () => {
       content: (
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', padding: '20px', background: 'var(--surface)', borderRadius: '8px' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--gold-light)', border: '1.5px solid rgba(201,162,74,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <span style={{ fontSize: '18px', color: 'var(--accent)' }}>{product.id === 'oil-balance' ? '⬡' : product.id === 'hydraglow' ? '◈' : '⬜'}</span>
+            <span style={{ fontSize: '18px', color: 'var(--accent)' }}>{product.id === 'oil-balance' ? 'ðŸ’§' : product.id === 'daily-reset' ? 'âœ¨' : 'ðŸ›¡ï¸'}</span>
           </div>
           <div>
             <p style={{ fontWeight: 700, color: 'var(--text)', marginBottom: '6px' }}>{product.keyIngredient} Content</p>
@@ -158,7 +158,7 @@ const ProductPage = () => {
     <div>
       <SEOHead
         title={`${product.fullName} — Velcura | ${product.skinType}`}
-        description={product.shortDesc + ` Key active: ${product.keyIngredient}. Alcohol-free, pH-balanced. ₹${product.price} for 30 wipes.`}
+        description={product.shortDesc + ` Key active: ${product.keyIngredient}. Alcohol-free, pH-balanced. ₹${product.price} for 25 wipes.`}
         url={`/product/${product.slug}`}
         type="product"
         schema={{
@@ -369,13 +369,18 @@ const ProductPage = () => {
             )}
 
             {/* Price */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-              <span style={{ fontSize: '28px', fontWeight: 800, color: 'var(--text)' }}>₹{product.price}</span>
-              <span style={{ fontSize: '16px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>₹{product.mrp}</span>
-              <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: '12px', fontWeight: 700, padding: '3px 8px', borderRadius: '4px' }}>
-                {discount}% OFF
-              </span>
-            </div>
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '28px', fontWeight: 800, color: 'var(--text)' }}>â‚¹{product.price}</span>
+                  <span style={{ fontSize: '16px', color: 'var(--text-subtle)', textDecoration: 'line-through' }}>â‚¹{product.mrp}</span>
+                  <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: '12px', fontWeight: 700, padding: '3px 8px', borderRadius: '4px' }}>
+                    {discount}% OFF
+                  </span>
+                </div>
+                <div style={{ fontSize: '12px', color: 'var(--accent)', marginTop: '6px', fontWeight: 500 }}>
+                  Launch price â€” limited to first batch only.
+                </div>
+              </div>
 
             {/* Stock indicator */}
             <div style={{ marginBottom: '20px' }}>
@@ -429,19 +434,17 @@ const ProductPage = () => {
               >
                 {product.stock === 0 ? 'Notify Me' : `Add to Cart · ₹${(product.price * qty).toLocaleString()}`}
               </button>
-            </div>
-
-            {/* Introductory Bundles */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}>
-              <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
-                <span>📦 <strong>Duo Pack</strong> (Any 2 variants)</span>
-                <span>₹579 <span style={{ color: '#16a34a', fontWeight: 'bold' }}>(Save ₹19)</span></span>
-              </Link>
-              <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
-                <span>✨ <strong>Trio Pack</strong> (All 3 variants)</span>
-                <span>₹829 <span style={{ color: '#16a34a', fontWeight: 'bold' }}>(Save ₹68 + Free Ship)</span></span>
-              </Link>
-            </div>
+            </div>              {/* Curated Bundles */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}>
+                <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
+                  <span>âœ¨ <strong>Try Any 2</strong> (Choose variants)</span>
+                  <span>â‚¹269 <span style={{ color: '#16a34a', fontWeight: 'bold' }}>(Save â‚¹80)</span></span>
+                </Link>
+                <Link to="/shop" className="btn-outline" style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', fontSize: '13px' }}>
+                  <span>âœ¦ <strong>Starter Trio</strong> (All 3 variants)</span>
+                  <span>â‚¹399 <span style={{ color: '#16a34a', fontWeight: 'bold' }}>(Save â‚¹100 + Free Ship)</span></span>
+                </Link>
+              </div>
 
             {/* Trust strip */}
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', padding: '16px', background: 'var(--surface)', borderRadius: '8px' }}>
@@ -546,11 +549,14 @@ const ProductPage = () => {
         }}
       >
         <div>
-          <p style={{ fontSize: '14px', fontWeight: 600, color: '#0A192F', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {product.name}
-          </p>
-          <p style={{ fontSize: '16px', fontWeight: 800, color: '#0A192F' }}>₹{product.price}</p>
-        </div>
+            <p style={{ fontSize: '14px', fontWeight: 600, color: '#0A192F', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {product.name}
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <p style={{ fontSize: '16px', fontWeight: 800, color: '#0A192F', margin: 0 }}>â‚¹{product.price}</p>
+              <span style={{ fontSize: '9px', color: 'var(--accent)', fontWeight: 500 }}>Launch price</span>
+            </div>
+          </div>
         <button
           onClick={() => product.stock > 0 && addItem(product, qty)}
           disabled={product.stock === 0}

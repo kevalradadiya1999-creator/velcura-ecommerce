@@ -416,14 +416,67 @@ const Home = () => {
             <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', color: '#C9A24A', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>Build Your Routine</span>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 400, color: '#0A192F', lineHeight: 1.1, margin: 0 }}>Curated combinations.</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="collection-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }} className="collection-grid">
             {[
-              { id: 'b1', badge: 'POPULAR', badgeStyle: { background: '#0A192F', color: 'white' }, name: 'Duo Pack', sub: 'Any 2 variants — Mix & match for your routine.', items: [products[0], products[1]], discount: 0.085, dark: false },
-              { id: 'b2', badge: 'BEST VALUE', badgeStyle: { background: '#C9A24A', color: 'white' }, name: 'Trio Pack', sub: 'All 3 variants — Oil Balance + HydraGlow + Calm Barrier.', items: [products[0], products[1], products[2]], discount: 0.20, dark: true },
-              { id: 'b3', badge: 'VIP PERKS', badgeStyle: { background: '#0A192F', color: 'white' }, name: 'Monthly Subscription', sub: 'Auto-delivered. Cancel anytime. Never run out again.', items: [products[1]], discount: 0.10, dark: false },
+              {
+                id: 'starter-trio',
+                badge: 'BEST VALUE',
+                badgeStyle: { background: '#C9A24A', color: 'white' },
+                name: 'Starter Trio',
+                sub: 'All 3 variants (75 wipes) — Oil Balance + Daily Reset + Calm & Restore.',
+                items: [products[0], products[1], products[2]],
+                price: 399,
+                mrp: 499,
+                dark: true
+              },
+              {
+                id: 'try-any-2',
+                badge: 'POPULAR',
+                badgeStyle: { background: '#0A192F', color: 'white' },
+                name: 'Try Any 2',
+                sub: 'Choose your variants (50 wipes) — Mix & match any 2 packs.',
+                items: [products[0], products[1]],
+                price: 269,
+                mrp: 349,
+                dark: false
+              },
+              {
+                id: 'monthly-supply',
+                badge: 'GREAT VALUE',
+                badgeStyle: { background: '#0A192F', color: 'white' },
+                name: 'Monthly Supply',
+                sub: '2 packs same variant (50 wipes) — Stock up on your favorite.',
+                items: [products[0], products[0]],
+                price: 259,
+                mrp: 349,
+                dark: false
+              },
+              {
+                id: 'gift-set',
+                badge: 'PREMIUM',
+                badgeStyle: { background: '#C9A24A', color: 'white' },
+                name: 'Gift Set',
+                sub: 'All 3 variants + premium gift box (75 wipes). Perfect for gifting.',
+                items: [products[0], products[1], products[2]],
+                price: 549,
+                mrp: 649,
+                dark: true
+              },
+              {
+                id: 'subscribe-save',
+                badge: 'VIP PERKS',
+                badgeStyle: { background: '#0A192F', color: 'white' },
+                name: 'Subscribe & Save',
+                sub: 'Subscribe to any SKU monthly (25 wipes). Cancel anytime.',
+                items: [products[1]],
+                price: 129,
+                mrp: 179,
+                isSubscription: true,
+                dark: false
+              }
             ].map(b => {
-              const originalPrice = b.items.reduce((sum, p) => sum + (p?.price || 0), 0);
-              const bundlePrice = Math.floor(originalPrice * (1 - b.discount));
+              const originalPrice = b.mrp;
+              const bundlePrice = b.price;
               return (
                 <div key={b.id} style={{ background: b.dark ? '#0A192F' : 'white', borderRadius: '16px', padding: '32px', display: 'flex', flexDirection: 'column', position: 'relative', transition: 'transform 0.2s', border: b.dark ? 'none' : '1px solid rgba(10,25,47,0.08)' }}
                   onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
@@ -431,25 +484,44 @@ const Home = () => {
                   <span style={{ ...b.badgeStyle, fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', padding: '6px 14px', borderRadius: '999px', display: 'inline-block', marginBottom: '24px', alignSelf: 'flex-start' }}>{b.badge}</span>
                   <div style={{ display: 'flex', gap: '-8px', marginBottom: '20px' }}>
                     {b.items.slice(0, 3).map((p, pi) => (
-                      <img key={p.id} src={p.image} alt={p.name} style={{ width: '64px', height: '64px', objectFit: 'contain', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', marginLeft: pi > 0 ? '-8px' : 0 }}
+                      <img key={p?.id || pi} src={p?.image || '/velcura-logo.png'} alt={p?.name} style={{ width: '64px', height: '64px', objectFit: 'contain', background: 'rgba(255,255,255,0.1)', borderRadius: '8px', marginLeft: pi > 0 ? '-8px' : 0 }}
                         onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=80&q=80'; }} />
                     ))}
                   </div>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 400, color: b.dark ? 'white' : '#0A192F', marginBottom: '8px' }}>{b.name}</h3>
                   <p style={{ fontSize: '13px', color: b.dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,25,47,0.5)', marginBottom: '20px' }}>{b.sub}</p>
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {b.items.map(p => (
-                      <li key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: b.dark ? 'rgba(255,255,255,0.7)' : 'rgba(10,25,47,0.6)' }}>
-                        <span style={{ color: '#C9A24A' }}>✓</span> {p.name}
+                    {b.items.map((p, pi) => (
+                      <li key={p?.id || pi} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: b.dark ? 'rgba(255,255,255,0.7)' : 'rgba(10,25,47,0.6)' }}>
+                        <span style={{ color: '#C9A24A' }}>🛡️</span> {p?.name || 'Velcura Wipe'}
                       </li>
                     ))}
                   </ul>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '20px' }}>
-                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 700, color: b.dark ? 'white' : '#0A192F' }}>₹{bundlePrice}</span>
-                    <span style={{ fontSize: '14px', color: b.dark ? 'rgba(255,255,255,0.35)' : 'rgba(10,25,47,0.3)', textDecoration: 'line-through' }}>₹{originalPrice}</span>
+                  <div style={{ marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                      <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '28px', fontWeight: 700, color: b.dark ? 'white' : '#0A192F' }}>
+                        ₹{bundlePrice}{b.isSubscription ? '/month' : ''}
+                      </span>
+                      <span style={{ fontSize: '14px', color: b.dark ? 'rgba(255,255,255,0.35)' : 'rgba(10,25,47,0.3)', textDecoration: 'line-through' }}>
+                        ₹{originalPrice}{b.isSubscription ? '/month' : ''}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '11px', color: b.dark ? '#C9A24A' : 'var(--accent)', marginTop: '4px', fontWeight: 500 }}>
+                      Launch price — limited to first batch only.
+                    </div>
                   </div>
                   <button style={{ width: '100%', padding: '14px', borderRadius: '4px', border: b.dark ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(10,25,47,0.15)', background: b.dark ? 'rgba(255,255,255,0.08)' : 'transparent', color: b.dark ? 'white' : '#0A192F', fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', cursor: 'pointer', transition: 'all 0.2s' }}
-                    onClick={() => { b.items.forEach(p => addItem(p)); toast.success('Bundle added to cart!'); }}
+                    onClick={() => {
+                      addItem({
+                        id: b.id,
+                        name: b.name,
+                        price: b.price,
+                        image: b.id === 'starter-trio' || b.id === 'gift-set' ? products[0].image : '/velcura-logo.png',
+                        skinType: b.sub,
+                        stock: 10,
+                        qty: 1
+                      });
+                    }}
                     onMouseEnter={e => { e.currentTarget.style.background = b.dark ? 'rgba(255,255,255,0.15)' : '#0A192F'; if (!b.dark) e.currentTarget.style.color = 'white'; }}
                     onMouseLeave={e => { e.currentTarget.style.background = b.dark ? 'rgba(255,255,255,0.08)' : 'transparent'; if (!b.dark) e.currentTarget.style.color = '#0A192F'; }}>
                     ADD TO CART
