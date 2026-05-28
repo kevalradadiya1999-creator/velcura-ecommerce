@@ -81,7 +81,7 @@ const SkinQuiz = () => {
             onClick={() => addItem(rec)}
             style={{ padding: '12px 24px', fontSize: '13px' }}
           >
-            Add {rec.name} to Cart - ₹599
+            Add {rec.name} to Cart — ₹{rec.price || 149}
           </button>
         </div>
         

@@ -22,7 +22,7 @@ const OrderTracking = () => {
         email: email,
         product: 'Oil Balance Cleansing Wipes',
         qty: 1,
-        price: '₹599'
+        price: '₹149'
       });
     }, 1200);
   };

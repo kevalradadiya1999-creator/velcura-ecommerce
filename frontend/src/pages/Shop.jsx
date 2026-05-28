@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+﻿import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, ShoppingBag, Check, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -443,3 +443,4 @@ const Shop = () => {
 };
 
 export default Shop;
+

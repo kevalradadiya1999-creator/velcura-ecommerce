@@ -1,11 +1,14 @@
-import { memo, useRef, useCallback } from 'react';
+﻿import { memo, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ShoppingBag, Heart, Star } from 'lucide-react';
+import { Star, Heart, ShoppingBag, ArrowUpRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlistContext } from '../context/WishlistContext';
 
+const Rs = () => <span>&#8377;</span>;
+
 const StarRating = ({ rating, count }) => {
   if (!rating) return null;
+  const reviewCount = Array.isArray(count) ? count.length : count;
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
       <div style={{ display: 'flex', gap: '2px' }}>
@@ -14,7 +17,7 @@ const StarRating = ({ rating, count }) => {
         ))}
       </div>
       <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>
-        {rating} {count ? `(${count})` : ''}
+        {rating} {reviewCount ? `(${reviewCount} reviews)` : ''}
       </span>
     </div>
   );
@@ -35,14 +38,16 @@ const ProductCard = ({ product, variant = 'default' }) => {
     el.style.transform = `perspective(1100px) rotateX(${-py * 5}deg) rotateY(${px * 7}deg) translateY(-6px)`;
   }, []);
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = useCallback((e) => {
     if (cardRef.current) {
       cardRef.current.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      cardRef.current.style.boxShadow = 'none';
     }
   }, []);
 
   const softBg = product.softBg || product.bgColor || '#F5F0E8';
   const accentColor = product.accentColor || 'var(--accent)';
+  const reviewCount = product.reviewCount || (Array.isArray(product.reviews) ? product.reviews.length : product.reviews) || 0;
 
   return (
     <div
@@ -64,7 +69,6 @@ const ProductCard = ({ product, variant = 'default' }) => {
         cursor: 'default',
       }}
       onMouseEnter={e => e.currentTarget.style.boxShadow = '0 40px 80px rgba(10,25,47,0.18)'}
-      onMouseLeave2={e => e.currentTarget.style.boxShadow = 'none'}
     >
       {/* Radial glow from product accent color */}
       <div style={{
@@ -134,7 +138,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
               filter: 'drop-shadow(0 24px 36px rgba(10,25,47,0.22))',
               transform: 'translateZ(20px)',
             }}
-            onError={e => { e.target.onerror = null; e.target.src = product.bgColor ? '' : 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
+            onError={e => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80'; }}
           />
         </div>
       </Link>
@@ -156,7 +160,7 @@ const ProductCard = ({ product, variant = 'default' }) => {
           {product.skinType}
         </p>
 
-        <StarRating rating={product.rating} count={product.reviews} />
+        <StarRating rating={product.rating} count={reviewCount} />
 
         <p style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, marginBottom: '20px' }}>
           {product.shortDesc}
@@ -165,16 +169,16 @@ const ProductCard = ({ product, variant = 'default' }) => {
         {/* Price + CTA */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
           <div>
-              <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                <span style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text)' }}>₹{product.price}</span>
-                {product.mrp && product.mrp > product.price && (
-                  <span style={{ fontSize: '13px', color: 'var(--text-muted)', marginLeft: '8px', textDecoration: 'line-through' }}>₹{product.mrp}</span>
-                )}
-              </div>
-              <div style={{ fontSize: '10px', color: 'var(--accent)', marginTop: '2px', fontWeight: 500, letterSpacing: '0.02em' }}>
-                Launch price — limited to first batch only.
-              </div>
+            <div style={{ display: 'flex', alignItems: 'baseline' }}>
+              <span style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text)' }}><Rs />{product.price}</span>
+              {product.mrp && product.mrp > product.price && (
+                <span style={{ fontSize: '13px', color: 'var(--text-muted)', marginLeft: '8px', textDecoration: 'line-through' }}><Rs />{product.mrp}</span>
+              )}
             </div>
+            <div style={{ fontSize: '10px', color: 'var(--accent)', marginTop: '2px', fontWeight: 500, letterSpacing: '0.02em' }}>
+              Launch price &mdash; limited to first batch only.
+            </div>
+          </div>
           <button
             id={`add-to-cart-${product.id}`}
             onClick={() => addItem(product)}
@@ -200,4 +204,3 @@ const ProductCard = ({ product, variant = 'default' }) => {
 };
 
 export default memo(ProductCard);
-

@@ -786,7 +786,7 @@ const Home = () => {
               { num: '3', label: 'Skin-Type Formulas' },
               { num: '5+', label: 'Dermatological Actives' },
               { num: '0', label: 'Harsh Alcohols' },
-              { num: '∞', label: 'Skin Confidence' },
+              { num: '100%', label: 'Skin Confidence' },
             ].map(stat => (
               <div key={stat.label} style={{
                 padding: '32px 24px',
