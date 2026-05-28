@@ -27,14 +27,28 @@ const EmailPopup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
-    setSubmitted(true);
-    localStorage.setItem('velcura_email_captured', 'true');
-    setTimeout(() => {
-      setVisible(false);
-    }, 3000);
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || "https://velcurahygiene-backend.onrender.com";
+      const res = await fetch(`${API_URL}/api/newsletter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: 'popup' })
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        localStorage.setItem('velcura_email_captured', 'true');
+        setTimeout(() => {
+          setVisible(false);
+        }, 3000);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      alert("Error submitting email. Please try again.");
+    }
   };
 
   const copyCode = () => {

@@ -9,6 +9,33 @@ import toast from 'react-hot-toast';
 const Checkout = () => {
   const { items, total, count, clearCart } = useCart();
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment
+  const [shippingForm, setShippingForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setShippingForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  useEffect(() => {
+    if (user) {
+      setShippingForm(prev => ({
+        ...prev,
+        firstName: prev.firstName || user.name.split(' ')[0] || '',
+        lastName: prev.lastName || user.name.split(' ').slice(1).join(' ') || '',
+        email: prev.email || user.email || '',
+        phone: prev.phone || user.phone || '',
+      }));
+    }
+  }, [user]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user, openAuthModal } = useAuth();
@@ -65,11 +92,20 @@ const Checkout = () => {
                    items,
                    total,
                    paymentId: response.razorpay_payment_id,
-                   shippingDetails: {},
+                   shippingDetails: {
+                     firstName: shippingForm.firstName,
+                     lastName: shippingForm.lastName,
+                     email: shippingForm.email,
+                     phone: shippingForm.phone,
+                     address: shippingForm.address,
+                     city: shippingForm.city,
+                     state: shippingForm.state,
+                     pincode: shippingForm.pincode
+                   },
                    user: {
-                     name: user?.name,
-                     email: user?.email,
-                     phone: user?.phone
+                     name: user?.name || `${shippingForm.firstName} ${shippingForm.lastName}`.trim(),
+                     email: user?.email || shippingForm.email,
+                     phone: user?.phone || shippingForm.phone
                    }
                 })
               });
@@ -89,9 +125,9 @@ const Checkout = () => {
           }
         },
         prefill: {
-          name: user?.name || "Velcura Customer",
-          email: user?.email || "customer@velcura.in",
-          contact: user?.phone || "9999999999"
+          name: `${shippingForm.firstName} ${shippingForm.lastName}`.trim() || user?.name || "Velcura Customer",
+          email: shippingForm.email || user?.email || "customer@velcura.in",
+          contact: shippingForm.phone || user?.phone || "9999999999"
         },
         theme: {
           color: "#0A192F",
@@ -146,16 +182,16 @@ const Checkout = () => {
             {step === 1 ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <Input label="First Name" required />
-                  <Input label="Last Name" required />
+                  <Input label="First Name" name="firstName" value={shippingForm.firstName} onChange={handleInputChange} required />
+                  <Input label="Last Name" name="lastName" value={shippingForm.lastName} onChange={handleInputChange} required />
                 </div>
-                <Input label="Email Address" type="email" required />
-                <Input label="Phone Number" type="tel" required />
-                <Input label="Shipping Address" required />
+                <Input label="Email Address" type="email" name="email" value={shippingForm.email} onChange={handleInputChange} required />
+                <Input label="Phone Number" type="tel" name="phone" value={shippingForm.phone} onChange={handleInputChange} required />
+                <Input label="Shipping Address" name="address" value={shippingForm.address} onChange={handleInputChange} required />
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
-                  <Input label="City" required />
-                  <Input label="State" required />
-                  <Input label="Pincode" required />
+                  <Input label="City" name="city" value={shippingForm.city} onChange={handleInputChange} required />
+                  <Input label="State" name="state" value={shippingForm.state} onChange={handleInputChange} required />
+                  <Input label="Pincode" name="pincode" value={shippingForm.pincode} onChange={handleInputChange} required />
                 </div>
               </div>
             ) : (

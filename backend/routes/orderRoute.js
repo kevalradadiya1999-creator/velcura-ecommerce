@@ -1,34 +1,28 @@
 const express = require('express');
 const router = express.Router();
-
-// In-memory array to store orders
-const orders = [];
+const db = require('../db');
 
 // Save new order
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const { items, total, paymentId, shippingDetails } = req.body;
+    const { items, total, paymentId, shippingDetails, user } = req.body;
 
     if (!items || !total || !paymentId) {
       return res.status(400).json({ message: 'Missing required order fields' });
     }
 
-    const newOrder = {
-      id: `ord_${Date.now()}`,
+    const newOrder = await db.saveOrder({
       items,
       total,
       paymentId,
-      shippingDetails,
-      status: 'Processing',
-      createdAt: new Date()
-    };
-
-    orders.push(newOrder);
+      shippingDetails: shippingDetails || {},
+      user: user || {}
+    });
 
     console.log('--- NEW ORDER RECEIVED ---');
     console.log(JSON.stringify(newOrder, null, 2));
 
-    res.status(201).json({ message: 'Order saved successfully', orderId: newOrder.id });
+    res.status(201).json({ message: 'Order saved successfully', orderId: newOrder._id || newOrder.id });
   } catch (error) {
     console.error('Error saving order:', error);
     res.status(500).json({ message: 'Failed to process order' });
@@ -36,8 +30,13 @@ router.post('/', (req, res) => {
 });
 
 // Get all orders (for testing)
-router.get('/', (req, res) => {
-  res.json(orders);
+router.get('/', async (req, res) => {
+  try {
+    const orders = await db.getAllOrders();
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;

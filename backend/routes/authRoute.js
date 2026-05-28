@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
-// In-memory user database
-const users = [];
+const db = require('../db');
 
 // Register a new user
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const { name, email, phone } = req.body;
 
@@ -14,7 +12,7 @@ router.post('/register', (req, res) => {
     }
 
     // Check if user already exists
-    const exists = users.find(u => u.email === email || u.phone === phone);
+    const exists = await db.getUserByEmailOrPhone(email, phone);
     if (exists) {
       return res.status(200).json({ 
         message: 'Welcome back! User already registered.', 
@@ -22,15 +20,11 @@ router.post('/register', (req, res) => {
       });
     }
 
-    const newUser = {
-      id: `usr_${Date.now()}`,
+    const newUser = await db.saveUser({
       name,
       email,
-      phone,
-      createdAt: new Date()
-    };
-
-    users.push(newUser);
+      phone
+    });
 
     console.log('--- NEW USER REGISTERED ---');
     console.log(JSON.stringify(newUser, null, 2));
@@ -46,7 +40,7 @@ router.post('/register', (req, res) => {
 });
 
 // Login user
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, phone } = req.body;
 
@@ -55,7 +49,7 @@ router.post('/login', (req, res) => {
     }
 
     // Look up by email or phone
-    const user = users.find(u => (email && u.email === email) || (phone && u.phone === phone));
+    const user = await db.getUserByEmailOrPhone(email, phone);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found. Please register first.' });
@@ -75,8 +69,13 @@ router.post('/login', (req, res) => {
 });
 
 // Get all users (admin/debugging)
-router.get('/users', (req, res) => {
-  res.status(200).json(users);
+router.get('/users', async (req, res) => {
+  try {
+    const users = await db.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;

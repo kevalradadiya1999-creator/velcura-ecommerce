@@ -6,8 +6,14 @@ const rateLimit = require('express-rate-limit');
 const paymentRoutes = require('./routes/paymentRoute');
 const orderRoutes = require('./routes/orderRoute');
 const authRoutes = require('./routes/authRoute');
+const contactRoutes = require('./routes/contactRoute');
+const newsletterRoutes = require('./routes/newsletterRoute');
+const db = require('./db');
 
 dotenv.config();
+
+// Connect to Database
+db.connectDB();
 
 const app = express();
 
@@ -63,6 +69,8 @@ app.use('/api', generalLimiter);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/newsletter', newsletterRoutes);
 
 // Static sitemap endpoint
 app.get('/api/sitemap.xml', (req, res) => {

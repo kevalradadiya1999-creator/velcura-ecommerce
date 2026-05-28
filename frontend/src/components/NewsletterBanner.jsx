@@ -4,16 +4,29 @@ const NewsletterBanner = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle | success | error
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setStatus('error');
       return;
     }
-    // Store in localStorage to prevent re-showing
-    localStorage.setItem('velcura_newsletter', email);
-    setStatus('success');
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || "https://velcurahygiene-backend.onrender.com";
+      const res = await fetch(`${API_URL}/api/newsletter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: 'footer' })
+      });
+      if (res.ok) {
+        localStorage.setItem('velcura_newsletter', email);
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    } catch (err) {
+      setStatus('error');
+    }
   };
 
   return (

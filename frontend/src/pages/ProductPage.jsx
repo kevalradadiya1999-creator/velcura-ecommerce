@@ -604,7 +604,7 @@ const ProductPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[['30ml', '30ml', 'Travel / Trial', '~3 weeks'], ['50ml', '50ml', 'Regular use', '~6 weeks'], ['100ml', '100ml', 'Daily use', '~3 months']].map(row => (
+                  {[['25 Wipes', '25 Wipes', 'Daily use', '25 uses']].map(row => (
                     <tr key={row[0]} style={{ borderBottom: '1px solid #eee' }}>
                       <td style={{ padding: '12px 8px', fontSize: '14px', fontWeight: 500 }}>{row[0]}</td>
                       <td style={{ padding: '12px 8px', fontSize: '14px', color: 'var(--text-muted)' }}>{row[1]}</td>
@@ -614,7 +614,7 @@ const ProductPage = () => {
                   ))}
                 </tbody>
               </table>
-              <p style={{ fontSize: '12px', color: 'var(--text-subtle)', fontStyle: 'italic', margin: 0 }}>All sizes contain the same formula. Larger sizes offer better value.</p>
+              <p style={{ fontSize: '12px', color: 'var(--text-subtle)', fontStyle: 'italic', margin: 0 }}>Each pack contains 25 pre-moistened premium wipes.</p>
             </motion.div>
           </>
         )}

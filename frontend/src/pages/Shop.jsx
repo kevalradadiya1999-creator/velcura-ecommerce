@@ -48,7 +48,7 @@ const Shop = () => {
     {
       id: 'try-any-2',
       name: 'Try Any 2',
-      desc: 'Choose your variants (50 wipes) — Mix & match any 2 packs.',
+      desc: 'Choose your variants (2 packs of 25 wipes) — Mix & match any 2 packs.',
       price: 269,
       mrp: 349,
       savings: '₹80',
@@ -57,7 +57,7 @@ const Shop = () => {
     {
       id: 'monthly-supply',
       name: 'Monthly Supply',
-      desc: '2 packs same variant (50 wipes) — Stock up on your favorite formula.',
+      desc: '2 packs same variant (2 packs of 25 wipes) — Stock up on your favorite formula.',
       price: 259,
       mrp: 349,
       savings: '₹90',
@@ -85,7 +85,7 @@ const Shop = () => {
   ];
   
   const faqs = [
-    { q: "How many wipes per pack?", a: "50 wipes per pack." },
+    { q: "How many wipes per pack?", a: "25 wipes per pack." },
     { q: "Do they remove waterproof makeup?", a: "Yes, effortlessly and without harsh rubbing." },
     { q: "Are they safe for sensitive skin?", a: "Yes, fragrance-free with protective ceramides." },
     { q: "Where is shipping from?", a: "Ahmedabad, ensuring fast delivery across India." },
