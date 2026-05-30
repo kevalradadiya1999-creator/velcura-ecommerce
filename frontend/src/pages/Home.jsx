@@ -118,9 +118,20 @@ const Home = () => {
             <h1 ref={heroRef} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, lineHeight: 1.05, color: '#0A192F', marginBottom: '0', letterSpacing: '-0.02em' }}>
               Premium Makeup<br />Remover Wipes
             </h1>
-            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.05, color: '#C9A24A', marginBottom: '32px', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 5vw, 72px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.05, color: '#C9A24A', marginBottom: '16px', letterSpacing: '-0.02em' }}>
               Made for Your Exact<br />Skin Type
             </h1>
+
+            <p style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: '18px',
+              color: '#C9A24A',
+              fontStyle: 'italic',
+              marginBottom: '24px',
+              lineHeight: 1.4
+            }}>
+              Dermatology-inspired formulas designed for real skin concerns
+            </p>
 
             <p style={{ fontSize: '16px', color: 'rgba(10,25,47,0.6)', lineHeight: 1.7, maxWidth: '420px', marginBottom: '48px' }}>
               Gentle cleansing with real active ingredients. No tightness. No irritation. No shine. Just fresh, balanced skin in seconds.
@@ -133,14 +144,14 @@ const Home = () => {
                 { label: 'SHOP DRY SKIN', to: '/shop?type=dry' },
                 { label: 'SHOP SENSITIVE SKIN', to: '/shop?type=sensitive' },
               ].map(btn => (
-                <Link key={btn.to} to={btn.to} style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', padding: '14px 24px', border: '1px solid rgba(10,25,47,0.2)', borderRadius: '4px', color: '#0A192F', textDecoration: 'none', background: 'transparent', transition: 'all 0.2s' }}
+                <Link key={btn.to} to={btn.to} style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', padding: '14px 24px', border: '1px solid rgba(10,25,47,0.2)', borderRadius: '12px', color: '#0A192F', textDecoration: 'none', background: 'transparent', transition: 'all 0.2s' }}
                   onMouseEnter={e => { e.currentTarget.style.background = '#0A192F'; e.currentTarget.style.color = 'white'; }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0A192F'; }}>
                   {btn.label}
                 </Link>
               ))}
               <button onClick={() => document.getElementById('skin-advisor-trigger')?.click()}
-                style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', padding: '14px 24px', borderRadius: '4px', color: 'white', background: '#C9A24A', border: '1px solid #C9A24A', cursor: 'pointer', transition: 'all 0.2s' }}
+                style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', padding: '14px 24px', borderRadius: '12px', color: 'white', background: '#C9A24A', border: '1px solid #C9A24A', cursor: 'pointer', transition: 'all 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.background = '#A8833C'}
                 onMouseLeave={e => e.currentTarget.style.background = '#C9A24A'}>
                 TAKE 30S SKIN QUIZ
@@ -280,7 +291,7 @@ const Home = () => {
                 Find your<br /><em style={{ fontStyle: 'italic' }}>perfect wipe.</em>
               </h2>
             </div>
-            <Link to="/shop" style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0A192F', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(10,25,47,0.2)', padding: '14px 24px', borderRadius: '4px' }}>
+            <Link to="/shop" style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#0A192F', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(10,25,47,0.2)', padding: '14px 24px', borderRadius: '12px' }}>
               VIEW ALL <ArrowRight size={14} />
             </Link>
           </div>
@@ -510,7 +521,7 @@ const Home = () => {
                       Launch price — limited to first batch only.
                     </div>
                   </div>
-                  <button style={{ width: '100%', padding: '14px', borderRadius: '4px', border: b.dark ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(10,25,47,0.15)', background: b.dark ? 'rgba(255,255,255,0.08)' : 'transparent', color: b.dark ? 'white' : '#0A192F', fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', cursor: 'pointer', transition: 'all 0.2s' }}
+                  <button style={{ width: '100%', padding: '14px', borderRadius: '12px', border: b.dark ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(10,25,47,0.15)', background: b.dark ? 'rgba(255,255,255,0.08)' : 'transparent', color: b.dark ? 'white' : '#0A192F', fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', cursor: 'pointer', transition: 'all 0.2s' }}
                     onClick={() => {
                       addItem({
                         id: b.id,
