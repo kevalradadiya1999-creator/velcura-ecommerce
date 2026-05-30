@@ -26,6 +26,7 @@ app.use(helmet({
 // ── CORS ────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://127.0.0.1:5173',
   'https://velcurahygiene.in',
   'https://www.velcurahygiene.in',
   'https://velcurahygiene.com',
@@ -36,7 +37,8 @@ const allowedOrigins = [
 ];
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    const isLocalIp = origin && (origin.startsWith('http://192.168.') || origin.startsWith('http://10.') || origin.startsWith('http://172.'));
+    if (!origin || allowedOrigins.includes(origin) || isLocalIp) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
