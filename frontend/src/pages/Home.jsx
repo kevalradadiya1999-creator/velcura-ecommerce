@@ -207,7 +207,7 @@ const Home = () => {
         <style>{`
           @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
           .marquee-inner { display: flex; gap: 0; animation: marqueeScroll 28s linear infinite; width: max-content; }
-          .marquee-inner span { white-space: nowrap; padding: 0 40px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: rgba(10,25,47,0.5); text-transform: uppercase; }
+          .marquee-inner span { flex-shrink: 0; white-space: nowrap; padding: 0 40px; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: rgba(10,25,47,0.5); text-transform: uppercase; }
           .marquee-inner span.dot { color: #C9A24A; padding: 0; font-size: 16px; }
           @media (max-width: 768px) { .hero-two-col { grid-template-columns: 1fr !important; } }
         `}</style>
@@ -598,7 +598,7 @@ const Home = () => {
                 number: '02',
                 name: 'Hyaluronic Acid',
                 sub: 'Target: 1.0%',
-                product: 'HydraGlow',
+                product: 'Daily Reset',
                 desc: 'Molecular humectant that holds 1000× its weight in water, providing deep hydration and plumping without greasiness.',
                 color: '#8B6B3D',
               },
@@ -606,7 +606,7 @@ const Home = () => {
                 number: '03',
                 name: 'Ceramide Complex',
                 sub: 'Target: 1.2%',
-                product: 'Calm Skin',
+                product: 'Calm & Restore',
                 desc: "Restores the skin's natural lipid barrier and protects against environmental irritants. Rebuilds your skin's moisture barrier.",
                 color: '#7B6B8A',
               },

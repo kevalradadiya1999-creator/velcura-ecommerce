@@ -36,7 +36,7 @@ const faqs = [
     id: 'shipping',
     items: [
       { q: 'How long does delivery take?', a: 'Standard delivery takes 3–5 business days across India. Express delivery (1–2 business days) is available in select metro areas. Free standard shipping on orders above ₹999.' },
-      { q: 'What is your return policy?', a: 'We offer a 30-day return policy for unopened products. If you\'re unsatisfied with an opened product, please contact our support team at velcura60@gmail.com and we\'ll work with you toward a resolution.' },
+      { q: 'What is your return policy?', a: 'We offer a 30-day return policy for unopened products. If you\'re unsatisfied with an opened product, please contact our support team at support@velcurahygiene.in and we\'ll work with you toward a resolution.' },
       { q: 'Can I track my order?', a: 'Yes. A tracking link is sent to your email and phone number once your order is dispatched.' },
       { q: 'Do you ship internationally?', a: 'Currently, we ship within India only. International shipping is on our roadmap — sign up to our newsletter to be notified when it launches.' },
       { q: 'Is my payment information secure?', a: 'Absolutely. All transactions are processed through PCI-DSS certified payment gateways. We do not store any card details on our servers.' },

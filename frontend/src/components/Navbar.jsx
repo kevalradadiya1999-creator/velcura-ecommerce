@@ -296,12 +296,27 @@ const Navbar = () => {
                 id="account-btn"
                 aria-label="My account"
                 onClick={() => openAuthModal()}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text)', transition: 'color 0.2s' }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: 'var(--text)',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  fontFamily: 'Inter, sans-serif',
+                  transition: 'color 0.2s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
                 onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
                 onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
                 className="hidden md:flex"
               >
-                <User size={19} strokeWidth={1.5} />
+                <User size={16} strokeWidth={2} />
+                <span>Login</span>
               </button>
             )}
 

@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
 
         const mailOptions = {
           from: process.env.EMAIL_USER,
-          to: 'velcura60@gmail.com',
+          to: 'support@velcurahygiene.in',
           subject: `New Contact Form Submission: ${subject}`,
           text: `You have received a new message from your website contact form.
           

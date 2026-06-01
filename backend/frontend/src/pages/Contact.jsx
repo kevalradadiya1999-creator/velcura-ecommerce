@@ -51,7 +51,7 @@ const Contact = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', marginBottom: '48px' }}>
               {[
-                { icon: Mail, label: 'Email', value: <a href="mailto:velcura60@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>velcura60@gmail.com</a> },
+                { icon: Mail, label: 'Email', value: <a href="mailto:support@velcurahygiene.in" style={{ color: 'inherit', textDecoration: 'none' }}>support@velcurahygiene.in</a> },
                 { icon: Phone, label: 'WhatsApp', value: '+91 7863031769' },
                 { icon: MapPin, label: 'Registered Office', value: 'Velcura Hygiene Pvt Ltd, India' },
               ].map(({ icon: Icon, label, value }) => (

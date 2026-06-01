@@ -1,8 +1,43 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import { Instagram, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState('idle');
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newsletterEmail)) {
+      setNewsletterStatus('error');
+      return;
+    }
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || "https://velcurahygiene-backend.onrender.com";
+      const res = await fetch(`${API_URL}/api/newsletter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newsletterEmail, source: 'footer' })
+      });
+      if (res.ok) {
+        localStorage.setItem('velcura_newsletter', newsletterEmail);
+        setNewsletterStatus('success');
+        setNewsletterEmail('');
+        alert('Thank you for subscribing to the Velcura Circle!');
+      } else {
+        setNewsletterStatus('error');
+        alert('Failed to subscribe. Please try again.');
+      }
+    } catch (err) {
+      setNewsletterStatus('error');
+      alert('An error occurred. Please try again.');
+    }
+  };
 
   const columns = [
     {
@@ -33,7 +68,7 @@ const Footer = () => {
         { label: 'Order Tracking', to: '/track-order' },
         { label: 'Returns Policy', to: '/faq#returns' },
         { label: 'Shipping Info', to: '/faq#shipping' },
-        { label: 'Email: velcura60@gmail.com', to: 'mailto:velcura60@gmail.com', external: true },
+        { label: 'Email: support@velcurahygiene.in', to: 'mailto:support@velcurahygiene.in', external: true },
       ]
     }
   ];
@@ -41,61 +76,65 @@ const Footer = () => {
   return (
     <footer style={{ background: '#0A192F', color: '#FDFBF7' }}>
       {/* Newsletter strip */}
-      <div style={{ borderBottom: '1px solid rgba(253,251,247,0.08)' }} className="py-12">
-        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
-          <div>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 600, marginBottom: '6px' }}>
-              Stay in the Velcura Circle
-            </p>
-            <p style={{ fontSize: '13px', color: 'rgba(253,251,247,0.6)', fontWeight: 400 }}>
-              Skincare science, launches, and exclusive offers — delivered to you.
-            </p>
-          </div>
-          <form
-            onSubmit={e => e.preventDefault()}
-            style={{ display: 'flex', gap: '0', flexWrap: 'wrap' }}
-          >
-            <input
-              id="newsletter-email"
-              type="email"
-              placeholder="Your email address"
-              required
-              style={{
-                background: 'rgba(253,251,247,0.06)',
-                border: '1px solid rgba(253,251,247,0.15)',
-                borderRight: 'none',
-                padding: '14px 20px',
-                color: '#FDFBF7',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '13px',
-                outline: 'none',
-                width: '260px',
-                maxWidth: '100%',
-                borderRadius: '12px 0 0 12px',
-              }}
-            />
-            <button
-              id="newsletter-submit"
-              type="submit"
-              style={{
-                background: 'var(--accent)',
-                border: 'none',
-                padding: '14px 24px',
-                color: '#0A192F',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-                borderRadius: '0 12px 12px 0',
-              }}
+      {!isHome && (
+        <div style={{ borderBottom: '1px solid rgba(253,251,247,0.08)' }} className="py-12">
+          <div className="container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '24px' }}>
+            <div>
+              <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 600, marginBottom: '6px' }}>
+                Stay in the Velcura Circle
+              </p>
+              <p style={{ fontSize: '13px', color: 'rgba(253,251,247,0.6)', fontWeight: 400 }}>
+                Skincare science, launches, and exclusive offers — delivered to you.
+              </p>
+            </div>
+            <form
+              onSubmit={handleNewsletterSubmit}
+              style={{ display: 'flex', gap: '0', flexWrap: 'wrap' }}
             >
-              Subscribe
-            </button>
-          </form>
+              <input
+                id="newsletter-email"
+                type="email"
+                placeholder="Your email address"
+                required
+                value={newsletterEmail}
+                onChange={e => setNewsletterEmail(e.target.value)}
+                style={{
+                  background: 'rgba(253,251,247,0.06)',
+                  border: '1px solid rgba(253,251,247,0.15)',
+                  borderRight: 'none',
+                  padding: '14px 20px',
+                  color: '#FDFBF7',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '13px',
+                  outline: 'none',
+                  width: '260px',
+                  maxWidth: '100%',
+                  borderRadius: '12px 0 0 12px',
+                }}
+              />
+              <button
+                id="newsletter-submit"
+                type="submit"
+                style={{
+                  background: 'var(--accent)',
+                  border: 'none',
+                  padding: '14px 24px',
+                  color: '#0A192F',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  borderRadius: '0 12px 12px 0',
+                }}
+              >
+                {newsletterStatus === 'success' ? 'Subscribed' : 'Subscribe'}
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main footer */}
       <div className="container" style={{ padding: '64px 0 48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '48px' }}>

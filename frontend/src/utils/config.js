@@ -4,7 +4,7 @@ export const config = {
   siteUrl: 'https://velcurahygiene.in',
   currency: 'INR',
   currencySymbol: '₹',
-  supportEmail: 'velcura60@gmail.com',
+  supportEmail: 'support@velcurahygiene.in',
   supportWhatsApp: '+91XXXXXXXXXX',
   instagram: 'https://www.instagram.com/velcurahygiene/',
   freeShippingThreshold: 499,
